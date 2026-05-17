@@ -111,4 +111,4 @@ Article synchronization blog address: https://blog.algomooc.com/
 
 ### Credit
 
-This repo was originally inpired from Chinese repo by @[MisterBooo](https://github.com/MisterBooo/LeetCodeAnimation)
+This repo was originally inspired from Chinese repo by @[MisterBooo](https://github.com/MisterBooo/LeetCodeAnimation)

@@ -1,20 +1,20 @@
-# LeetCode 第 110 号问题：平衡二叉树
+# LeetCode Problem No. 110: Balancing Binary Trees
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步博客：https://www.algomooc.com
+> Synchronized blog: https://www.algomooc.com
 
-题目来源于 LeetCode 上第 110 号问题：平衡二叉树。
+The question comes from question No. 110 on LeetCode: Balancing Binary Trees.
 
-### 题目描述
+### Title description
 
-给定一个二叉树，判断它是否是高度平衡的二叉树。
+Given a binary tree, determine whether it is a height-balanced binary tree.
 
-本题中，一棵高度平衡二叉树定义为：
+In this question, a height-balanced binary tree is defined as:
 
-> 一个二叉树*每个节点* 的左右两个子树的高度差的绝对值不超过1。
+> The absolute value of the height difference between the left and right subtrees of a binary tree *each node* does not exceed 1.
 
-**示例 1:**
+**Example 1:**
 
 ```
     3
@@ -24,11 +24,11 @@
    15   7
 ```
 
-返回 `true` 。
+Return `true` .
 
-**示例 2:**
+**Example 2:**
 
-给定二叉树 `[1,2,2,3,3,null,null,4,4]`
+Given a binary tree `[1,2,2,3,3,null,null,4,4]`
 
 ```
        1
@@ -40,41 +40,41 @@
  4   4
 ```
 
-返回 `false` 。
+Return `false` .
 
-### 题目解析 - 自顶向下
+### Question analysis - top to bottom
 
-这道题可以算是递归的充分使用了, 每一个子树都是子问题. 
+This question can be regarded as a full use of recursion. Each subtree is a subproblem.
 
-根据题意, 直观的想法就是计算当前节点左右子树的高度差了, 具体算法流程如下:
+According to the meaning of the question, the intuitive idea is to calculate the height difference between the left and right subtrees of the current node. The specific algorithm process is as follows:
 
-*定义* 方法 `depth(root)` 计算 root 最大高度
+*Definition* Method `depth(root)` calculates the maximum height of root
 
-- **终止条件：** 当 `root` 为空，即越过叶子节点，则返回高度 0
-- **返回值：** Max(左子树高度, 右子树高度 ) + 1
+- **Termination condition:** When `root` is empty, that is, beyond the leaf node, height 0 is returned.
+- **Return value:** Max(left subtree height, right subtree height) + 1
 
-*定义* 方法 `isBalanced(root)` 判断树 `root` 是否平衡
+*Definition* Method `isBalanced(root)` determines whether the tree `root` is balanced
 
-- **特例处理：** 若树根节点 `root` 为空，则直接返回 true
-- **返回值：** 所有子树都需要满足平衡树性质，因此以下三者使用与 逻辑与 连接
-  - `abs(depth(root.left) - depth(root.right)) < 2` ：判断 **当前子树** 是否是平衡树
-  - `isBalanced(root.left)` ： 先序遍历递归，判断 **当前子树的左子树** 是否是平衡树；
-  - `isBalanced(root.right)` ： 先序遍历递归，判断 **当前子树的右子树** 是否是平衡树；
+- **Special case processing:** If the tree root node `root` is empty, return true directly
+- **Return value:** All subtrees need to satisfy the balanced tree properties, so the following three are connected using logical AND
+  - `abs(depth(root.left) - depth(root.right)) < 2`: Determine whether the **current subtree** is a balanced tree
+  - `isBalanced(root.left)`: Pre-order traversal recursion to determine whether the **left subtree of the current subtree** is a balanced tree;
+  - `isBalanced(root.right)`: Pre-order traversal recursion to determine whether the **right subtree of the current subtree** is a balanced tree;
 
-> 通过流程能发现, 暴力法虽然容易想到, 但是会产生大量冗余计算, 因此时间复杂度也就会高;
+> Through the process, we can find that although the brute force method is easy to think of, it will produce a lot of redundant calculations, so the time complexity will be high;
 >
-> 想避免这种情况, 移步向下看 自底向上 方法
+> To avoid this, move down and look at the bottom-up approach
 
-### 动画描述
+### Animation description
 
 <img src="../Animation/Animation1.gif" alt="Animation1" style="zoom:150%;" />
 
-### 参考代码
+### Reference code
 
 ```javascript
 /**
- * JavaScript 描述
- * 自顶向下递归
+ * JavaScript description
+ * Top-down recursion
  */
 function depth(root) {
     if (root == null) {
@@ -92,47 +92,47 @@ var isBalanced = function(root) {
 };
 ```
 
-### 复杂度分析
+### Complexity analysis
 
-- 时间复杂度: **O(Nlog_2 N)**
+- Time complexity: **O(Nlog_2 N)**
 
-  最差情况下， isBalanced(root) 遍历树所有节点，占用 O(N)O(N) ；判断每个节点的最大高度 depth(root) 需要遍历 各子树的所有节点 ，子树的节点数的复杂度为 O(log_2 N)
+  In the worst case, isBalanced(root) traverses all nodes of the tree, occupying O(N)O(N); determining the maximum height of each node depth(root) requires traversing all nodes of each subtree, and the complexity of the number of nodes in the subtree is O(log_2 N)
 
-- 空间复杂度: **O(N)**
+- Space complexity: **O(N)**
 
-  最差情况下（树退化为链表时），系统递归需要使用 O(N) 的栈空间
+  In the worst case (when the tree degenerates into a linked list), system recursion requires O(N) stack space.
 
-### 题目解析 - 自底向上
+### Question Analysis - Bottom-up
 
-**自顶向下** 计算 `depth` 存在大量冗余, 每次调用 `depth` 时，要同时计算其子树高度。
+**Top-down** There is a lot of redundancy in calculating `depth`. Every time `depth` is called, its subtree height must be calculated at the same time.
 
-**自底向上** 计算每个子树的高度只会计算一次。先递归计算当前节点的子节点高度，然后再通过子节点高度判断当前节点是否平衡，从而消除冗余。
+**Bottom-up** The height of each subtree is calculated only once. First recursively calculate the height of the current node's child nodes, and then use the height of the child nodes to determine whether the current node is balanced to eliminate redundancy.
 
-**自底向上** 与 **自顶向下** 的逻辑相反，首先判断子树是否平衡，然后比较子树高度判断父节点是否平衡。算法如下：
+**Bottom-up** is the opposite of the logic of **Top-down**. It first determines whether the subtree is balanced, and then compares the height of the subtree to determine whether the parent node is balanced. The algorithm is as follows:
 
-*定义* 方法 `recur(root):` : 判断子树是否平衡 | 返回当前节点高度
+*Definition* Method `recur(root):`: Determine whether the subtree is balanced | Return the current node height
 
-- **递归终止条件：**
-  - 当越过叶子节点时, 返回高度 0
-  - 当左（右）子树高度 `left== -1` 时，代表此子树的 **左（右）子树** 不是平衡树, 因此直接返回 `-1`
-- **递归返回值：**
-  - 当节点 `root` 左 / 右子树的高度差 < 2：返回以节点 root 为根节点的子树的最大高度Max( left, right ) + 1
-  - 当节点 `root` 左 / 右子树的高度差 >= 2 ：则返回 `-1` , 代表 **此子树不是平衡树** 
+- **Recursion termination condition:**
+  - When crossing a leaf node, return height 0
+  - When the left (right) subtree height `left== -1`, the **left (right) subtree** representing this subtree is not a balanced tree, so `-1` is returned directly
+- **Recursive return value:**
+  - When the height difference between the left/right subtree of node `root` is < 2: Return the maximum height of the subtree with node root as the root node Max(left, right) + 1
+  - When the height difference between the left and right subtrees of node `root` is >= 2: then `-1` is returned, which means **This subtree is not a balanced tree**
 
-*定义* 方法 `isBalanced(root)` : 判断当前树是否平衡
+*Definition* Method `isBalanced(root)`: Determine whether the current tree is balanced
 
-- **返回值：** 若 `recur(root) != 1` , 则说明此树平衡, 返回 `true` , 否则返回 `false`
+- **Return value:** If `recur(root) != 1`, it means the tree is balanced and returns `true`, otherwise returns `false`
 
-### 动画描述
+### Animation description
 
 <img src="../Animation/Animation2.gif" alt="Animation2" style="zoom:150%;" />
 
-### 参考代码
+### Reference code
 
 ```javascript
 /**
- * JavaScript 描述
- * 自底向上递归
+ * JavaScript description
+ * Bottom-up recursion
  */
 function recur(root) {
     if (root == null) {
@@ -154,10 +154,10 @@ var isBalanced = function(root) {
 };
 ```
 
-### 复杂度分析
+### Complexity analysis
 
-- 时间复杂度 **O(N)**： N为树的节点数；最差情况下，需要递归遍历树的所有节点。
-- 空间复杂度 **O(N)**： 最差情况下（树退化为链表时），系统递归需要使用 O(N) 的栈空间。
+- Time complexity **O(N)**: N is the number of nodes in the tree; in the worst case, all nodes of the tree need to be traversed recursively.
+- Space complexity **O(N)**: In the worst case (when the tree degenerates into a linked list), system recursion requires O(N) stack space.
 
 
 
