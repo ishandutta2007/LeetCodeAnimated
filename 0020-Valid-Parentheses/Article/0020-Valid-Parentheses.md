@@ -1,75 +1,75 @@
-# LeetCode 第 20 号问题：有效的括号
+# LeetCode Issue No. 20: Valid Parentheses
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步博客：https://www.algomooc.com
+> Synchronized blog: https://www.algomooc.com
 
-题目来源于 LeetCode 上第 20 号问题：有效的括号。题目难度为 Easy，目前通过率为 37.8% 。
+The question comes from question No. 20 on LeetCode: Valid Parentheses. The difficulty of the questions is Easy, and the current passing rate is 37.8%.
 
-### 题目描述
+### Title description
 
-给定一个只包括 `'('`，`')'`，`'{'`，`'}'`，`'['`，`']'` 的字符串，判断字符串是否有效。
+Given a string that only includes `'('', `')'`, `'{'`, `'}'`, `'['`, `']'`, determine whether the string is valid.
 
-有效字符串需满足：
+A valid string must satisfy:
 
-1. 左括号必须用相同类型的右括号闭合。
-2. 左括号必须以正确的顺序闭合。
+1. The left bracket must be closed by a right bracket of the same type.
+2. The left bracket must be closed in the correct order.
 
-注意空字符串可被认为是有效字符串。
+Note that the empty string is considered a valid string.
 
-**示例 1:**
-
-```
-输入: "()"
-输出: true
-```
-
-**示例 2:**
+**Example 1:**
 
 ```
-输入: "()[]{}"
-输出: true
+Input: "()"
+Output: true
 ```
 
-**示例 3:**
+**Example 2:**
 
 ```
-输入: "(]"
-输出: false
+Input: "()[]{}"
+Output: true
 ```
 
-**示例 4:**
+**Example 3:**
 
 ```
-输入: "([)]"
-输出: false
+Input: "(]"
+Output: false
 ```
 
-**示例 5:**
+**Example 4:**
 
 ```
-输入: "{[]}"
-输出: true
+Input: "([)]"
+Output: false
 ```
 
-### 题目解析
+**Example 5:**
 
-这道题让我们验证输入的字符串是否为括号字符串，包括大括号，中括号和小括号。
+```
+Input: "{[]}"
+Output: true
+```
 
-这里我们使用**栈**。
+### Question analysis
 
-- 遍历输入字符串
-- 如果当前字符为左半边括号时，则将其压入栈中
-- 如果遇到右半边括号时，**分类讨论：**
-- 1）如栈不为空且为对应的左半边括号，则取出栈顶元素，继续循环  
-- 2）若此时栈为空，则直接返回false
-- 3）若不为对应的左半边括号，反之返回false
+This question asks us to verify whether the input string is a bracket string, including braces, square brackets and parentheses.
 
-### 动画描述
+Here we use **stack**.
+
+- Iterate over the input string
+- If the current character is a left half bracket, push it onto the stack
+- If you encounter a right half bracket, **Classification discussion:**
+- 1) If the stack is not empty and is the corresponding left half bracket, remove the top element of the stack and continue the loop
+- 2) If the stack is empty at this time, return false directly.
+- 3) If it is not the corresponding left half bracket, otherwise it returns false
+
+### Animation description
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/xu55u.gif)
 
-### 代码实现
+### Code implementation
 
 ```
 class Solution {

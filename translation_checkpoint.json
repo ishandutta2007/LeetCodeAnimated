@@ -12,5 +12,9 @@
     "0011-maxArea\\Article\\0011-maxArea.md": true,
     "0015-3Sum\\Article\\0015-3Sum.md": true,
     "0015-3Sum\\Article\\0015-3Sum2.md": true,
-    "0019-Remove-Nth-Node-From-End-of-List\\Article\\0019-Remove-Nth-Node-From-End-of-List.md": true
+    "0019-Remove-Nth-Node-From-End-of-List\\Article\\0019-Remove-Nth-Node-From-End-of-List.md": true,
+    "0020-Valid-Parentheses\\Article\\0020-Valid-Parentheses.md": true,
+    "0021-Merge-Two-Sorted-Lists\\Article\\0021-Merge-Two-Sorted-Lists.md": true,
+    "0022-Generate-Parentheses\\Article\\0022-Generate-Parentheses.md": true,
+    "0023-Merge-k-Sorted-Lists\\Article\\0023-Merge-k-Sorted-Lists.md": true
 }

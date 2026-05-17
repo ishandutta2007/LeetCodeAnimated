@@ -1,53 +1,53 @@
-# LeetCode 第 21 号问题：合并两个有序链表
+# LeetCode Problem No. 21: Merge two ordered linked lists
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步博客：https://www.algomooc.com
+> Synchronized blog: https://www.algomooc.com
 
-题目来源于 LeetCode 上第 21 号问题：合并两个有序链表。题目难度为 Easy，目前通过率为 45.8% 。
+The question comes from question No. 21 on LeetCode: Merge two ordered linked lists. The difficulty of the questions is Easy, and the current passing rate is 45.8%.
 
-### 题目描述
+### Title description
 
-将两个有序链表合并为一个新的有序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 
+Merge two sorted linked lists into a new sorted linked list and return. The new linked list is formed by concatenating all the nodes of the two given linked lists.
 
-**示例：**
+**Example:**
 
 ```
-输入：1->2->4, 1->3->4
-输出：1->1->2->3->4->4
+Input: 1->2->4, 1->3->4
+Output: 1->1->2->3->4->4
 ```
 
-### 题目解析
+### Question analysis
 
-####  一般方案
+#### General plan
 
-##### 1.1 解题思想
+##### 1.1 Problem-solving ideas
 
-> （1）对空链表存在的情况进行处理，假如 pHead1 为空则返回 pHead2 ，pHead2 为空则返回 pHead1。（两个都为空此情况在pHead1为空已经被拦截）
-> （2）在两个链表无空链表的情况下确定第一个结点，比较链表1和链表2的第一个结点的值，将值小的结点保存下来为合并后的第一个结点。并且把第一个结点为最小的链表向后移动一个元素。
-> （3）继续在剩下的元素中选择小的值，连接到第一个结点后面，并不断next将值小的结点连接到第一个结点后面，直到某一个链表为空。
-> （4）当两个链表长度不一致时，也就是比较完成后其中一个链表为空，此时需要把另外一个链表剩下的元素都连接到第一个结点的后面。
+> (1) Process the situation where the empty linked list exists. If pHead1 is empty, pHead2 will be returned. If pHead2 is empty, pHead1 will be returned. (Both are empty, this situation has been intercepted when pHead1 is empty)
+> (2) Determine the first node when there are no empty linked lists in the two linked lists, compare the values ​​of the first nodes of linked list 1 and linked list 2, and save the node with the smaller value as the first node after the merger. And move the linked list whose first node is the smallest one element backward.
+> (3) Continue to select small values ​​among the remaining elements, connect them to the back of the first node, and continue to connect nodes with small values ​​to the back of the first node until a certain linked list is empty.
+> (4) When the lengths of the two linked lists are inconsistent, that is, one of the linked lists is empty after the comparison is completed. At this time, the remaining elements of the other linked list need to be connected to the back of the first node.
 
-##### 1.2 代码实现
+##### 1.2 Code implementation
 
 ```c++
 ListNode* mergeTwoOrderedLists(ListNode* pHead1, ListNode* pHead2){
-    ListNode* pTail = NULL;//指向新链表的最后一个结点 pTail->next去连接
-    ListNode* newHead = NULL;//指向合并后链表第一个结点
+    ListNode* pTail = NULL;//Points to the last node of the new linked list pTail->next to connect
+    ListNode* newHead = NULL;//Points to the first node of the merged linked list
     if (NULL == pHead1){
         return pHead2;
     }else if(NULL == pHead2){
         return pHead1;
     }else{
-        //确定头指针
+        //Determine the head pointer
         if ( pHead1->data < pHead2->data){
             newHead = pHead1;
-            pHead1 = pHead1->next;//指向链表的第二个结点
+            pHead1 = pHead1->next;//points to the second node of the linked list
         }else{
             newHead = pHead2;
             pHead2 = pHead2->next;
         }
-        pTail = newHead;//指向第一个结点
+        pTail = newHead;//points to the first node
         while ( pHead1 && pHead2) {
             if ( pHead1->data <= pHead2->data ){
                 pTail->next = pHead1;  
@@ -68,15 +68,15 @@ ListNode* mergeTwoOrderedLists(ListNode* pHead1, ListNode* pHead2){
 }
 ```
 
-#### 2 递归方案
+#### 2 Recursive scheme
 
-##### 2.1 解题思想
+##### 2.1 Problem-solving ideas
 
-> （1）对空链表存在的情况进行处理，假如 pHead1 为空则返回 pHead2 ，pHead2 为空则返回 pHead1。
-> （2）比较两个链表第一个结点的大小，确定头结点的位置
-> （3）头结点确定后，继续在剩下的结点中选出下一个结点去链接到第二步选出的结点后面，然后在继续重复（2 ）（3） 步，直到有链表为空。
+> (1) Process the situation where the empty linked list exists. If pHead1 is empty, pHead2 will be returned. If pHead2 is empty, pHead1 will be returned.
+> (2) Compare the sizes of the first nodes of the two linked lists to determine the position of the head node
+> (3) After the head node is determined, continue to select the next node among the remaining nodes to link to the node selected in the second step, and then continue to repeat steps (2) (3) until the linked list is empty.
 
-##### 2.2 代码实现
+##### 2.2 Code implementation
 
 ```c++
 ListNode* mergeTwoOrderedLists(ListNode* pHead1, ListNode* pHead2){
