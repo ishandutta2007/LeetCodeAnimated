@@ -1,60 +1,60 @@
-# LeetCode 第 66 号问题：加一
+# LeetCode Issue No. 66: Plus One
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步博客：https://www.algomooc.com
+> Synchronized blog: https://www.algomooc.com
 
-今天分享的题目来源于 LeetCode 上第 66 号问题：加一。题目难度为 Easy，目前通过率为 39.0% 。
+The topic shared today comes from question No. 66 on LeetCode: Add one. The difficulty of the questions is Easy, and the current passing rate is 39.0%.
 
-### 题目描述
+### Title description
 
-给定一个由**整数**组成的**非空**数组所表示的非负整数，在该数的基础上加一。
+Given a non-negative integer represented by a **non-empty** array of **integers**, add one to the number.
 
-最高位数字存放在数组的首位， 数组中每个元素只存储一个数字。
+The highest digit is stored at the beginning of the array, and each element in the array stores only one number.
 
-你可以假设除了整数 0 之外，这个整数不会以零开头。
+You can assume that other than the integer 0, this integer will not start with zero.
 
-**示例 1:**
-
-```
-输入: [1,2,3]
-输出: [1,2,4]
-解释: 输入数组表示数字 123。
-```
-
-**示例 2:**
+**Example 1:**
 
 ```
-输入: [4,3,2,1]
-输出: [4,3,2,2]
-解释: 输入数组表示数字 4321。
+Input: [1,2,3]
+Output: [1,2,4]
+Explanation: The input array represents the number 123.
 ```
 
-**示例 3:**
+**Example 2:**
 
 ```
-//为了更好理解题意，根据 LeetCode 评论区评论新增一个示例
-输入: [9,9]
-输出: [1，0，0]
-解释: 输入数组表示数字 100。
+Input: [4,3,2,1]
+Output: [4,3,2,2]
+Explanation: The input array represents the number 4321.
 ```
 
-### 题目解析
+**Example 3:**
 
-本题很简单，题目意思也很好理解，注意的点就是 **进位问题**。
+```
+//In order to better understand the meaning of the question, add an example based on the comments in the LeetCode comment area.
+Input: [9,9]
+Output: [1, 0, 0]
+Explanation: The input array represents the number 100.
+```
 
-* 如果数组末位（个位）小于 9 ，直接个位加 1 返回即可
+### Question analysis
 
-* 如果数组末位（个位）等于 9，将该位（个位）设置为 0 ，并且产生了进位，接下来观察前一位（十位）
+This question is very simple, and the meaning of the question is easy to understand. The important point to pay attention to is the **carry problem**.
 
-* * 如果前一位（十位）小于 9 ，直接十位加 1 返回即可
-  * 如果前一位（十位）等于 9，将该位（十位）设置为 0 ，并且产生了进位，接下来观察前一位（百位）
+* If the last digit (ones digit) of the array is less than 9, just add 1 to the ones digit and return
 
-* 以此类推，最后观察运算完的第一位是否为 0 ，如果为 0 ，则在最前面加 1 （**示例 3**）
+* If the last digit of the array (ones digit) is equal to 9, set the bit (ones digit) to 0, and a carry occurs, and then observe the previous digit (tens)
+
+* * If the previous digit (tens digit) is less than 9, just add 1 to the tens digit and return
+  * If the previous bit (tens place) is equal to 9, set the bit (tens place) to 0 and a carry occurs, then observe the previous bit (hundreds place)
+
+* By analogy, finally observe whether the first bit after the operation is 0. If it is 0, add 1 to the front (**Example 3**)
 
   
 
-### 动画描述
+### Animation description
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/iejo0.gif)
 
@@ -62,23 +62,23 @@
 
 
 
-### 代码实现
+### Code implementation
 
 ```java
 public class Solution {
     public int[] plusOne(int[] digits) {
         int n = digits.length;
-        //从数组末尾开始向前遍历
+        //Traverse forward from the end of the array
         for (int i = digits.length - 1; i >= 0; --i) {
             if (digits[i] < 9) {
                 digits[i]++;
-                //没有进位，直接返回
+                //No carry, return directly
                 return digits;
             }
-            //产生进位，需要将该位赋值为 0 
+            //To generate a carry, this bit needs to be assigned a value of 0
             digits[i] = 0;
         }
-        //整体产生了进位，数组长度需要变化加 1
+        //A carry is generated overall, and the array length needs to be changed by adding 1
         int[] res = new int[n + 1];
         res[0] = 1;
         return res;

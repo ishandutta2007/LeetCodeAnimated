@@ -1,71 +1,71 @@
-# LeetCode 第 35 号问题：搜索插入位置
+# LeetCode Issue No. 35: Search for insertion position
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步博客：https://www.algomooc.com
+> Synchronized blog: https://www.algomooc.com
 
-题目来源于 LeetCode 第 35 号问题：搜索插入位置. 
+The question comes from LeetCode Question No. 35: Search for insertion position.
 
-## 题目
+## Title
 
-给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
-你可以假设数组中无重复元素。
+Given a sorted array and a target value, find the target value in the array and return its index. If the target value does not exist in the array, returns the position at which it will be inserted sequentially.
+You can assume that there are no duplicate elements in the array.
 
 
-示例 1:
-
-```
-输入: [1,3,5,6], 5
-输出: 2
-```
-
-示例 2:
-
+Example 1:
 
 ```
-输入: [1,3,5,6], 2
-输出: 1
+Input: [1,3,5,6], 5
+Output: 2
 ```
 
-示例 3:
+Example 2:
 
 
 ```
-输入: [1,3,5,6], 7
-输出: 4
+Input: [1,3,5,6], 2
+Output: 1
+```
+
+Example 3:
+
+
+```
+Input: [1,3,5,6], 7
+Output: 4
 ```
 
 
-示例 4:
+Example 4:
 
 
 ```
-输入: [1,3,5,6], 0
-输出: 0
+Input: [1,3,5,6], 0
+Output: 0
 ```
 
 
 
-## 思路解析
+## Idea analysis
 
-### 暴力循环法
+### Violent cycle method
 
-这个题看起来就是很简单的，就是一道考验查找算法的题目。最简单的就是暴力查找了。
+This question seems to be very simple, it is a question that tests the search algorithm. The simplest is brute force search.
 
-#### 思路
+#### Ideas
 
-遍历这个数组，然后如果当前值和目标值target一致或小于目标值target，那么就return 当前下标。这种解法的时间复杂度是O(N)
+Traverse this array, and then if the current value is consistent with the target value target or less than the target value target, then return the current subscript. The time complexity of this solution is O(N)
 
-###  动画理解
+### Animation understanding
 
-![](../Animation/暴力查找.gif)
+![](../Animation/violent search.gif)
 
-#### 代码实现
+#### Code implementation
 
 
 ```java
-//时间复杂度：O(n)
-//空间复杂度：O(1)
+//Time complexity: O(n)
+//Space complexity: O(1)
 class Solution {
     public int searchInsert(int[] nums, int target) {
         int i=0;
@@ -79,17 +79,17 @@ class Solution {
 }
 ```
 
-### 二分法
+### Dichotomy
 
-#### 思路
+#### Ideas
 
-除了暴力法，我们在排序数组中查找值还可以用的一种方法是二分法，思路还是和改良的暴力循环法一样，先找到左右边界，然后计算，每次可以省出一半的时间。时间复杂度为O(logn)
+In addition to the brute force method, another method we can use to find values ​​in a sorted array is the dichotomy method. The idea is still the same as the improved brute force loop method. First find the left and right boundaries, and then calculate, which can save half the time each time. The time complexity is O(logn)
 
-#### 代码实现
+#### Code implementation
 
 ```java
-//时间复杂度：O(lon(n))
-//空间复杂度：O(1)
+//Time complexity: O(lon(n))
+//Space complexity: O(1)
 class Solution {
     public int searchInsert(int[] nums, int target) {
         if (target>nums[nums.length-1]) {

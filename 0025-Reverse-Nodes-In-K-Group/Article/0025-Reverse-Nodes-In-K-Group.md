@@ -1,81 +1,81 @@
-# LeetCode 第 25 号问题：K 个一组翻转链表
+# LeetCode Problem No. 25: A set of K flipped linked lists
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步博客：https://www.algomooc.com
+> Synchronized blog: https://www.algomooc.com
 
-题目来源于 LeetCode 上第 25 号问题：K 个一组翻转链表。题目难度为 Hard
+The question comes from question No. 25 on LeetCode: A group of K flipped linked lists. The difficulty of the question is Hard
 
-### 题目描述
+### Title description
 
-给你一个链表，每 *k* 个节点一组进行翻转，请你返回翻转后的链表。
+You are given a linked list, and each group of *k* nodes is flipped. Please return the flipped linked list.
 
-*k* 是一个正整数，它的值小于或等于链表的长度。
+*k* is a positive integer whose value is less than or equal to the length of the linked list.
 
-如果节点总数不是 *k* 的整数倍，那么请将最后剩余的节点保持原有顺序。
+If the total number of nodes is not an integer multiple of *k*, then please keep the last remaining nodes in their original order.
 
-**示例:**
+**Example:**
 
-给你这个链表：`1->2->3->4->5`
+Give you this linked list: `1->2->3->4->5`
 
-当 *k* = 2 时，应当返回: `2->1->4->3->5`
+When *k* = 2, it should return: `2->1->4->3->5`
 
-当 *k* = 3 时，应当返回: `3->2->1->4->5`
+When *k* = 3, it should return: `3->2->1->4->5`
 
-**说明:**
+**illustrate:**
 
-- 你的算法只能使用常数的额外空间。
-- **你不能只是单纯的改变节点内部的值**，而是需要实际进行节点交换。
+- Your algorithm can only use a constant amount of extra space.
+- **You can't just change the value inside the node**, but you need to actually swap the nodes.
 
-### 题目解析
+### Question analysis
 
-这道算法题可以说是 [两两交换链表中的节点](https://github.com/MisterBooo/LeetCodeAnimation/blob/master/0024-Swap-Nodes-in-Pairs/Article/0024-Swap-Nodes-in-Pairs2.md) 的升级版, 区别就是反转的子链表节点个数变成了自定义.
+This algorithm question can be said to be an upgraded version of [Pairwise Swap Nodes in a Linked List](https://github.com/MisterBooo/LeetCodeAnimation/blob/master/0024-Swap-Nodes-in-Pairs/Article/0024-Swap-Nodes-in-Pairs2.md). The difference is that the number of reversed sub-linked list nodes has become customized.
 
-总体思路还是一样的, 具体可以分为两个处理模块:
+The general idea is still the same, and it can be divided into two processing modules:
 
-1. 根据 *k* 划分若干个需要反转的子链表, 连接反转后的子链表, 最后不足 *k* 的子链表保持不变
+1. Divide several sub-linked lists that need to be reversed according to *k*, connect the reversed sub-linked lists, and finally keep the sub-linked lists less than *k* unchanged.
 
-   - 设置哨兵 `dummy` 指向 `head` , 为了能找到反转后的链表头结点;
+   - Set the sentinel `dummy` to point to `head`, in order to find the reversed list head node;
 
-   - 循环 *k* 确定需要 反转子链表 的范围:
+   - Loop *k* to determine the range of sublists that need to be reversed:
 
-     - 循环完成,  确定子链表可以反转
+     - The loop is completed and it is determined that the sub-linked list can be reversed
 
-       假设 *A* , *B* 子链表邻接且都可以反转
+       Assume that *A* and *B* sub-linked lists are adjacent and can be reversed
 
-       - 指针 `start` 指向 *A* 的头结点, `end` 指向 *A* 的尾结点, `nxt` 指向 *B* 的头结点
-       - `start  -> end` 反转后, `start` 变成了 A 的尾结点, `start -> next = nxt` ,  反转后的 *A* 链表指向了 *B*
-       - 重置 `start` 为 *B* 的头节点, `end` 为 *B* 的尾结点, `nxt` 为下一个子链表头节点, 反转 *B* 链表
-       - 重复上面动作, 知道 循环终止
+       - The pointer `start` points to the head node of *A*, `end` points to the tail node of *A*, and `nxt` points to the head node of *B*
+       - After `start -> end` is reversed, `start` becomes the end node of A, `start -> next = nxt`, and the reversed *A* linked list points to *B*
+       - Reset `start` to the head node of *B*, `end` to the tail node of *B*, `nxt` to the head node of the next sub-linked list, and reverse the *B* linked list
+       - Repeat the above actions until the loop terminates
 
-     - 循环终止, 剩余节点不足 *k* , 终止反转, 返回链表
+     - The loop terminates, the remaining nodes are insufficient *k*, the reversal is terminated, and the linked list is returned.
 
-2. 反转子链表
+2. Reverse the sub-linked list
 
-   假设子链表前三个节点为 *a*, *b*, *c* ,设置指针 `pre`, `cur`, `nxt`  , 初始化 `pre` 值为 `null`, `cur` 值为 *a* , `nxt` 值为 *a* , 这三个指针位置不变且相邻
+   Assume that the first three nodes of the sub-linked list are *a*, *b*, *c*, set the pointers `pre`, `cur`, `nxt`, initialize the value of `pre` to `null`, the value of `cur` to *a*, and the value of `nxt` to *a*. The positions of these three pointers remain unchanged and adjacent.
 
-   终止条件: `cur` 不为空
+   Termination condition: `cur` is not empty
 
-   将当前节点的指针指向上一个节点
+   Point the current node pointer to the previous node
 
-   1. `cur` 指向 `nxt`  ( `nxt` 值为 *b* )
-   2. `cur` 指向 `pre`  ( `cur` 指向 `null` )
-   3. `cur` 赋值给 `pre` ( `pre` 值为 *a* ) , `nxt` 赋值给 `cur` ( `cur` 值为 *b* ) 
-   4. 在执行 步骤 `1` ( `nxt` 值为 *c* , 到此相当于 `pre`, `cur` , `nxt` 指向依次向后移动 `1` 位 ) 
-   5. 重复上面动作
+   1. `cur` points to `nxt` (the value of `nxt` is *b*)
+   2. `cur` points to `pre` (`cur` points to `null`)
+   3. `cur` is assigned to `pre` (the value of `pre` is *a*), `nxt` is assigned to `cur` (the value of `cur` is *b*)
+   4. When executing step `1` (the value of `nxt` is *c*, which is equivalent to `pre`, `cur`, `nxt` points to move backward `1` bit in sequence)
+   5. Repeat the above actions
 
-### 动画描述
+### Animation description
 
 <img src="../Animation/Animation.gif" alt="Animation" style="zoom:150%;" />
 
-### 参考代码
+### Reference code
 
-#### 反转链表
+#### Reverse linked list
 
 ```javascript
 /**
- * JavaScript 描述
- * 反转区间 [start, end) 的元素, 注意不包含 end
+ * JavaScript description
+ * Reverse the elements of the interval [start, end), note that end is not included
  */
 function reverse(start, end) {
     let pre = null,
@@ -83,23 +83,23 @@ function reverse(start, end) {
         nxt = start;
     while (cur != end) {
         nxt = cur.next;
-        // 逐个节点反转
+        //Reverse node by node
         cur.next = pre;
-        // 更新指针位置
+        //Update pointer position
         pre = cur;
         cur = nxt;
     }
-    // 反转后的头结点, start 移到了最后, end 没有发生改变
+    // After the head node is reversed, start has been moved to the end, and end has not changed.
     return pre;
 };
 ```
 
-#### 递归解法
+#### Recursive solution
 
 ```javascript
 /**
- * JavaScript 描述
- * 递归
+ * JavaScript description
+ * recursion
  */
 var reverseKGroup = function(head, k) {
     if (head == null) {
@@ -108,26 +108,26 @@ var reverseKGroup = function(head, k) {
     let start, end;
     start = end = head;
     for (let i = 0; i < k; i++) {
-        // 不足 k 个，不需要反转
+        // Less than k, no need to reverse
         if (end == null) {
             return head;
         }
         end = end.next;
     }
-    // 反转前 k 个元素, 不包含 end
+    //Reverse the first k elements, excluding end
     let reverseHead = reverse(start, end);
-    // 递归反转后面k个元素 , 并前后连接起来
+    //Recursively reverse the next k elements and connect them back and forth
     start.next = reverseKGroup(end, k);
     return reverseHead;
 };
 ```
 
-#### 迭代解法
+#### Iterative solution
 
 ```javascript
 /**
- * JavaScript 描述
- * 迭代
+ * JavaScript description
+ * iteration
  */
 var reverseKGroup = function(head, k) {
     let dummy = new ListNode(0);
@@ -139,16 +139,16 @@ var reverseKGroup = function(head, k) {
             end = end.next;
         }
         if (end == null) {
-            // 不足 k 个, 跳出循环
+            // Less than k, jump out of the loop
             break;
         }
         start = pre.next;
         nxt = end.next;
-        // 反转前 k 个元素, 不包含 nxt
+        //Reverse the first k elements, excluding nxt
         pre.next = reverse(start, nxt);
-        // 链接后面的链表
+        //The linked list behind the link
         start.next = nxt;
-        // pre , end 重置到 下一个 k 子链表
+        // pre, end reset to the next k sub-linked list
         pre = start;
         end = pre;
     }
@@ -156,11 +156,11 @@ var reverseKGroup = function(head, k) {
 };
 ```
 
-### 复杂度分析
+### Complexity analysis
 
-- 时间复杂度: **O( nk )** , 最好情况 O( n ), 最坏情况 O( n^2 )
+- Time complexity: **O( nk )** , best case O( n ), worst case O( n^2 )
 
-- 空间复杂度: **O( 1 )**
+- Space complexity: **O( 1 )**
 
 
 

@@ -1,50 +1,50 @@
-# 面试题53 - I. 在排序数组中查找数字 I
+# Interview question 53 - I. Find numbers in sorted array I
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步博客：https://www.algomooc.com
+> Synchronized blog: https://www.algomooc.com
 
-题目来源于 LeetCode 上 面试题53 - I. 在排序数组中查找数字 I. 是算法入门的一道题。
+The question comes from interview question 53 on LeetCode - I. Finding numbers in a sorted array I. is an introductory question to algorithms.
 
-## 题目
+## Title
 
-统计一个数字在排序数组中出现的次数。
+Count the number of times a number appears in a sorted array.
 
 
-示例 1:
-
-```
-输入: nums = [5,7,7,8,8,10], target = 8
-输出: 2
-```
-
-示例 2:
-
+Example 1:
 
 ```
-输入: nums = [5,7,7,8,8,10], target = 6
-输出: 0
+Input: nums = [5,7,7,8,8,10], target = 8
+Output: 2
 ```
 
+Example 2:
 
-限制：
 
 ```
-0 <= 数组长度 <= 50000
+Input: nums = [5,7,7,8,8,10], target = 6
+Output: 0
 ```
 
 
-## 思路解析
+limit:
 
-### 暴力循环法
+```
+0 <= array length <= 50000
+```
 
-题目看上去是很简单，就是找到一个目标数字在数组中出现的次数，不管数组是有序还是无序的，我们都可以用的一种方法就是暴力循环法
 
-#### 思路
+## Idea analysis
 
-定义一个count来记录目标值出现的次数，初始值为0，然后遍历这个数组，然后如果当前值和目标值target一致，那么count就加一，最后return count。这种解法的时间复杂度是O(N)
+### Violent cycle method
 
-#### 代码实现
+The question seems to be very simple. It is to find the number of times a target number appears in an array. Regardless of whether the array is ordered or unordered, one method we can use is the violent loop method.
+
+#### Ideas
+
+Define a count to record the number of times the target value appears. The initial value is 0, then traverse the array, and then if the current value is consistent with the target value, then the count is increased by one, and finally the count is returned. The time complexity of this solution is O(N)
+
+#### Code implementation
 
 
 ```javaScript
@@ -64,15 +64,15 @@ var search = function(nums, target) {
 };
 ```
 
-### 改良的暴力循环
+### Improved Violence Cycle
 
-#### 思路
+#### Ideas
 
-因为数组已排序了，所以我们其实可以不用遍历全部，用双指针分别从头部和尾部开始同时遍历，然后找到目标值的左右边界的位置，然后通过计算得到count。其实就是比全部遍历少了目标值出现的次数，它的算法复杂度还是O(n)
+Because the array has been sorted, we actually don't need to traverse the entire array. We can use double pointers to traverse simultaneously from the head and tail respectively, then find the position of the left and right boundaries of the target value, and then calculate the count. In fact, it means that the number of occurrences of the target value is less than that of full traversal, and its algorithm complexity is still O(n)
 
-	count = 右边界的index - 左边界的index + 1
+	count = index of the right border - index of the left border + 1
 
-#### 代码实现
+#### Code implementation
 
 
 ```javaScript
@@ -96,13 +96,13 @@ var search = function(nums, target) {
 };
 ```
 
-### 二分法
+### Dichotomy
 
-#### 思路
+#### Ideas
 
-除了遍历，我们在排序数组中查找值还可以用的一种方法是二分法，思路还是和改良的暴力循环法一样，先找到左右边界，然后做计算。时间复杂度为O(logn)
+In addition to traversal, another method we can use to find values ​​in a sorted array is the dichotomy method. The idea is still the same as the improved brute force loop method, first find the left and right boundaries, and then do the calculation. The time complexity is O(logn)
 
-#### 代码实现
+#### Code implementation
 
 ```javaScript
 /**
@@ -116,7 +116,7 @@ var search = function(nums, target) {
     let end =  nums.length - 1;
     let left = 0;
     let right = 0;
-  	// 查找右边界
+  	// Find the right border
     while(start <= end) {
         mid = Math.ceil((start + end) / 2)
         if (nums[mid] <= target) {
@@ -125,8 +125,8 @@ var search = function(nums, target) {
             end = mid -1
         }
     }
-    right = start - 1; // 右边界
-  	// 查找左边界
+    right = start - 1; // right border
+  	// Find the left border
     start = 0;
     mid = 0; 
     end =  nums.length - 1;
@@ -143,7 +143,7 @@ var search = function(nums, target) {
 };
 ```
 
-## 动画理解
+## Animation understanding
 
 ![](../Animation/Animation.gif)
 

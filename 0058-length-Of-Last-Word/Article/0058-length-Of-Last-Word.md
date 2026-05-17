@@ -1,38 +1,38 @@
-## LeetCode第58号问题：最后一个单词的长度
+## LeetCode Question No. 58: Length of last word
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 个人博客：www.zhangxiaoshuai.fun
+> Personal blog: www.zhangxiaoshuai.fun
 
-**本题选自leetcode第58题，easy难度，目前通过率33.0%**
+**This question is selected from Leetcode question 58, easy difficulty, current pass rate is 33.0%**
 
-### 题目描述：
+### Title description:
 ```txt
-给定一个仅包含大小写字母和空格' '的字符串s，返回其最后一个单词的长度。
-如果字符串从左向右滚动显示，那么最后一个单词就是最后出现的单词。
-如果不存在最后一个单词，请返回0。
-说明：一个单词是指仅由字母组成、不包含任何空格字符的最大子字符串。
+Given a string s containing only uppercase and lowercase letters and spaces ' ', return the length of its last word.
+If the string is scrolled from left to right, the last word is the last word that appears.
+If the last word does not exist, return 0.
+Description: A word refers to the largest substring consisting only of letters and not containing any space characters.
 
-示例:
-输入:"Hello World"
-输出:5
+Example:
+Enter: "Hello World"
+Output: 5
 ```
 
-### 题目分析：
+### Question analysis:
 
-既然需要求出最后一个单词的长度，那我们直接从**字符串的末尾**开始好了；
-这里末尾有两种情况：有空格和没有空格
+Since we need to find the length of the last word, we can start directly from the end of the string;
+There are two situations at the end: with spaces and without spaces
 
 ```
-（1）有空格：我们从末尾忽略掉空格，然后找到第一个遇见的字符（遇到第一个空格或者遍历完整个字符串为止）
-（2）无空格：直接从末尾往前寻找即可（遇到第一个空格或者遍历完整个字符串为止）
+(1) There are spaces: We ignore the spaces from the end, and then find the first character encountered (until the first space is encountered or the entire string is traversed)
+(2) No spaces: Just search forward from the end (until you encounter the first space or traverse the entire string)
 ```
 
-### 动画gif演示：
+### Animated gif demo:
 
 ![](../Animation/0058.gif)
 
-### 代码：
+### Code:
 
 **The first version**
 
@@ -56,7 +56,7 @@ public int lengthOfLastWord(String s) {
 }
 ```
 
-**2.代码：**
+**2.Code:**
 
 **The second version**
 

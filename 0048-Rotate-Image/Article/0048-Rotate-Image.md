@@ -1,26 +1,26 @@
-# LeetCode 图解 | 48. 旋转图像
+# LeetCode Illustration | 48. Rotate Image
 
-## 题目描述
+## Title description
 
-给定一个 n × n 的二维矩阵表示一个图像。
+Given an n × n 2D matrix representing an image.
 
-将图像顺时针旋转 90 度。
+Rotate the image 90 degrees clockwise.
 
-**说明：**
+**illustrate:**
 
-你必须在原地旋转图像，这意味着你需要直接修改输入的二维矩阵。**请不要**使用另一个矩阵来旋转图像。
+You have to rotate the image in place, which means you need to modify the input 2D matrix directly. **Please do not** use another matrix to rotate the image.
 
-**示例 1:**
+**Example 1:**
 
 ```
-给定 matrix = 
+Given matrix =
 [
   [1,2,3],
   [4,5,6],
   [7,8,9]
 ],
 
-原地旋转输入矩阵，使其变为:
+Rotate the input matrix in place so that it becomes:
 [
   [7,4,1],
   [8,5,2],
@@ -28,10 +28,10 @@
 ]
 ```
 
-**示例 2:**
+**Example 2:**
 
 ```
-给定 matrix =
+Given matrix =
 [
   [ 5, 1, 9,11],
   [ 2, 4, 8,10],
@@ -39,7 +39,7 @@
   [15,14,12,16]
 ], 
 
-原地旋转输入矩阵，使其变为:
+Rotate the input matrix in place so that it becomes:
 [
   [15,13, 2, 5],
   [14, 3, 4, 1],
@@ -48,26 +48,26 @@
 ]
 ```
 
-## 题目解析
+## Question analysis
 
-这道题的主要难点在于如何**原地**旋转矩阵。
+The main difficulty of this question is how to rotate the matrix **in place**.
 
-我们发现，矩阵中的一个元素旋转四次之后会回到原先的位置。也就是说，这四个元素在旋转时位置互相交换了。例如元素 `(i, j)` 对应的四个位置分别是：
+We found that an element in the matrix will return to its original position after being rotated four times. That is, the positions of these four elements are swapped with each other during rotation. For example, the four positions corresponding to the element `(i, j)` are:
 
 + `(i, j)`
 + `(N-1-j, i)`
 + `(N-1-i, N-1-j)`
 + `(j, N-1-i)`
 
-为了旋转这四个元素，我们可以用一个临时变量保存其中一个元素，然后让几个元素依次赋值。
+In order to rotate these four elements, we can use a temporary variable to save one of the elements, and then let several elements be assigned values ​​in sequence.
 
-那么，一共有多少个这样的四元素组呢？这要分情况来看。如果 $n$ 是偶数的话，这相当于把矩阵均分成四块，每块的元素个数是 $ (n/2) \times (n/2)$。如果 $n$ 是奇数，矩阵的中心元素是不随旋转移动的，而剩下的元素均分成四块，每块的元素个数是 $\lfloor n/2 \rfloor \times \lceil n/2 \rceil$。我们对一块中的所有元素做一次四元素旋转即可。
+So, how many such four-element groups are there in total? This depends on the situation. If $n$ is an even number, this is equivalent to dividing the matrix into four blocks, and the number of elements in each block is $ (n/2) \times (n/2)$. If $n$ is an odd number, the center element of the matrix does not move with the rotation, and the remaining elements are divided into four blocks, and the number of elements in each block is $\lfloor n/2 \rfloor \times \lceil n/2 \rceil$. We just do a four-element rotation on all elements in a block.
 
-## 动画理解
+## Animation understanding
 
 ![](../Animation/Animation.gif)
 
-## 参考代码
+## Reference code
 
 ```Java
 class Solution {
@@ -86,8 +86,8 @@ class Solution {
 }
 ```
 
-## 复杂度分析
+## Complexity analysis
 
-+ 时间复杂度：$O(n^2)$。
-+ 空间复杂度：$O(1)$。
++ Time complexity: $O(n^2)$.
++ Space complexity: $O(1)$.
 

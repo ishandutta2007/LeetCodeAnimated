@@ -1,25 +1,25 @@
-# LeetCode 第 36 号问题：有效的数独
+# LeetCode Problem No. 36: Valid Sudoku
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步博客：https://www.algomooc.com
+> Synchronized blog: https://www.algomooc.com
 
-题目来源于 LeetCode 第 36 号问题：有效的数独. 
+The question comes from LeetCode Problem No. 36: Valid Sudoku.
 
-## 题目
+## Title
 
-判断一个 9x9 的数独是否有效。只需要根据以下规则，验证已经填入的数字是否有效即可。
-
-
-	数字 1-9 在每一行只能出现一次。
-	数字 1-9 在每一列只能出现一次。
-	数字 1-9 在每一个以粗实线分隔的 3x3 宫内只能出现一次。
+Determine whether a 9x9 Sudoku is valid. You only need to verify whether the numbers you have filled in are valid according to the following rules.
 
 
-示例 1:
+	The numbers 1-9 can only appear once in each line.
+	Numbers 1-9 can appear only once in each column.
+	Numbers 1-9 can appear only once in each 3x3 house separated by a thick solid line.
+
+
+Example 1:
 
 ```
-输入:
+enter:
 [
   ["5","3",".",".","7",".",".",".","."],
   ["6",".",".","1","9","5",".",".","."],
@@ -31,14 +31,14 @@
   [".",".",".","4","1","9",".",".","5"],
   [".",".",".",".","8",".",".","7","9"]
 ]
-输出: true
+Output: true
 ```
 
-示例 2:
+Example 2:
 
 
 ```
-输入:
+enter:
 [
   ["8","3",".",".","7",".",".",".","."],
   ["6",".",".","1","9","5",".",".","."],
@@ -50,51 +50,51 @@
   [".",".",".","4","1","9",".",".","5"],
   [".",".",".",".","8",".",".","7","9"]
 ]
-输出: false
-解释: 除了第一行的第一个数字从 5 改为 8 以外，空格内其他数字均与 示例1 相同。
-     但由于位于左上角的 3x3 宫内有两个 8 存在, 因此这个数独是无效的。
+Output: false
+Explanation: Except that the first number in the first line is changed from 5 to 8, the other numbers in the spaces are the same as Example 1.
+     But since there are two 8s in the 3x3 palace in the upper left corner, this sudoku is invalid.
 ```
 
-示例 3:
-
-
-```
-输入: [1,3,5,6], 7
-输出: 4
-```
-
-
-示例 4:
+Example 3:
 
 
 ```
-输入: [1,3,5,6], 0
-输出: 0
+Input: [1,3,5,6], 7
+Output: 4
+```
+
+
+Example 4:
+
+
+```
+Input: [1,3,5,6], 0
+Output: 0
 ```
 
 
 
-## 思路解析
+## Idea analysis
 
-### 一次遍历法
+### One-time traversal method
 
-#### 思路
+#### Ideas
 
-这道题因为需要判断数值是否存在，所以用Hash Map是一个很好的选择。
-因为每一行、每一列、每一格都是需要单独进行判断的，所以需要建立三个长度为9的HashMap数组，分别存放行、列、格的数值。
+This question requires determining whether a value exists, so using Hash Map is a good choice.
+Because each row, column, and cell needs to be judged separately, three HashMap arrays with a length of 9 need to be established to store the values ​​of the row, column, and cell respectively.
 
-通过一个二层循环遍历这个9*9的数组,把当前格的数值存放到对应的HashMap中，判断之前是否已经存放过了，如果已经存放过那就退出，返回false，如果是.的话那就跳过，这样只需要遍历一边就可以了。
+Traverse this 9*9 array through a two-level loop, store the current grid value in the corresponding HashMap, and determine whether it has been stored before. If it has been stored, exit and return false. If so, skip it, so that you only need to traverse one side.
 
-###  动画理解
+### Animation understanding
 
 ![](../Animation/HashMap.gif)
 
-#### 代码实现
+#### Code implementation
 
 
 ```java
-//时间复杂度：O(n)
-//空间复杂度：O(1)
+//Time complexity: O(n)
+//Space complexity: O(1)
 class Solution {
     public boolean isValidSudoku(char[][] board) {
         HashMap[] row = new HashMap[9];

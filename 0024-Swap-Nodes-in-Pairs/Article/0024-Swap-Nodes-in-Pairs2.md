@@ -1,47 +1,47 @@
-# LeetCode 第 24 号问题：两两交换链表中的节点
+# LeetCode Question No. 24: Exchange nodes in a linked list pairwise
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步博客：https://www.algomooc.com
+> Synchronized blog: https://www.algomooc.com
 
-题目来源于 LeetCode 上第 24 号问题：两两交换链表中的节点。
+The title comes from question No. 24 on LeetCode: Pairwise exchange of nodes in a linked list.
 
-### 题目描述
+### Title description
 
-给定一个链表，两两交换其中相邻的节点，并返回交换后的链表。
+Given a linked list, swap adjacent nodes in pairs and return the swapped linked list.
 
-**你不能只是单纯的改变节点内部的值**，而是需要实际的进行节点交换。
+**You can't just change the value inside the node**, but you need to actually swap the nodes.
 
-**示例:**
+**Example:**
 
 ```
-给定 1->2->3->4, 你应该返回 2->1->4->3.
+Given 1->2->3->4, you should return 2->1->4->3.
 ```
 
-### 题目解析 - 迭代法
+### Question Analysis - Iterative Method
 
-由题目描述可知需要两两交换, 那么以两个为一组子链表交换指针即可, 在设置一个 **哨兵** 指向交换后的子链表 (或者哨兵提前指向子链表的第二个节点,因为第二个节点交换后就成了第一个节点); 然后让哨兵指向下一组子链表,继续交换,直至最后.
+It can be seen from the title description that two-by-two exchanges are required, so just exchange pointers in a group of two sub-linked lists, and set a **sentinel** to point to the exchanged sub-linked list (or the sentinel points to the second node of the sub-linked list in advance, because the second node becomes the first node after the exchange); then let the sentinel point to the next group of sub-linked lists, and continue to exchange until the end.
 
-设 **哨兵** 为 节点 `prev`, 子链表第一个节点为 `A`, 第二个节点为 `B`, 第三个节点为 `C`, 那么操作流程如下:
+Assume **Sentinel** is node `prev`, the first node of the sub-linked list is `A`, the second node is `B`, and the third node is `C`, then the operation process is as follows:
 
-- 终止条件 `head == null && head -> next == null`
+- Termination condition `head == null && head -> next == null`
   1. prev -> B  ( A -> B -> C )
   2. A - > C
   3. B -> A ( prev -> B -> A -> C )
   4. prev -> A
   5. head -> C
-  6. 循环以上步骤
+  6. Repeat the above steps
 
-### 动画描述
+### Animation description
 
 <img src="../Animation/Animation1.gif" alt="Animation1" style="zoom:150%;" />
 
-### 代码实现
+### Code implementation
 
 ```javascript
 /**
- * JavaScript描述
- * 迭代法
+ * JavaScript description
+ * Iterative method
  */
 var swapPairs = function(head) {
     let dummy = new ListNode(0);
@@ -54,7 +54,7 @@ var swapPairs = function(head) {
         let firstNode = head,
             secondNode = head.next;
         // Swapping
-        prevNode.next = secondNode;  // 放到交换前后都可以
+        prevNode.next = secondNode; // Can be placed before or after the exchange
         firstNode.next = secondNode.next;
         secondNode.next = firstNode;
         // Reinitializing the head and prevNode for next swap
@@ -65,41 +65,41 @@ var swapPairs = function(head) {
 };
 ```
 
-### 复杂度分析
+### Complexity analysis
 
-- 时间复杂度：**O(N)**，其中 *N* 指的是链表的节点数量
-- 空间复杂度：**O(1)**
+- Time complexity: **O(N)**, where *N* refers to the number of nodes in the linked list
+- Space complexity: **O(1)**
 
-### 题目解析 - 递归
+### Question Analysis - Recursion
 
-递归的思路和迭代类似, 都是分组交换. 具体来说这里的递归不是针对一个问题深入进去,而是不断向后推进.
+The idea of ​​​​recursion is similar to that of iteration, both of which are group switching. Specifically, the recursion here is not to go deep into a problem, but to continuously push forward.
 
-- 每次递归只交换一对节点
-- 下一次递归则是交换下一对节点
-- 交换完成后返回第二个节点, 因为它是交换后的子链表新头
-- 递归完成后返回第一次递归的第二个节点, 这就是新链表的头结点
+- Only one pair of nodes is exchanged in each recursion
+- The next recursion is to exchange the next pair of nodes
+- Return to the second node after the exchange is completed, because it is the new head of the sub-linked list after the exchange
+- After the recursion is completed, return the second node of the first recursion, which is the head node of the new linked list
 
-**注意:** 不要人肉递归, 更多关注整体逻辑
+**Note:** Don’t use human recursion, pay more attention to the overall logic
 
-示例执行大致流程为:
+The approximate execution flow of the example is:
 
-- 终止条件: `(head == null) || (head.next == null)`
-  1. 1 -> 2 -> 3 -> 4 ( 原始链表 )
+- Termination condition: `(head == null) || (head.next == null)`
+  1. 1 -> 2 -> 3 -> 4 (original linked list)
   2. 1 -> 3 -> 4 
-  3. ( 2 -> 1 ) -> 3 -> 4  ( 第一次递归完成后返回原来的第二个节点, 也就是值为 2 的节点 )
+  3. (2 -> 1) -> 3 -> 4 (After the first recursion is completed, return to the original second node, which is the node with a value of 2)
   4. 2 -> 1 -> 3 -> null
-  5. 2 -> 1 -> ( 4 -> 3 )  ( 第二次递归完成后返回原来的第二个节点, 也就是值为 4 的节点 )
+  5. 2 -> 1 -> (4 -> 3) (After the second recursion is completed, the original second node is returned, which is the node with a value of 4)
 
-### 动画描述
+### Animation description
 
 <img src="../Animation/Animation2.gif" alt="Animation2" style="zoom:150%;" />
 
-### 代码实现
+### Code implementation
 
 ```javascript
 /**
- * JavaScript描述
- * 递归法
+ * JavaScript description
+ * Recursive method
  */
 var swapPairs = function(head) {
     if (head == null || head.next == null) {
@@ -117,10 +117,10 @@ var swapPairs = function(head) {
 };
 ```
 
-### 复杂度分析
+### Complexity analysis
 
-- 时间复杂度：**O(N)**，其中 *N* 指的是链表的节点数量
-- 空间复杂度：**O(N)**, 递归过程使用的堆栈空间
+- Time complexity: **O(N)**, where *N* refers to the number of nodes in the linked list
+- Space complexity: **O(N)**, stack space used by the recursive process
 
 
 

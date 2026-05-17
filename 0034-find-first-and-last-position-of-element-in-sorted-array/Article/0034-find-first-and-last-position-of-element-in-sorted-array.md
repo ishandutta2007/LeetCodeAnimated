@@ -1,47 +1,47 @@
-# LeetCode 第 34 号问题：在排序数组中查找元素的第一个和最后一个位置
+# LeetCode Problem No. 34: Find the first and last position of an element in a sorted array
 
 
-题目来源于 LeetCode 上第 34 号问题：find-first-and-last-position-of-element-in-sorted-array。题目难度为 中等。
+The question comes from question No. 34 on LeetCode: find-first-and-last-position-of-element-in-sorted-array. The difficulty of the questions is medium.
 
-### 题目描述
+### Title description
 
-给定一个按照升序排列的整数数组 **nums**，和一个目标值 **target**。找出给定目标值在数组中的开始位置和结束位置。
+Given an array of integers **nums** sorted in ascending order, and a target value **target**. Find the start and end position of the given target value in the array.
 
-你的算法时间复杂度必须是 **O(log n)** 级别。
+The time complexity of your algorithm must be of the **O(log n)** level.
 
-如果数组中不存在目标值，返回 [-1, -1]。
+If the target value does not exist in the array, [-1, -1] is returned.
 
 
-**示例:**
+**Example:**
 
 ```
-输入: nums = [5,7,7,8,8,10], target = 8
-输出: [3,4]
+Input: nums = [5,7,7,8,8,10], target = 8
+Output: [3,4]
 ```
 ```
-输入: nums = [5,7,7,8,8,10], target = 6
-输出: [-1,-1]
+Input: nums = [5,7,7,8,8,10], target = 6
+Output: [-1,-1]
 ```
-### 题目解析
+### Question analysis
 
-题目中要求了时间复杂度为O(log n),这就很清楚要使用二分查找法了。
+The question requires that the time complexity is O(log n), so it is clear that the binary search method must be used.
 
-首先定义两个指针变量，分别存储左右两个位置的索引。首先去找目标值的最左面的索引,通过循环为了防止元素丢失,每次保留最右面的元素,左侧的指针移动时+1。在循环结束的时候判断一下数组中是否包括目标值,不包括的话直接退出。
-右面的跟左侧相同，只不过正好相反。
+First define two pointer variables to store the indexes of the left and right positions respectively. First, find the leftmost index of the target value. In order to prevent element loss through looping, the rightmost element is retained each time, and the pointer on the left is +1 when it moves. At the end of the loop, determine whether the target value is included in the array. If not, exit directly.
+The one on the right is the same as the one on the left, just opposite.
 
 
 
-### 动画描述
+### Animation description
 
-![](..\Animation\在排序数组中查找元素的第一个和最后一个位置.gif)
+![](..\Animation\Find the first and last position of an element in a sorted array.gif)
 
-### 代码实现
+### Code implementation
 
 ```java
-// 34. 下一个排列
+// 34. Next arrangement
 // https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sorted-array/
-// 时间复杂度：O(n)
-// 空间复杂度：O(1)
+// Time complexity: O(n)
+// Space complexity: O(1)
 class Solution {
     public int[] searchRange(int[] nums, int target) {
 		int[] res = new int[] { -1, -1 };
