@@ -1,95 +1,95 @@
-# LeetCode 第 128 号问题：最长连续序列
+# LeetCode Problem No. 128: Longest Contiguous Sequence
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步博客：https://www.algomooc.com
+> Synchronized blog: https://www.algomooc.com
 
-题目来源于 LeetCode 上第 128 号问题：最长连续序列。题目难度为 Hard，目前通过率为 48.5% 。
+The question comes from question No. 128 on LeetCode: The longest continuous sequence. The difficulty of the questions is Hard, and the current pass rate is 48.5%.
 
 
 <br>
 
 
-### 题目描述
+### Title description
 
-给定一个未排序的整数数组，找出最长连续序列的长度。
+Given an unsorted array of integers, find the length of the longest consecutive sequence.
 
-要求算法的时间复杂度为 O(n)。
+The time complexity of the required algorithm is O(n).
 
-**示例 1:**
+**Example 1:**
 
 ```
-输入: [100, 4, 200, 1, 3, 2]
-输出: 4
-解释: 最长连续序列是 [1, 2, 3, 4]。它的长度为 4。
+Input: [100, 4, 200, 1, 3, 2]
+Output: 4
+Explanation: The longest continuous sequence is [1, 2, 3, 4]. Its length is 4.
 ```
 
 <br>
 
-### 题目解析
+### Question analysis
 
-题目直接明了，给你一个未排序的数组，让你从中找出一些元素，使这些元素能够组成最长 **连续的递增序列**，输出这个序列的长度，元素的先后没有关系，比如：
-
-```
-[100, 4, 200, 1, 3, 2]
-
-可以找出 4, 1, 3, 2 组成连续递增序列 1, 2, 3, 4
-
-输出这个序列长度 4
-```
-很直接的想法是把数组排序一下，然后遍历一遍就可以找到答案，但是这道题目的难点在于它限制时间复杂度为 O(n)，这样一来，排序这条路走不通。
-
-这道题目其实有一个特征，就是这道题目隐含着 **连通性** 这个性质在里面，怎么讲？我们还是拿上面那个例子来举例：
+The question is straightforward. Give you an unsorted array and ask you to find some elements from it so that these elements can form the longest **continuous increasing sequence**. Output the length of this sequence. The order of the elements does not matter. For example:
 
 ```
 [100, 4, 200, 1, 3, 2]
 
-我们从左向右枚举数组里面的元素，你可以认为枚举过的元素是有效的：
-................100    枚举第一个元素，此时有 1 个连通区域
-...4............100    枚举第二个元素，第二个元素和前面的元素互不相连，此时有 2 个连通区域
-...4............100............200   枚举第三个元素，三个元素互不相连，此时有 3 个连通区域
-1..4............100............200   枚举第四个元素，四个元素互不相连，此时有 4 个连通区域
-1.34............100............200   枚举第五个元素，这个元素和之前第二个连通区域相连，连通区域维持在 4 个
-1234............100............200   枚举第六个元素，这个元素和两个连通区域相连，连通区域变成 3 个
+You can find 4, 1, 3, 2 to form a continuous increasing sequence 1, 2, 3, 4
 
-最后包含元素最多的那个连通区域所包含的元素个数就是我们要的答案
+Output this sequence length 4
 ```
+The very straightforward idea is to sort the array and then traverse it once to find the answer. However, the difficulty of this question is that it limits the time complexity to O(n). In this way, sorting is not feasible.
 
-知道了这些东西对我们解题有什么帮助呢？关于连通性的问题，首先要想到的一个数据结构就是 **并查集**，这个数据结构的设计初衷就是为了解决连通性的问题，而且它的两个操作，查找以及合并的时间复杂度可以近似看成是 O(1)，因此用来解决这道题目再适合不过了。
-
-如果你能想到并查集，那么这道题目其实就没有更多的难点，但我想说的是，这道题目其实还有一个比较有趣的解法，是利用 HashMap 来记录边界点所涵盖的连通区块长度，还是跟着例子走一遍：
+This question actually has a feature, that is, this question implies the property of **connectivity**. How do you explain it? Let’s take the above example as an example:
 
 ```
 [100, 4, 200, 1, 3, 2]
 
-我们还是从左向右枚举数组里面的元素，每次遍历都去看这个元素的左右是否存在，并更新 HashMap：
-100   此时 99 以及 101 都没有任何区块，Map {100=1}，表示 100 这个区块大小为 1
-4     此时 3 以及 5 都没有任何区块，Map {100=1, 4=1}
-200   此时 199 以及 201 都没有任何区块，Map {100=1, 4=1, 200=1}
-1     此时 0 以及 2 都没有任何区块，Map {100=1, 4=1, 200=1, 1=1}
-3     发现 4 是存在的，4，3 形成一个新的区块，
-      这个区块的左边界是 3，右边界是 4，区块大小是 2，
-      Map 中更新边界元素所代表的区块大小，Map {100=1, 4=2, 200=1, 1=1, 3=2}
-2     发现左右边界同时存在，1, 2, 3, 4 形成一个新的区块
-      这个区块的左边界是 1，右边界是 4，区块大小是 4，
-      Map 中更新边界元素所代表的区块大小，并记录当前元素避免重复访问，
+We enumerate the elements in the array from left to right. You can consider the enumerated elements to be valid:
+............100 enumerates the first element, and there is 1 connected area at this time
+......4............100 Enumerate the second element. The second element is not connected to the previous element. At this time, there are 2 connected areas.
+......4............100............200 Enumerate the third element. The three elements are not connected to each other. At this time, there are 3 connected areas.
+1..4......100......200 enumerates the fourth element. The four elements are not connected to each other. At this time, there are 4 connected areas.
+1.34......100......200 Enumerate the fifth element. This element is connected to the second connected area before. The connected area is maintained at 4
+1234......100......200 Enumerate the sixth element. This element is connected to two connected areas, and the connected areas become 3
+
+The number of elements contained in the connected region that finally contains the most elements is the answer we want.
+```
+
+How does knowing these things help us solve problems? Regarding the issue of connectivity, the first data structure that comes to mind is **Union Lookup**. This data structure was originally designed to solve the connectivity problem, and the time complexity of its two operations, search and merge, can be approximated as O(1), so it is perfect for solving this problem.
+
+If you can think of and search the set, then there is actually no more difficulty in this question, but what I want to say is that there is actually a more interesting solution to this question, which is to use HashMap to record the length of connected blocks covered by boundary points, or follow the example:
+
+```
+[100, 4, 200, 1, 3, 2]
+
+We still enumerate the elements in the array from left to right. Each time we traverse, we check whether the left and right sides of the element exist and update the HashMap:
+100 At this time, neither 99 nor 101 has any blocks. Map {100=1} means that the block size of 100 is 1.
+4 At this time, neither 3 nor 5 has any blocks, Map {100=1, 4=1}
+200 At this time, 199 and 201 do not have any blocks, Map {100=1, 4=1, 200=1}
+1 At this time, neither 0 nor 2 has any blocks, Map {100=1, 4=1, 200=1, 1=1}
+3 finds that 4 exists, 4 and 3 form a new block,
+      The left margin of this block is 3, the right margin is 4, and the block size is 2.
+      Update the block size represented by the boundary element in Map, Map {100=1, 4=2, 200=1, 1=1, 3=2}
+2 It is found that the left and right boundaries exist at the same time, 1, 2, 3, 4 form a new block
+      The left border of this block is 1, the right border is 4, and the block size is 4,
+      Update the block size represented by the boundary element in the Map and record the current element to avoid repeated access.
       Map {100=1, 4=4, 200=1, 1=4, 3=2, 2=4}
 ```
 
-可以看到，每次记录的时候，我们只需要保证区块的边界元素所表示的区块大小是正确的即可，至于区块中间的元素其实无所谓，因为这些元素并不会被再次访问到
+It can be seen that every time we record, we only need to ensure that the block size represented by the boundary elements of the block is correct. As for the elements in the middle of the block, it does not matter, because these elements will not be accessed again.
 
-这个方法其实挺巧妙的，通过利用哈希表的元素向左右延伸来确定区块的大小。
+This method is actually quite clever. It uses the elements of the hash table to extend left and right to determine the size of the block.
 
 <br>
 
-### 代码实现（并查集）
+### Code implementation (joint search)
 
 ```java
 class Solution {
-    // roots 用来记录一个连通区域的代表元素
+    // roots are used to record the representative elements of a connected area
     private Map<Integer, Integer> roots = new HashMap<>();
     
-    // counts 用来记录一个连通区域的元素个数
+    // counts are used to record the number of elements in a connected region
     private Map<Integer, Integer> counts = new HashMap<>();
     
     private int find(int a) {
@@ -99,7 +99,7 @@ class Solution {
         
         int root = find(roots.get(a));
         
-        // 路径压缩
+        //Path compression
         roots.put(a, root);
         
         return root;
@@ -112,7 +112,7 @@ class Solution {
         if (rootA != rootB) {
             roots.put(rootA, rootB);
             
-            // 两个连通区域合并，更新整个区域的元素个数
+            // Merge two connected areas and update the number of elements in the entire area
             counts.put(rootB, counts.get(rootA) + counts.get(rootB));
         }
     }
@@ -130,29 +130,29 @@ class Solution {
             roots.put(nums[i], nums[i]);
             counts.put(nums[i], 1);
             
-            // 查看相邻元素是否存在连通区块
+            // Check whether adjacent elements have connected blocks
             if (roots.containsKey(nums[i] - 1) && roots.containsKey(nums[i] + 1)) {
                 int root = find(roots.get(nums[i] - 1));
                 
-                // 左右都存在连通区域，合并这三个区域
+                // There are connected areas on the left and right, merge these three areas
                 union(nums[i], root);
                 union(root, roots.get(nums[i] + 1));
             } else if (roots.containsKey(nums[i] - 1)) {
                 int root = find(roots.get(nums[i] - 1));
                 
-                // 左边存在连通区域，合并这这两个区域
+                // There is a connected area on the left, merge these two areas
                 union(nums[i], root);
             } else if (roots.containsKey(nums[i] + 1)) {
                 int root = find(roots.get(nums[i] + 1));
                 
-                // 右边存在连通区域，合并这这两个区域
+                // There is a connected area on the right, merge these two areas
                 union(nums[i], root);
             }
         }
         
         int result = 1;
         
-        // 遍历所有连通区块，找到包含元素最多的区块
+        // Traverse all connected blocks and find the block containing the most elements
         for (int i : counts.keySet()) {
             result = Math.max(result, counts.get(i));
         }
@@ -164,13 +164,13 @@ class Solution {
 
 <br>
 
-### 动画描述（并查集）
+### Animation description (and search)
 
 ![](../Animation/128-1.gif)
 
 <br>
 
-### 代码实现（哈希表）
+### Code implementation (hash table)
 
 ```java
 public int longestConsecutive(int[] nums) {
@@ -187,17 +187,17 @@ public int longestConsecutive(int[] nums) {
             continue;
         }
         
-        // 查找向左能够延伸的最长距离
+        // Find the longest distance that can be extended to the left
         int left = distances.getOrDefault(num - 1, 0);
         
-        // 查找向右能够延伸的最长距离
+        // Find the longest distance that can extend to the right
         int right = distances.getOrDefault(num + 1, 0);
         
-        // 更新此时的左右边界所表示的区块大小
+        // Update the block size represented by the left and right boundaries at this time
         distances.put(num - left, left + right + 1);
         distances.put(num + right, left + right + 1);
         
-        // 数组中可能存在重复元素，记录当前元素，避免再次访问
+        // There may be duplicate elements in the array. Record the current element to avoid accessing it again.
         distances.put(num, left + right + 1);
 
         result = Math.max(result, left + right + 1);
@@ -209,7 +209,7 @@ public int longestConsecutive(int[] nums) {
 
 <br>
 
-### 动画描述（哈希表）
+### Animation description (hash table)
 
 ![](../Animation/128-2.gif)
 

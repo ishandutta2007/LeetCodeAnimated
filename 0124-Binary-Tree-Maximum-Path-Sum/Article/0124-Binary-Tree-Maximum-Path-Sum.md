@@ -1,37 +1,37 @@
-# LeetCode 第 124 号问题：二叉树中的最大路径和
+# LeetCode Problem No. 124: Maximum sum of paths in a binary tree
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步博客：https://www.algomooc.com
+> Synchronized blog: https://www.algomooc.com
 
-题目来源于 LeetCode 上第 124 号问题：二叉树中的最大路径和。题目难度为 Hard，目前通过率为 39.9% 。
+The question comes from question No. 124 on LeetCode: Maximum path sum in a binary tree. The difficulty of the questions is Hard, and the current passing rate is 39.9%.
 
 
 <br>
 
 
-### 题目描述
+### Title description
 
-给定一个非空二叉树，返回其最大路径和。
+Given a non-empty binary tree, return its maximum path sum.
 
-本题中，路径被定义为一条从树中任意节点出发，达到任意节点的序列。该路径至少包含一个节点，且不一定经过根节点。
+In this question, a path is defined as a sequence starting from any node in the tree and reaching any node. The path contains at least one node and does not necessarily pass through the root node.
 
-**示例 1:**
+**Example 1:**
 
 ```
-输入: [1,2,3]
+Input: [1,2,3]
 
        1
       / \
      2   3
 
-输出: 6
+Output: 6
 ```
 
-**示例 2:**
+**Example 2:**
 
 ```
-输入: [-10,9,20,null,null,15,7]
+Input: [-10,9,20,null,null,15,7]
 
    -10
    / \
@@ -39,26 +39,26 @@
     /  \
    15   7
 
-输出: 42
+Output: 42
 ```
 
 <br>
 
-### 题目解析
+### Question analysis
 
-二叉树问题，题目要求出一个二叉树的最大路径和，路径和就是把一条路径上面节点的值加起来，这一题的难点在于路径的方向不固定，只要是任意两点间的通路都算是有效路径，如果不提前列出合理的规划，这道题将无从下手。一般来说，解决树的问题都需要用到递归，**树上的搜索，本质上也是深度优先搜索**，但是这里会有两种考虑方式，一个是**自底向上的分治**，也就是进入递归，一开始不做任何节点上面的计算或者是处理，直接进入到下一层递归，直到到了最底层，然后再开始计算并返回答案，然后上层树节点的递归函数就会收到下层返回的结果，这样做的好处是，一个节点可以获知其子树的局部答案；另外一个是**自顶向下的遍历搜索**，这个和之前的思路完全相反，也就是先处理当前节点的内容，处理完后去到下一层节点，这种方法一般没有返回值，但是一般会有一个全局或者是引用变量，用来记录遍历过程中的内容。
+Binary tree problem, the question requires finding the maximum path sum of a binary tree. The path sum is to add up the values ​​of the nodes on a path. The difficulty of this question is that the direction of the path is not fixed. As long as the path between any two points is considered a valid path, if a reasonable plan is not listed in advance, this question will be impossible to start. Generally speaking, recursion is required to solve tree problems. **Search on a tree is essentially a depth-first search**. However, there are two ways to consider it. One is **bottom-up divide and conquer**, that is, entering recursion. It does not do any calculations or processing on the nodes at the beginning, and directly enters the next level of recursion until it reaches the bottom layer. Then it starts to calculate and return the answer, and then recurses the upper tree nodes. The function will receive the result returned by the lower layer. The advantage of this is that a node can know the local answer of its subtree; the other is **top-down traversal search**, which is completely opposite to the previous idea, that is, the content of the current node is processed first, and then it goes to the next level node. This method generally does not have a return value, but there is usually a global or reference variable to record the content during the traversal process.
 
-我们再回过头来看这道题，在递归遍历的过程中，对于当前节点，其在路径中可以是路径尾，路径头（假设路径是从上到下的，其实在这道题中，没有头尾的概念），也可以是路径中的一个节点。那怎么判断呢？这时我们得需要当前节点左右子树的信息，所以我们可以考虑使用之前提到的 **自底向上** 的分治，有了当前节点，左右子树到当前节点的最大路径，我们可以看看这里会有几种情况，我用 **root** 表示当前节点，**left** 表示左子树到 root 的最大和的路径，**right** 表示右子树到 root 的最大和的路径：
-* root 和左右路径形成路径（left - root - right）
-* root 和左路径形成路径（left - root）
-* root 和右路径形成路径（root - right）
-* root 自成路径（root）
+Let's go back to this question. During the recursive traversal process, for the current node, it can be the end of the path, the head of the path (assuming the path is from top to bottom, in fact, in this question, there is no concept of head and tail), or it can be a node in the path. So how to judge? At this time we need information about the left and right subtrees of the current node, so we can consider using the **bottom-up** divide and conquer mentioned before. With the current node and the maximum path from the left and right subtrees to the current node, we can look at several situations here. I use **root** to represent the current node, **left** to represent the maximum sum path from the left subtree to the root, and **right** to represent the maximum sum path from the right subtree to the root:
+* root and left and right paths form a path (left - root - right)
+* root and left path form path (left - root)
+* root and right path form path (root - right)
+* root self-contained path (root)
 
-你可以看到这四种情况都会把当前节点考虑在内，我们可以更新这里的最大值。但是需要注意的是，我们返回的时候，第一种情况是不能返回的，因为对于上一层节点来说，其无法形成有效的路径，因此我们只需要将 2，3，4 中的最大值返回即可，当然，更新全局答案的时候，这 4 种情况都需要考虑在内的。
+You can see that all four cases take the current node into account and we can update the maximum value here. However, it should be noted that when we return, the first case cannot be returned, because it cannot form a valid path for the upper layer node, so we only need to return the maximum value among 2, 3, and 4. Of course, when updating the global answer, these four cases need to be taken into account.
 
 <br>
 
-### 代码实现
+### Code implementation
 
 ```java
 private int maximum = Integer.MIN_VALUE;
@@ -77,8 +77,8 @@ private int helper(TreeNode root) {
     if (root == null) {
         return 0;
     }
-    // 如果左右子树返回的最大路径值小于 0
-    // 直接将值设为 0，也就是不考虑对应的路径
+    // If the maximum path value returned by the left and right subtrees is less than 0
+    // Set the value to 0 directly, that is, the corresponding path is not considered
     int leftMax = Math.max(0, helper(root.left));
     int rightMax = Math.max(0, helper(root.right));
     
@@ -90,7 +90,7 @@ private int helper(TreeNode root) {
 
 <br>
 
-### 动画描述
+### Animation description
 
 ![](../Animation/124.gif)
 
