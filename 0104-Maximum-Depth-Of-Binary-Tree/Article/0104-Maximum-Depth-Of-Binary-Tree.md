@@ -1,22 +1,22 @@
-# LeetCode 第 104 号问题：二叉树的最大深度 
+# LeetCode Question No. 104: Maximum depth of a binary tree
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步博客：https://www.algomooc.com
+> Synchronized blog: https://www.algomooc.com
 
-今天分享的题目来源于 LeetCode 上第 104 号问题：二叉树的最大深度。题目难度为 Easy 。
+The topic shared today comes from question No. 104 on LeetCode: The maximum depth of a binary tree. The difficulty level of the questions is Easy.
 
-### 题目描述
+### Title description
 
-给定一个二叉树，找出其最大深度。
+Given a binary tree, find its maximum depth.
 
-二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。
+The depth of a binary tree is the number of nodes on the longest path from the root node to the furthest leaf node.
 
-**说明:**  叶子节点是指没有子节点的节点。
+**Description:** Leaf nodes refer to nodes that have no child nodes.
 
-**示例 ：**
+**Example:**
 
-给定二叉树 `[3,9,20,null,null,15,7]`，
+Given a binary tree `[3,9,20,null,null,15,7]`,
 
 ```
     3
@@ -26,26 +26,26 @@
    15   7
 ```
 
-返回它的最大深度 3 。
+Returns its maximum depth of 3 .
 
-### 题目解析 - DFS
+### Question Analysis - DFS
 
-最直接的办法就是使用DFS ( 深度优先搜索 ) 策略计算树的高度. 具体算法流程如下:
+The most direct way is to use the DFS (depth first search) strategy to calculate the height of the tree. The specific algorithm process is as follows:
 
-- **终止条件：**当前节点为空
-- **返回值：**
-  - 节点为空时，所以返回 0
-  - 节点不为空时, 返回左右子树高度的最大值 + 1
+- **Termination condition:**The current node is empty
+- **Return value:**
+  - When the node is empty, so 0 is returned
+  - When the node is not empty, return the maximum value of the height of the left and right subtrees + 1
 
-### 动画描述
+### Animation description
 
 ![](../Animation/Animation1.gif)
 
-### 代码实现
+### Code implementation
 
 ```javascript
 /**
- * JavaScript 描述
+ * JavaScript description
  * DFS
  */
 var maxDepth = function(root) {
@@ -58,7 +58,7 @@ var maxDepth = function(root) {
 };
 ```
 
-**精简版**
+**Lite version**
 
 ```javascript
 var maxDepth = function(root) {
@@ -66,33 +66,33 @@ var maxDepth = function(root) {
 };
 ```
 
-### 复杂度分析
+### Complexity analysis
 
-- 时间复杂度：**O(n)**, 我们每个结点只访问一次，因此时间复杂度为 O(N)
-- 空间复杂度：
-  - 最坏情况下，树是完全不平衡的，例如每个结点只剩下左子结点，递归将会被调用 N 次（树的高度），因此保持调用栈的存储将是 O(N)。
-  - 最好情况下（树是完全平衡的），树的高度将是 log(N)。因此，在这种情况下的空间复杂度将是 O(log(N))
+- Time complexity: **O(n)**, we only visit each node once, so the time complexity is O(N)
+- Space complexity:
+  - In the worst case, the tree is completely unbalanced, for example, each node has only the left child node, and the recursion will be called N times (the height of the tree), so the storage to maintain the call stack will be O(N).
+  - In the best case (the tree is perfectly balanced), the height of the tree will be log(N). So the space complexity in this case will be O(log(N))
 
 
 
-### 题目解析 - BFS
+### Question Analysis - BFS
 
-求二叉树的深度也就是求二叉树有几层了, 采用 BFS ( 广度优先搜索 ) 策略对二叉树按层遍历.
+Finding the depth of a binary tree means finding how many levels there are in the binary tree. The BFS (breadth-first search) strategy is used to traverse the binary tree layer by layer.
 
-实现 BFS 就要用到 '先进先出' 的队列了, 具体算法流程如下:
+To implement BFS, a 'first in, first out' queue is used. The specific algorithm flow is as follows:
 
-- 遍历二叉树节点，依次将当前节点 和它的左右子节点入队
-- 依次出队, 出队子节点重复上一步操作
+- Traverse the binary tree nodes and queue the current node and its left and right child nodes in sequence.
+- Dequeue in turn, and repeat the previous step for the sub-nodes that are dequeued.
 
-### 动画描述
+### Animation description
 
 ![](../Animation/Animation2.gif)
 
-### 代码实现
+### Code implementation
 
 ```javascript
 /**
- * JavaScript 描述
+ * JavaScript description
  * BFS
  */
 var maxDepth = function(root) {
@@ -114,9 +114,9 @@ var maxDepth = function(root) {
 };
 ```
 
-### 复杂度分析
+### Complexity analysis
 
-- 时间复杂度：**O(n)**
-- 空间复杂度：**O(N)**  
+- Time complexity: **O(n)**
+- Space complexity: **O(N)**
 
 ![](../../Pictures/qrcode.jpg)

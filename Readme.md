@@ -109,8 +109,6 @@ Article synchronization blog address: https://blog.algomooc.com/
 
 
 
+### Credit
 
-
-![](Pictures/qrcode.jpg)
-
-
+This repo was originally inpired from Chinese repo by @[MisterBooo](https://github.com/MisterBooo/LeetCodeAnimation)

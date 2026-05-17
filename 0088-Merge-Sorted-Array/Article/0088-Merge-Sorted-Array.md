@@ -1,82 +1,82 @@
-# LeetCode 第 88 号问题：合并两个有序数组
+# LeetCode Problem No. 88: Merging two sorted arrays
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步博客：https://www.algomooc.com
+> Synchronized blog: https://www.algomooc.com
 
-题目来源于 LeetCode 上第 88 号问题：合并两个有序数组。题目难度为 Easy
+The question comes from question No. 88 on LeetCode: Merge two ordered arrays. The difficulty of the question is Easy
 
-### 题目描述
+### Title description
 
-给你两个有序整数数组 *nums1* 和 *nums2*，请你将 *nums2* 合并到 *nums1* 中*，*使 *nums1* 成为一个有序数组。
+Given two ordered integer arrays *nums1* and *nums2*, please merge *nums2* into *nums1* to make *nums1* an ordered array.
 
-**说明:**
+**illustrate:**
 
-- 初始化 *nums1* 和 *nums2* 的元素数量分别为 *m* 和 *n* 。
-- 你可以假设 *nums1* 有足够的空间（空间大小大于或等于 *m* + *n*）来保存 *nums2* 中的元素。
+- Initialize *nums1* and *nums2* with number of elements *m* and *n* respectively.
+- You can assume that *nums1* has enough space (space size greater than or equal to *m* + *n*) to hold the elements in *nums2*.
 
-**示例:**
+**Example:**
 
 ```
-输入:
+enter:
 nums1 = [1,2,3,0,0,0], m = 3
 nums2 = [2,5,6],       n = 3
 
-输出: [1,2,2,3,5,6]
+Output: [1,2,2,3,5,6]
 ```
 
-### 题目解析
+### Question analysis
 
-将这个题目放到现实中就容易多了, 不信你看看.
+It’s much easier to put this problem into reality. If you don’t believe me, take a look.
 
-假如你是玩具店的老板, 其中两个货架依次摆放了形状相同大小不同的小汽车, 这些小汽车都按照从小到大摆放着, 现在你想把第二个货架的小汽车移到第一个货架上, 为了顾客看起来直观, 这些小汽车要摆放的有序, 你会怎么做呢?
+If you are the owner of a toy store, two of the shelves are filled with cars of the same shape and different sizes. The cars are arranged from small to large. Now you want to move the cars on the second shelf to the first shelf. In order to make them look intuitive to customers, these cars must be placed in an orderly manner. What would you do?
 
-**很显现, 你不会把所有小汽车放到一起, 然后在一个个排序好放到第一个货架上.**
+**Obviously, you don't put all the cars together and then sort them one by one and put them on the first shelf.**
 
-你肯定会比较两个货架小汽车的大小, 把第二个货架小汽车移到第一个货架的相应位置上.
+You will definitely compare the sizes of the two shelf cars and move the second shelf car to the corresponding position of the first shelf.
 
-那么问题来了, 是从小的比较呢还是从大的比较呢? 
+So the question is, should we compare from the small one or the large one?
 
-**先从小的比较来看**, 现在第二个货架第一个汽车是最小的, 那么你得把第一个货架所有玩具往后挪一位, 然后才能放下这个汽车, **好像有点费力了**.
+**Let’s start with a small comparison**. Now the first car on the second shelf is the smallest, so you have to move all the toys back on the first shelf one place before you can put down the car. **It seems a bit laborious**.
 
-不想费力, 我们可以先把第一个货架的玩具移到第三个货架, 比较第二个货架和第三个货架, 把比较小的汽车放到第一个货架上. 看来还得先搬移第一个货架, **需要占用其他空间了**.
+If we don’t want to go to great lengths, we can first move the toys on the first shelf to the third shelf, compare the second shelf with the third shelf, and put the smaller car on the first shelf. It seems that we have to move the first shelf first, and **need to occupy other space**.
 
-**如果从后面比较呢**, **也就是先比较大的汽车**, 现在第二个货架最后一个是最大的汽车, 我只需要把最大的汽车拿到第一货架的最后面就可以了, 是不是很轻松, 这样依次比较, **不费力也不用费空间**就挪到了第一个货架后面了. 和第一个货架都比较完了, 发现第二个货架还剩一个最小的汽车, 这个时候你会发现第一个货架的第一个位置是空的, 我们直接拿过去就可以啦.
+**If we compare from the back**, **that is, compare the larger cars first**, now the last one on the second shelf is the largest car. I only need to take the largest car to the back of the first shelf. Isn’t it very easy? By comparing them one by one, it moves to the back of the first shelf without any effort or space. After comparing with the first shelf, I find that there is still one smallest car left on the second shelf. At this time, you will find that the first position of the first shelf is empty. We can just take it over.
 
-故事讲完啦, 通过这几种方法的尝试, 你也许已经发现了:
+The story is over. By trying these methods, you may have discovered:
 
-> 第一种方法 对应的算法是 **' 合并后排序 '**, 时间复杂度比较大;
+> The corresponding algorithm for the first method is **' sorting after merging '**, which has a relatively large time complexity;
 >
-> 第二种方法 对应的算法是 **' 双指针 + 从前向后比较 '** 
+> The second method corresponds to the algorithm **' double pointer + front-to-back comparison '**
 >
-> - 往后挪动汽车时间复杂度高
-> - 移到第三个货架空间复杂度高
+> - Moving the car backward has high time complexity
+> - Moving to the third shelf space has high complexity
 >
-> 第三种方法 对应的算法是 **' 双指针 + 从后向前比较 '** , 省时又不占空间, 完美!
+> The corresponding algorithm of the third method is **' double pointer + back-to-forward comparison '**, which saves time and does not take up space, perfect!
 
-下面说下  **' 双指针 + 从后向前比较 '** 的具体思路:
+Let's talk about the specific idea of ​​**' double pointer + compare '** from back to front:
 
-1. 设置双指针, 分别指向有序数组的最后一位;
+1. Set up double pointers, pointing to the last bit of the ordered array;
 
-2. 从后向前
+2. From back to front
 
-   - 终止条件: 其中一个指针不在指向数组
+   - Termination condition: One of the pointers no longer points to the array
 
-   - 比较双指针指向的值
+   - Compare the values ​​pointed to by two pointers
 
-   - 大的或相同的值放到 *num1* 空间的尾部( 尾部从后向前依次填充 ), 对应的指针向前挪一位
-   - 循环上面步骤
+   - Large or identical values ​​are placed at the end of the *num1* space (the end is filled sequentially from back to front), and the corresponding pointer is moved forward one position.
+   - Repeat the above steps
 
-3. 遍历完成后检查
+3. Check after the traversal is completed
 
-   - 若指向 *num2* 的指针还有效, 说明 *num2* 中还有小于 *num1* 最小值的存在
-   - 将这些值搬移到 *num1* 最前面
+   - If the pointer pointing to *num2* is still valid, it means that there is still a minimum value in *num2* that is smaller than *num1*
+   - Move these values ​​to the front of *num1*
 
-### 动画描述
+### Animation description
 
 <img src="../Animation/Animation.gif" alt="Animation" style="zoom:150%;" />
 
-### 参考代码
+### Reference code
 C++ Code:
 
 ```c++
@@ -84,7 +84,7 @@ class Solution {
 public:
     void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
         int i=m-1, j=n-1, k=m+n-1;
-        // 合并
+        // merge
         while(i>=0 && j>=0)
         {
             if(nums1[i] > nums2[j])
@@ -96,7 +96,7 @@ public:
                 nums1[k--] = nums2[j--];
             }
         }
-        // 合并剩余的nums2
+        // Combine remaining nums2
         while(j>=0)
         {
             nums1[k--] = nums2[j--];
@@ -111,7 +111,7 @@ Java Code:
 class Solution {
     public void merge(int[] nums1, int m, int[] nums2, int n) {
         int i=m-1, j=n-1, k=m+n-1;
-        // 合并
+        // merge
         while(i>=0 && j>=0)
         {
             if(nums1[i] > nums2[j])
@@ -123,7 +123,7 @@ class Solution {
                 nums1[k--] = nums2[j--];
             }
         }
-        // 合并剩余的nums2
+        // Combine remaining nums2
         while(j>=0)
         {
             nums1[k--] = nums2[j--];
@@ -168,13 +168,13 @@ JavaScript Code:
 
 ```javascript
 /**
- * JavaScript 描述
- * 双指针 + 从后向前
+ * JavaScript description
+ *Dual pointers + from back to front
  */
 var merge = function(nums1, m, nums2, n) {
     let len = m + n;
     while(m > 0 && n > 0){
-        // '>=' 相比 '>' 在某些值相同的情况下能少比较一次
+        // '>=' can be compared one less time than '>' when some values ​​are the same.
         nums1[--len] = nums2[n-1] >= nums1[m-1] ? nums2[--n]: nums1[--m];
     }
     if(n > 0){
@@ -183,11 +183,11 @@ var merge = function(nums1, m, nums2, n) {
 };
 ```
 
-### 复杂度分析
+### Complexity analysis
 
-- 时间复杂度: **O( m+n )**
+- Time complexity: **O( m+n )**
 
-- 空间复杂度: **O( 1 )**
+- Space complexity: **O( 1 )**
 
 
 

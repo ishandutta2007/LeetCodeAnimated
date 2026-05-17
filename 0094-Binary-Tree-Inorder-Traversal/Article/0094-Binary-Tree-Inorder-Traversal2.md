@@ -1,42 +1,42 @@
-## LeetCode 第 94 号问题：二叉树的中序遍历
+## LeetCode Problem No. 94: In-order traversal of a binary tree
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步博客：https://www.algomooc.com
+> Synchronized blog: https://www.algomooc.com
 
-题目来源于 LeetCode 上第 94 号问题：二叉树的中序遍历。题目难度为 Medium
+The question comes from question No. 94 on LeetCode: In-order traversal of a binary tree. The difficulty level of the questions is Medium
 
-### 题目描述
+### Title description
 
-给定一个二叉树，返回它的 **中序** 遍历.
+Given a binary tree, return its **inorder** traversal.
 
-#### 示例:
+#### Example:
 
 ```cassandra
-输入: [1,null,2,3]
+Input: [1,null,2,3]
    1
     \
      2
     /
    3
 
-输出: [1,3,2]
+Output: [1,3,2]
 ```
 
-**进阶:** 递归算法很简单，你可以通过迭代算法完成吗？
+**Advanced:** The recursive algorithm is simple, can you do it with an iterative algorithm?
 
-### 题目解析
+### Question analysis
 
-#### 第一种方法: 递归
+#### The first method: recursion
 
-二叉树的中序遍历相信大家已经很熟悉了.操作流程就是 **左 -> 打印 -> 右**.
+I believe everyone is familiar with the in-order traversal of a binary tree. The operation process is **Left -> Print -> Right**.
 
-那就按照 **左 -> 打印 -> 右** 这种顺序遍历树就可以了，递归函数实现
+Then just traverse the tree in the order of **Left -> Print -> Right**. Recursive function implementation
 
-- 终止条件:当前节点为空时
-- 函数内: 递归的调用左节点，打印当前节点，再递归调用右节点
+- Termination condition: when the current node is empty
+- Within the function: recursively call the left node, print the current node, and then recursively call the right node
 
-##### 参考代码
+##### Reference code
 
 ```javascript
 // lang=javascript
@@ -54,31 +54,31 @@ function handle(root, res) {
 }
 ```
 
-##### 复杂度分析
+##### Complexity Analysis
 
-- 时间复杂度: O(n),
-- 空间复杂度: O(h)，h是树的高度
+- Time complexity: O(n),
+- Space complexity: O(h), h is the height of the tree
 
-#### 第二种方法: 迭代
+#### Second method: iteration
 
-这题的真正难点在于如何用非递归的方式实现。
+The real difficulty of this problem is how to implement it in a non-recursive way.
 
-递归的调用过程是不断往左边走，当左边走不下去了，就打印节点，并转向右边，然后右边继续这个过程，是函数自己调用自己，一层层的嵌套下去，操作系统/虚拟机自动帮我们用 **栈 **来保存了每个调用的函数，现在我们需要自己模拟这样的调用过程。
+The recursive calling process is to keep going to the left. When it can't go any further on the left, it prints the node and turns to the right. Then the process continues on the right. The function calls itself, nested layer by layer. The operating system/virtual machine automatically helps us use **stack** to save each called function. Now we need to simulate such a calling process ourselves.
 
-栈的特性是**后进先出**, 那么我们将遍历左子树的节点压栈, 当找不到左子树时, 栈顶就是最底层的左子树, 出栈打印出来; 接着转向右子树父节点, 继续遍历父节点的左子树并压栈,循环如此.
+The characteristic of the stack is **last in, first out**, then we will push the node traversing the left subtree onto the stack. When the left subtree cannot be found, the top of the stack is the bottom left subtree, pop it out and print it out; then turn to the parent node of the right subtree, continue to traverse the left subtree of the parent node and push it onto the stack, and the cycle is like this.
 
-因此遍历的过程就是:
+So the traversal process is:
 
-1. 压栈根节点
-2. 遍历左子树, 压栈, 直到左子树为空
-3. 出栈栈顶元素, 打印
-4. 转向右子树, 重复 1, 2, 3步骤
+1. Push the root node on the stack
+2. Traverse the left subtree and push the stack until the left subtree is empty
+3. Pop the top element of the stack and print
+4. Turn to the right subtree and repeat steps 1, 2, and 3.
 
-##### 动画理解
+##### Animation understanding
 
 <img src="../Animation/Animation2.gif" alt="Animation2" style="zoom:150%;" />
 
-##### 参考代码
+##### Reference code
 
 ```javascript
 // lang=javascript
@@ -99,10 +99,10 @@ var inorderTraversal = function(root) {
 }
 ```
 
-##### 复杂度分析
+##### Complexity Analysis
 
-- 时间复杂度：O(n)
-- 空间复杂度：O(n)
+- Time complexity: O(n)
+- Space complexity: O(n)
 
 ![qrcode](../../Pictures/qrcode.jpg)
 
