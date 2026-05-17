@@ -1,61 +1,61 @@
-# LeetCode 第 133 号问题：克隆图
+# LeetCode Issue No. 133: Clone Graph
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步博客：https://www.algomooc.com
+> Synchronized blog: https://www.algomooc.com
 
-题目来源于 LeetCode 上第 133 号问题：克隆图。题目难度为 Medium，目前通过率为 54.8% 。
+The title comes from question No. 133 on LeetCode: Clone Graph. The difficulty level of the questions is Medium, and the current pass rate is 54.8%.
 
-### 题目描述
+### Title description
 
-给你无向连通图中一个节点的引用，请你返回该图的深拷贝（克隆）。图中的每个节点都包含它的值 val（int）和其邻居的列表（list[Node]）。
+Given a reference to a node in an undirected connected graph, please return a deep copy (clone) of the graph. Each node in the graph contains its value val (int) and a list of its neighbors (list[Node]).
 
 
-**示例 1:**
-
-```
-输入：adjList = [[2,4],[1,3],[2,4],[1,3]]
-输出：[[2,4],[1,3],[2,4],[1,3]]
-解释：
-图中有 4 个节点。
-节点 1 的值是 1，它有两个邻居：节点 2 和 4 。
-节点 2 的值是 2，它有两个邻居：节点 1 和 3 。
-节点 3 的值是 3，它有两个邻居：节点 2 和 4 。
-节点 4 的值是 4，它有两个邻居：节点 1 和 3 。
-```
-
-**示例 2:**
+**Example 1:**
 
 ```
-输入：adjList = [[]]
-输出：[[]]
-解释：输入包含一个空列表。该图仅仅只有一个值为 1 的节点，它没有任何邻居。
+Input: adjList = [[2,4],[1,3],[2,4],[1,3]]
+Output: [[2,4],[1,3],[2,4],[1,3]]
+explain:
+There are 4 nodes in the graph.
+The value of node 1 is 1, and it has two neighbors: nodes 2 and 4.
+The value of node 2 is 2 and it has two neighbors: nodes 1 and 3 .
+The value of node 3 is 3 and it has two neighbors: nodes 2 and 4 .
+The value of node 4 is 4 and it has two neighbors: nodes 1 and 3 .
 ```
 
-**示例 3:**
+**Example 2:**
 
 ```
-输入：adjList = [[2],[1]]
-输出：[[2],[1]]
+Input: adjList = [[]]
+Output: [[]]
+Explanation: The input contains an empty list. The graph has just one node with value 1 and it has no neighbors.
 ```
 
-### 题目解析
+**Example 3:**
 
-给你一个图，让你完整地拷贝一份。这道题目不难，但是在实际的工作项目中却时常遇到。这道题目有很多种解法，但是建议站在实际工作的角度去思考。
+```
+Input: adjList = [[2],[1]]
+Output: [[2],[1]]
+```
 
-图是由一个个节点组成的，完整地拷贝一份图，那么就意味着我们要对每个节点进行拷贝，而且节点与节点的关系也要拷贝过来。做到这一点也不难，我们只需要遍历一遍图就可以了，这里的关键点在于题目强调是 **无向图**，也就是说我们可以从图上的任意点出发到达图上的所有节点。那么问题从而就转换到了如何遍历图，我们可以使用广度优先搜索，也可以使用深度优先搜索，从工作的角度出发，比较推荐广度优先搜索，因为理解容易，实现简单，而且不涉及栈溢出的问题，处理大规模数据比较安全。
+### Question analysis
+
+I’ll give you a picture and ask you to make a complete copy. This question is not difficult, but it is often encountered in actual work projects. There are many ways to solve this question, but it is recommended to think from the perspective of practical work.
+
+The graph is composed of nodes. To completely copy the graph means that we need to copy each node, and the relationship between nodes also needs to be copied. It is not difficult to do this. We only need to traverse the graph once. The key point here is that the question emphasizes that it is an **undirected graph**, which means that we can start from any point on the graph and reach all nodes on the graph. Then the question turns to how to traverse the graph. We can use breadth-first search or depth-first search. From a work perspective, breadth-first search is recommended because it is easy to understand, simple to implement, and does not involve stack overflow issues. It is safer to process large-scale data.
 
 <br>
 
-### 动画演示
+### Animation demonstration
 
 ![](../Animation/133.gif)
 
 <br>
 
-### 复杂度分析
+### Complexity analysis
 
-一般使用广度优先搜索遍历图，时间复杂度是 `O(n + m)`，其中这里的 n 表示的是图上的节点数，m 表示的图上的边的数量。从广度优先搜索的 **由点及面** 的性质，你不难理解这个结果。极端情况下，当这张图是一张全联通的图，时间复杂度就会是 `O(n^2)`，解释起来也很容易，因为你每访问完一个节点，下面都会去访问相邻的节点，一个节点和所有的节点相连，那么在一个节点上花费的时间就是 n，在 n 节点上花费的时间就是 n^2。因为我们使用了队列存放接下来需要遍历的节点，空间复杂度就是 `O(n)`。
+Generally, breadth-first search is used to traverse the graph, and the time complexity is `O(n + m)`, where n here represents the number of nodes on the graph, and m represents the number of edges on the graph. From the point-to-face nature of breadth-first search, you can easily understand this result. In extreme cases, when this graph is a fully connected graph, the time complexity will be `O(n^2)`. It is easy to explain, because every time you visit a node, you will visit the adjacent nodes. A node is connected to all nodes, so the time spent on a node is n, and the time spent on n nodes is n^2. Because we use a queue to store the nodes that need to be traversed next, the space complexity is `O(n)`.
 
 
 

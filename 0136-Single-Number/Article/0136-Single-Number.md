@@ -1,44 +1,44 @@
-# LeetCode 第 136 号问题：只出现一次的数字
+# LeetCode Issue No. 136: Numbers that appear only once
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步博客：https://www.algomooc.com
+> Synchronized blog: https://www.algomooc.com
 
-题目来源于 LeetCode 上第 136 号问题：只出现一次的数字。题目难度为 Easy，目前通过率为 66.8% 。
+The question comes from question No. 136 on LeetCode: Numbers that only appear once. The difficulty of the questions is Easy, and the current passing rate is 66.8%.
 
-### 题目描述
+### Title description
 
-给定一个**非空**整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。
+Given a **non-empty** array of integers, each element appears twice except for one element which appears only once. Find the element that appears only once.
 
-**说明：**
+**illustrate:**
 
-你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？
+Your algorithm should have linear time complexity. Can you do it without using extra space?
 
-**示例 1:**
-
-```
-输入: [2,2,1]
-输出: 1
-```
-
-**示例 2:**
+**Example 1:**
 
 ```
-输入: [4,1,2,1,2]
-输出: 4
+Input: [2,2,1]
+Output: 1
 ```
 
-### 题目解析
+**Example 2:**
 
-根据题目描述，由于加上了时间复杂度必须是 O(n) ，并且空间复杂度为 O(1) 的条件，因此不能用排序方法，也不能使用 map 数据结构。
+```
+Input: [4,1,2,1,2]
+Output: 4
+```
 
-程序员小吴想了一下午没想出来，答案是使用 **位操作Bit Operation** 来解此题。
+### Question analysis
 
-将所有元素做异或运算，即a[1] ⊕  a[2] ⊕  a[3] ⊕ …⊕  a[n]，所得的结果就是那个只出现一次的数字，时间复杂度为O(n)。
+According to the title description, due to the conditions that the time complexity must be O(n) and the space complexity be O(1), the sorting method cannot be used, and the map data structure cannot be used.
 
-### 异或
+Programmer Xiao Wu thought about it all afternoon but didn't come up with it. The answer is to use **Bit Operation** to solve this problem.
 
-异或运算A ⊕  B的真值表如下：
+Execute XOR operation on all elements, that is, a[1] ⊕ a[2] ⊕ a[3] ⊕...⊕ a[n]. The result is the number that only appears once, and the time complexity is O(n).
+
+### XOR
+
+The truth table of the XOR operation A ⊕ B is as follows:
 
 | A    |  B   |    ⊕ |
 | :--- | :--: | ---: |
@@ -47,11 +47,11 @@
 | T    |  F   |    T |
 | T    |  T   |    F |
 
-### 动画演示
+### Animation demonstration
 
 ![](../Animation/136.gif)
 
-### 代码实现
+### Code implementation
 #### C
 ````c
 int singleNumber(int* nums, int numsSize){
@@ -73,7 +73,7 @@ public:
         int res=0;
         for(auto n:nums)
         {
-            // 异或
+            // XOR
             res ^= n;
         }
         return res;
@@ -88,7 +88,7 @@ class Solution {
         int res = 0;
         for(int n:nums)
         {
-            // 异或
+            // XOR
             res ^= n;
         }
         return res;
@@ -101,37 +101,37 @@ class Solution {
 class Solution(object):
     def singleNumber(self, nums):
         return reduce(lambda x,y:x^y, nums)
-# reduce用法举例
-# 计算列表和：1+2+3+4+5
-# 使用 lambda 匿名函数
+# reduce usage example
+# Calculate list sum: 1+2+3+4+5
+# Use lambda anonymous function
 # reduce(lambda x, y: x+y, [1,2,3,4,5])  
 ````
 
-### 进阶版
+### Advanced version
 
-有一个 n 个元素的数组，除了两个数只出现一次外，其余元素都出现两次，让你找出这两个只出现一次的数分别是几，要求时间复杂度为 O(n) 且再开辟的内存空间固定(与 n 无关)。
+There is an array of n elements. Except for two numbers that only appear once, the rest of the elements appear twice. Let you find out the numbers of these two numbers that only appear once. The time complexity is required to be O(n) and the memory space to be opened is fixed (irrespective of n).
 
-#### 示例 :
+#### Example:
 
-输入: [1,2,2,1,3,4]     
-输出: [3,4]
+Input: [1,2,2,1,3,4]
+Output: [3,4]
 
-### 题目再解析
+### Re-analysis of the question
 
-根据前面找一个不同数的思路算法，在这里把所有元素都异或，那么得到的结果就是那两个只出现一次的元素异或的结果。
+According to the previous algorithm of finding a different number, all elements are XORed here, and the result obtained is the XOR result of the two elements that only appear once.
 
-然后，因为这两个只出现一次的元素一定是不相同的，所以这两个元素的二进制形式肯定至少有某一位是不同的，即一个为 0 ，另一个为 1 ，现在需要找到这一位。
+Then, because these two elements that only appear once must be different, the binary forms of these two elements must have at least one bit that is different, that is, one is 0 and the other is 1. Now we need to find this bit.
 
-根据异或的性质 `任何一个数字异或它自己都等于 0 `，得到这个数字二进制形式中任意一个为 1 的位都是我们要找的那一位。
+According to the property of XOR, `the XOR of any number is equal to 0`, any bit that is 1 in the binary form of this number is the bit we are looking for.
 
-再然后，以这一位是 1 还是 0 为标准，将数组的 n 个元素分成两部分。
+Then, based on whether this bit is 1 or 0, the n elements of the array are divided into two parts.
 
-- 将这一位为 0 的所有元素做异或，得出的数就是只出现一次的数中的一个
-- 将这一位为 1 的所有元素做异或，得出的数就是只出现一次的数中的另一个。
+- Exclusive-OR all the elements whose bit is 0, and the resulting number is one of the numbers that only appears once
+- Exclusive-OR all the elements whose bit is 1, and the resulting number is another number that appears only once.
 
-这样就解出题目。忽略寻找不同位的过程，总共遍历数组两次，时间复杂度为O(n)。
+This solves the problem. Ignoring the process of finding different bits, the array is traversed twice, and the time complexity is O(n).
 
-### 动画再演示
+### Animation demonstration again
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/5uz1n.gif)
 

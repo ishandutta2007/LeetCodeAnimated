@@ -1,65 +1,65 @@
-# LeetCode 第 144 号问题：二叉树的前序遍历
+# LeetCode Question No. 144: Pre-order traversal of binary trees
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步博客：https://www.algomooc.com
+> Synchronized blog: https://www.algomooc.com
 
-题目来源于 LeetCode 上第 144 号问题：二叉树的前序遍历。题目难度为 Medium，目前通过率为 59.8% 。
+The question comes from question No. 144 on LeetCode: Preorder traversal of binary trees. The difficulty level of the questions is Medium, and the current passing rate is 59.8%.
 
-### 题目描述
+### Title description
 
-给定一个二叉树，返回它的 *前序* 遍历。
+Given a binary tree, return its *preorder* traversal.
 
- **示例:**
+ **Example:**
 
 ```
-输入: [1,null,2,3]  
+Input: [1,null,2,3]
    1
     \
      2
     /
    3 
 
-输出: [1,2,3]
+Output: [1,2,3]
 ```
 
-**进阶:** 递归算法很简单，你可以通过迭代算法完成吗？
+**Advanced:** The recursive algorithm is simple, can you do it with an iterative algorithm?
 
-### 题目解析
+### Question analysis
 
-用**栈(Stack)**的思路来处理问题。
+Use the stack idea to deal with problems.
 
-前序遍历的顺序为**根-左-右**，具体算法为：
+The order of preorder traversal is **root-left-right**, and the specific algorithm is:
 
-- 把根节点 push 到栈中
-- 循环检测栈是否为空，若不空，则取出栈顶元素，保存其值
-- 看其右子节点是否存在，若存在则 push 到栈中
-- 看其左子节点，若存在，则 push 到栈中。
+- Push the root node to the stack
+- Loop to check whether the stack is empty. If not, remove the top element of the stack and save its value.
+- Check whether its right child node exists, and if it exists, push it to the stack
+- Look at its left child node, and if it exists, push it to the stack.
 
 
 
-### 动画描述
+### Animation description
 
 ![](../Animation/Animation.gif)
 
-### 代码实现
+### Code implementation
 
 ```
 class Solution {
     public List<Integer> preorderTraversal(TreeNode root) {
-        //非递归前序遍历，需要借助栈
+        //Non-recursive pre-order traversal requires the use of the stack
         Stack<TreeNode> stack = new Stack<>();
         List<Integer> list = new LinkedList<>();
-        //当树为空树时，直接返回一个空list
+        //When the tree is an empty tree, directly return an empty list
         if(root == null){
             return list;
         }
-        //第一步是将根节点压入栈中
+        //The first step is to push the root node onto the stack
         stack.push(root);
-        //当栈不为空时，出栈的元素插入list尾部。
-        //当它的孩子不为空时，将孩子压入栈，一定是先压右孩子再压左孩子
+        //When the stack is not empty, the popped elements are inserted into the end of the list.
+        //When its child is not empty, push the child onto the stack. The right child must be pushed first and then the left child.
         while(!stack.isEmpty()){
-            //此处的root只是一个变量的复用
+            //The root here is just a reuse of a variable
             root = stack.pop();
             list.add(root.val);
             if(root.right != null) stack.push(root.right);

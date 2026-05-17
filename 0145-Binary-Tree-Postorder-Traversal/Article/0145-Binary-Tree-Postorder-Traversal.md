@@ -1,50 +1,50 @@
-# LeetCode 第 145 号问题：二叉树的后序遍历
+# LeetCode Question No. 145: Post-order traversal of binary trees
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步博客：https://www.algomooc.com
+> Synchronized blog: https://www.algomooc.com
 
-题目来源于 LeetCode 上第 145 号问题：二叉树的后序遍历。题目难度为 Hard，目前通过率为 25.8% 。
+The question comes from question No. 145 on LeetCode: Post-order traversal of a binary tree. The difficulty of the questions is Hard, and the current passing rate is 25.8%.
 
-### 题目描述
+### Title description
 
-给定一个二叉树，返回它的 *后序* 遍历。
+Given a binary tree, return its *postorder* traversal.
 
-**示例:**
+**Example:**
 
 ```
-输入: [1,null,2,3]  
+Input: [1,null,2,3]
    1
     \
      2
     /
    3 
 
-输出: [3,2,1]
+Output: [3,2,1]
 ```
 
-**进阶:** 递归算法很简单，你可以通过迭代算法完成吗？
+**Advanced:** The recursive algorithm is simple, can you do it with an iterative algorithm?
 
-### 题目解析
+### Question analysis
 
-用**栈(Stack)**的思路来处理问题。
+Use the stack idea to deal with problems.
 
-后序遍历的顺序为**左-右-根**，具体算法为：
+The order of post-order traversal is **left-right-root**, and the specific algorithm is:
 
-- 先将根结点压入栈，然后定义一个辅助结点 head
-- while 循环的条件是栈不为空
-- 在循环中，首先将栈顶结点t取出来
-- 如果栈顶结点没有左右子结点，或者其左子结点是 head，或者其右子结点是 head 的情况下。我们将栈顶结点值加入结果 res 中，并将栈顶元素移出栈，然后将 head 指向栈顶元素
-- 否则的话就看如果右子结点不为空，将其加入栈
-- 再看左子结点不为空的话，就加入栈
+- First push the root node onto the stack, and then define an auxiliary node head
+- The condition of the while loop is that the stack is not empty
+- In the loop, first take out the top node t of the stack
+- If the top node of the stack has no left or right child nodes, or its left child node is head, or its right child node is head. We add the value of the top node of the stack to the result res, move the top element off the stack, and then point head to the top element of the stack
+- Otherwise, if the right child node is not empty, add it to the stack
+- If the left child node is not empty, add it to the stack
 
 
 
-### 动画描述
+### Animation description
 
 ![](../Animation/Animation.gif)
 
-### 代码实现
+### Code implementation
 
 ```
 public class Solution {
@@ -56,9 +56,9 @@ public class Solution {
     stack.push(root);
     while(!stack.isEmpty()){
         TreeNode node = stack.pop();
-        if(node.left != null) stack.push(node.left);//和传统先序遍历不一样，先将左结点入栈
-        if(node.right != null) stack.push(node.right);//后将右结点入栈
-        res.add(0,node.val);                        //逆序添加结点值
+        if(node.left != null) stack.push(node.left);//Unlike traditional pre-order traversal, the left node is pushed onto the stack first
+        if(node.right != null) stack.push(node.right);//Then push the right node onto the stack
+        res.add(0,node.val); //Add node values ​​in reverse order
     }     
     return res;
    }

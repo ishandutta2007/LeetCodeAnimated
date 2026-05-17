@@ -1,43 +1,43 @@
-# LeetCode 第 139 号问题：单词拆分
+# LeetCode Issue No. 139: Word Splitting
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步博客：https://www.algomooc.com
+> Synchronized blog: https://www.algomooc.com
 
-题目来源于 LeetCode 上第 139 号问题：单词拆分。
+The question comes from question No. 139 on LeetCode: Word Splitting.
 
-### 题目描述
+### Title description
 
-给定一个**非空**字符串 *s* 和一个包含**非空**单词列表的字典 *wordDict*，判定 *s* 是否可以被空格拆分为一个或多个在字典中出现的单词。
+Given a **non-empty** string *s* and a dictionary *wordDict* containing a **non-empty** word list, determine whether *s* can be split by spaces into one or more words that appear in the dictionary.
 
-**说明：**
+**illustrate:**
 
-- 拆分时可以重复使用字典中的单词。
-- 你可以假设字典中没有重复的单词。
-
-
-
-### 题目解析
-
-与 **分割回文串** 有些类似，都是拆分，但是如果此题采取 深度优先搜索 的方法来解决的话，答案是超时的，不信的同学可以试一下~
-
-为什么会超时呢？
-
-因为使用 深度优先搜索 会重复的计算了有些位的可拆分情况，这种情况的优化肯定是需要 动态规划 来处理的。
-
-如果不知道动态规划的，可以看一下小吴之前的万字长文，比较详细的介绍了动态规划的概念。
-
-在这里，只需要去定义一个数组 boolean[] memo，其中第 i 位 memo[i] 表示待拆分字符串从第 0 位到第 i-1 位是否可以被成功地拆分。
-
-然后分别计算每一位是否可以被成功地拆分。
+- Words from the dictionary can be reused when splitting.
+- You can assume that there are no duplicate words in the dictionary.
 
 
 
-### 动画描述
+### Question analysis
 
-暂无~
+It is somewhat similar to **Split Palindrome String**, both are splitting, but if this question is solved using the depth-first search method, the answer is timeout. Students who don't believe it can try it~
 
-### 代码实现
+Why does it time out?
+
+Because using depth-first search will repeatedly calculate the splittable situation of some bits, the optimization of this situation definitely requires dynamic programming to handle.
+
+If you don’t know about dynamic programming, you can read Xiao Wu’s previous 10,000-word article, which introduces the concept of dynamic programming in more detail.
+
+Here, you only need to define an array boolean[] memo, where the i-th bit memo[i] represents whether the string to be split can be successfully split from bit 0 to bit i-1.
+
+Then calculate each bit individually whether it can be split successfully.
+
+
+
+### Animation description
+
+None~
+
+### Code implementation
 
 
 
@@ -49,7 +49,7 @@ class Solution {
         for(String temp:wordDict){
             max_length = temp.length() > max_length ? temp.length() : max_length;
         }
-        // memo[i] 表示 s 中以 i - 1 结尾的字符串是否可被 wordDict 拆分
+        // memo[i] indicates whether the string ending with i - 1 in s can be split by wordDict
         boolean[] memo = new boolean[n + 1];
         memo[0] = true;
         for (int i = 1; i <= n; i++) {
