@@ -1,97 +1,97 @@
-# LeetCode 第 84 号问题：柱状图中的最大矩形
+# LeetCode Problem No. 84: Maximum Rectangle in Histogram
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步博客：https://www.algomooc.com
+> Synchronized blog: https://www.algomooc.com
 
-题目来源于 LeetCode 上第 84 号问题：柱状图中的最大矩形。题目难度为 Hard，目前通过率为 39.2% 。
+The question comes from question No. 84 on LeetCode: Maximum rectangle in a histogram. The difficulty of the questions is Hard, and the current passing rate is 39.2%.
 
 
 <br>
 
 
-### 题目描述
+### Title description
 
-给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。
+Given n non-negative integers, represent the height of each column in the histogram. Each column is adjacent to each other and has width 1 .
 
-求在该柱状图中，能够勾勒出来的矩形的最大面积。
+Find the maximum area of ​​the rectangle that can be drawn in this histogram.
 
-**示例 1:**
+**Example 1:**
 
 ![](../Animation/example.png)
 
 
 <br>
 
-### 题目解析
+### Question analysis
 
-给一个条形图，让你找出这里面面积最大的矩形，条形图中每一个位置的高度不固定，但是宽度都是 1。因为矩形的方向，大小都不确定，直观去看的话思路并不明显，但是有一点很明确，一段区间形成的矩形总是和最短的高度有关，我们还是来看看题目给的例子:
+Given a bar chart, you are asked to find the rectangle with the largest area. The height of each position in the bar chart is not fixed, but the width is 1. Because the direction and size of the rectangle are uncertain, the idea is not obvious when looking at it intuitively, but one thing is very clear. The rectangle formed by a section is always related to the shortest height. Let's take a look at the example given in the question:
 
 ```
 [2,1,5,6,2,3]
 
-我们假定矩形可以由一个区间 [start, end] 确定，
-那么这个区间的矩形的高度其实是由这个区间的最小值决定
+We assume that the rectangle can be determined by an interval [start, end],
+Then the height of the rectangle in this interval is actually determined by the minimum value of this interval.
 
-[0,1] 区间内的矩形的高度是 1，面积 1 * 2 = 2
-[2,3] 区间内的矩形的高度是 5，面积 5 * 2 = 10
-[0,5] 区间内的矩形的高度是 1，面积 1 * 6 = 6
-[2,5] 区间内的矩形的高度是 2，面积 2 * 4 = 8
+The height of the rectangle in the interval [0,1] is 1, and the area is 1 * 2 = 2
+The height of the rectangle in the interval [2,3] is 5, and the area is 5 * 2 = 10
+The height of the rectangle in the interval [0,5] is 1, and the area is 1 * 6 = 6
+The height of the rectangle in the interval [2,5] is 2, and the area is 2 * 4 = 8
 ...
 ```
 
-如果你明白了上面的例子，这道题目思路就有了，也就是 “**找出数组的所有区间(子数组)，区间中 最小元素的值 * 区间的长度 就是当前区间表示的矩形的面积，在所有区间中找最大面积的矩形即可**”。这个思路非常的直接，这么样下来，找出数组的所有子数组，这个时间复杂度是 O(n^2)，有没有办法优化呢？
+If you understand the above example, the idea for this question is there, that is, "**Find all intervals (subarrays) of the array. The value of the smallest element in the interval * The length of the interval is the area of ​​the rectangle represented by the current interval. Just find the rectangle with the largest area among all intervals**". This idea is very straightforward. In this way, the time complexity of finding all sub-arrays of the array is O(n^2). Is there any way to optimize it?
 
-上面的解法，你直观上看就是一个暴力的解法，因为我们不断地去找子数组，这里面其实有很多的重复计算，比如，还是刚刚那个例子：
+The above solution seems to be a violent solution intuitively, because we are constantly looking for subarrays, and there are actually a lot of repeated calculations. For example, the same example just now:
 ```
 [2,1,5,6,2,3]
 
-[2,1,5,6,2] 我们遍历了一遍，得到矩阵的高度的最小值，然后求出面积
-[1,2,6,2] 我们又接着重新遍历一遍，得到矩阵的高度的最小值，然后求出面积
+[2,1,5,6,2] We traverse it once, get the minimum value of the height of the matrix, and then find the area
+[1,2,6,2] We then traverse it again to get the minimum value of the height of the matrix, and then find the area
 
-求第二个区间的时候，我们完全没有借鉴第一个区间的答案，存在着重复计算
+When finding the second interval, we did not learn from the answer of the first interval at all, and there was double calculation.
 ```
 
-这个时候，我们可能需要换一个思路来看待这个问题，从上面的分析，我们已经得知，矩阵的高都来自于数组中元素的值，可以思考 “**如果以当前位置的元素作为矩形的高，最多向左向右分别延伸多少个位置**”，比如：
-
-```
-[2,1,5,6,2,3]
-
-如果我们取数组中第 2 个元素，也就是 1，作为矩阵的高
-它向左可以延伸到 2，向右可以延伸到 3，于是面积就是 1 * 6 = 6
-
-如果我们取数组中第 5 个元素，也就是 2，作为矩阵的高
-它向左可以延伸到 5，向右可以延伸到 3，于是面积就是 2 * 4 = 8
-
-如果我们取数组中第 3 个元素，也就是 5，作为矩阵的高
-它向左可以延伸到 5（它自己），向右可以延伸到 6，于是面积就是 5 * 2 = 10
-
-...
-```
-
-好了，思路分析完了，现在如何实现这么一个思想呢？我们需要确定一个元素可以延伸到的左边界和右边界，这么说你可能不太好理解，换种说法，其实我们需要找 “**左边第一个比当前元素小的元素所在的位置，右边第一个比当前元素小的元素所在位置**”，还是来看看例子：
+At this time, we may need to change the way we look at this problem. From the above analysis, we have learned that the height of the matrix comes from the values ​​of the elements in the array. We can think about "**If the element at the current position is used as the height of the rectangle, how many positions can it extend to the left and right at most**", for example:
 
 ```
 [2,1,5,6,2,3]
 
-数组第 2 个元素 1，左右均没有比它小的元素，因此它所确定的区间就是整个数组
+If we take the 2nd element in the array, which is 1, as the height of the matrix
+It can extend to 2 to the left and 3 to the right, so the area is 1 * 6 = 6
 
-数组第 5 个元素 2，左边第一个比它小的元素是 1，右边第一个比它小的元素是 -1（表示没有）
-因此它所确定的区间就是 [2, 5]
+If we take the 5th element in the array, which is 2, as the height of the matrix
+It can extend to 5 to the left and 3 to the right, so the area is 2 * 4 = 8
 
-数组第 3 个元素 5，左边第一个比它小的元素是 1，右边第一个比它小的元素是 6
-因此它所确定的区间就是 [2, 3]
+If we take the 3rd element in the array, which is 5, as the height of the matrix
+It can extend to 5 (itself) to the left and 6 to the right, so the area is 5 * 2 = 10
 
 ...
 ```
 
-在实现上面我们需要利用栈这个数据结构，栈里面存放的元素对应的值都是**单调递增**的，这样可以保证从左向右遍历数组，前一个入栈的元素是后一个入栈的元素的左边界，另外，如果下一个准备入栈的元素比栈顶元素的值小，说明栈顶元素的右边界也找到了，左右边界都找到了，栈顶元素出栈进行计算。这样下来，一个元素只会进栈一次，出栈一次，因此时间复杂度是 O(2 * n) 也就是 O(n)
+Okay, now that the idea analysis is over, how to implement such an idea now? We need to determine the left and right boundaries that an element can extend to. This may not be easy for you to understand. In other words, we actually need to find "**The location of the first element on the left that is smaller than the current element, and the location of the first element on the right that is smaller than the current element**". Let's look at an example:
 
-**单调栈**这个数据结构应用还是比较广泛的，如果发现题目中需要针对数组中一个元素向左右两边延伸去确定区间，而且延伸的条件跟元素的值有关，那么就可以考虑使用单调栈。
+```
+[2,1,5,6,2,3]
+
+The second element of the array is 1. There is no element smaller than it on the left and right, so the interval determined by it is the entire array.
+
+The fifth element of the array is 2, the first element on the left that is smaller than it is 1, and the first element on the right that is smaller than it is -1 (meaning none)
+Therefore, the interval it determines is [2, 5]
+
+The third element of the array is 5, the first element on the left that is smaller than it is 1, and the first element on the right that is smaller than it is 6
+Therefore, the interval it determines is [2, 3]
+
+...
+```
+
+In the implementation, we need to use the data structure of the stack. The values ​​corresponding to the elements stored in the stack are monotonically increasing. This ensures that the array is traversed from left to right. The previous element pushed onto the stack is the left boundary of the next element pushed onto the stack. In addition, if the next element to be pushed onto the stack is smaller than the value of the element on the top of the stack, it means that the right boundary of the element on the top of the stack has been found, and both the left and right boundaries have been found. The top element of the stack is popped out for calculation. In this way, an element will only be pushed into the stack once and popped out once, so the time complexity is O(2 * n), which is O(n)
+
+**Monotonic stack** This data structure is widely used. If you find that the question requires an element in the array to extend to the left and right sides to determine the interval, and the extension condition is related to the value of the element, then you can consider using a monotonic stack.
 
 <br>
 
-### 代码实现（暴力解法）
+### Code implementation (brute force solution)
 
 ```java
 public int largestRectangleArea(int[] heights) {
@@ -117,7 +117,7 @@ public int largestRectangleArea(int[] heights) {
 
 <br>
 
-### 代码实现（单调栈）
+### Code implementation (monotone stack)
 
 ```java
 public int largestRectangleArea(int[] heights) {
@@ -132,12 +132,12 @@ public int largestRectangleArea(int[] heights) {
     int result = 0;
     
     for (int i = 0; i <= n; ++i) {
-        // curElement 表示当前元素的值，用 -1 表示数组的结束
+        // curElement represents the value of the current element, and -1 represents the end of the array
         int curElement = (i == n) ? -1 : heights[i];
         
-        // 元素的出栈操作，表明当前栈顶元素找到了右边界
-        // 加上栈内存放的元素是单调递增的，因此左边界也找到了
-        // while 里面针对栈顶元素这个高度的矩形计算面积即可
+        // The pop operation of the element indicates that the current top element of the stack has found the right boundary
+        // In addition, the elements stored in the stack are monotonically increasing, so the left boundary is also found.
+        //While, just calculate the area of ​​the rectangle with the height of the top element of the stack.
         while (!stack.isEmpty() && heights[stack.peek()] >= curElement) {
             int high = heights[stack.pop()];
             int width = stack.isEmpty() ? i : i - stack.peek() - 1;
@@ -154,15 +154,15 @@ public int largestRectangleArea(int[] heights) {
 
 <br>
 
-### 动画描述
+### Animation description
 
 ![](../Animation/84.gif)
 
 <br>
 
-### 复杂度分析
+### Complexity analysis
 
-暴力解法的时间复杂度是 `O(n^2)`，这个从上面的描述中不难看出。在单调栈的代码实现中，你可能会觉得这里有两个嵌套循环，因此时间复杂度是 `O(n^2)`，但其实不是这样，考虑时间复杂度仅仅看代码的形式是不够的，你可以这样考虑，因为数组中的每个元素仅入栈一次，出栈一次，因此正确的时间复杂度是 `O(2n)`，忽略常数项，也就是 `O(n)`，单调栈的解法中用到了栈，因此空间复杂度是 `O(n)`。
+The time complexity of the brute force solution is `O(n^2)`, which is not difficult to see from the above description. In the code implementation of the monotonic stack, you may think that there are two nested loops here, so the time complexity is `O(n^2)`, but this is not the case. To consider the time complexity, it is not enough to just look at the form of the code. You can think about it this way, because each element in the array is only pushed into the stack once and popped out once, so the correct time complexity is `O(2n)`, ignoring the constant term, that is `O(n)`, the stack is used in the solution of monotonic stack, so the space complexity is `O(n)`.
 
 <br>
 

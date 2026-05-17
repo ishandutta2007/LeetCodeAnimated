@@ -1,43 +1,43 @@
-## **LeetCode 第 70 号问题：爬楼梯**
+## **LeetCode Question No. 70: Climbing Stairs**
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一.
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步博客：https://www.algomooc.com
+> Synchronized blog: https://www.algomooc.com
 
-题目来源于 LeetCode 上第 70 号问题：爬楼梯。题目难度为 Easy。
+The question comes from question No. 70 on LeetCode: Climbing Stairs. The difficulty level of the questions is Easy.
 
-### 题目描述
+### Title description
 
-假设你正在爬楼梯。需要 `n` 阶你才能到达楼顶。
+Suppose you are climbing stairs. It takes `n` steps for you to reach the top.
 
-每次你可以爬 `1` 或 `2` 个台阶。你有多少种不同的方法可以爬到楼顶呢？ 
+You can climb `1` or `2` steps at a time. How many different ways can you climb to the top of a building?
 
-**注意：给定 n 是一个正整数。** 
+**Note: Given n is a positive integer. **
 
-### 示例1
+### Example 1
 
->  输入： 2 
+> Input: 2
 >
->   解释： 有两种方法可以爬到楼顶。
+> Explanation: There are two ways to climb to the top of the building.
 >
->  1.	1 阶 + 1 阶
+> 1. 1st order + 1st order
 >
->  2.  2 阶
+> 2. Level 2
 
-### 题目解析
+### Question analysis
 
-试着倒推想一下,就能发现这个问题可以被分解为一些包含最优子结构的子问题,它的最优解可以从其子问题 
-的最优解来有效地构建,因此我们可以使用`动态规划`解决这个问题.
+Try to think backwards and you will find that this problem can be decomposed into some sub-problems containing optimal sub-structures, and its optimal solution can be derived from its sub-problems
+to effectively construct the optimal solution, so we can use `dynamic programming` to solve this problem.
 
-第 `i` 阶可以由以下两种方法得到：
+The `i`th order can be obtained by the following two methods:
 
-在第 `(i - 1)` 阶后向上爬 1 阶。
+After step `(i - 1)` go up 1 step.
 
-在第 `(i - 2)` 阶后向上爬 2 阶
+After step `(i - 2)` go up 2 steps
 
-所以到达第 `i` 阶的方法总数就是到第 `(i - 1)` 阶和第 `(i - 2)` 阶的方法数之和。
+So the total number of ways to reach `i`th level is the sum of the number of ways to reach `(i - 1)`th level and `(i - 2)`th level.
 
-`dp[i]dp[i]` 表示能到达第 `i` 阶的方法总数,那么DP推导公式就是:
+`dp[i]dp[i]` represents the total number of methods that can reach the `i`th order, then the DP derivation formula is:
 
 > $$
 > dp[i] = dp[i − 1] + dp[i − 2]
@@ -45,15 +45,15 @@
 
 
 
-### 动画理解
+### Animation understanding
 
 <img src="../Animation/Animation.gif" alt="Animation" style="zoom:150%;" />
 
-### 参考代码
+### Reference code
 
 ```javascript
 /**
- * JavaScript 描述
+ * JavaScript description
  */
 var climbStairs = function(n) {
     let temp = new Array(n+1);
@@ -66,18 +66,18 @@ var climbStairs = function(n) {
 }
 ```
 
-#### 复杂度分析
+#### Complexity analysis
 
-- 时间复杂度：`O(n)`，单循环到 n。
-- 空间复杂度：`O(n)`，dpdp 数组用了 n 的空间。
+- Time complexity: `O(n)`, single loop to n.
+- Space complexity: `O(n)`, the dpdp array uses n space.
 
-### 进一步优化
+### Further optimization
 
-根据推导公式不难发现,我们要求的结果就是数组的最后一项,而最后一项又是前面数值叠加起来的,那么我们只需要两个变量保存 `i - 1` 和 `i - 2` 的值就可以了.
+According to the derivation formula, it is not difficult to find that the result we require is the last item of the array, and the last item is the superposition of the previous values, so we only need two variables to store the values ​​​​of `i - 1` and `i - 2`.
 
 ```javascript
 /**
- * JavaScript 描述
+ * JavaScript description
  */
 var climbStairs = function(n) {
     if (n == 1) {
@@ -94,9 +94,9 @@ var climbStairs = function(n) {
 }
 ```
 
-#### 复杂度分析
+#### Complexity analysis
 
-- 时间复杂度：O(n)，单循环到 n。
-- 空间复杂度：O(1)，用到了常量的空间。
+- Time complexity: O(n), single loop to n.
+- Space complexity: O(1), using constant space.
 
 ![qrcode](../../Pictures/qrcode.jpg)
