@@ -1,66 +1,66 @@
-## LeetCode第994号问题：腐烂的橘子
+## LeetCode Issue No. 994: Rotten Oranges
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步个人博客：www.zhangxiaoshuai.fun
+> Synchronize personal blog: www.zhangxiaoshuai.fun
 
-本题在leetcode中题目序号994，属于medium级别，目前通过率为50.7%
+This question has the question number 994 in leetcode, which belongs to the medium level. The current pass rate is 50.7%.
 
-**题目描述：**
+**Title description:**
 
 ```
-在给定的网格中，每个单元格可以有以下三个值之一：
-	值0代表空单元格；
-	值1代表新鲜橘子；
-	值2代表腐烂的橘子。
-每分钟，任何与腐烂的橘子（在4个正方向上）相邻的新鲜橘子都会腐烂。返回直到单元格中没有新鲜橘子为止所必须经过的最小分钟数。如果不可能，返回-1。
+In a given grid, each cell can have one of three values:
+	A value of 0 represents an empty cell;
+	A value of 1 represents fresh oranges;
+	A value of 2 represents a rotten orange.
+Every minute, any fresh orange adjacent to a rotten orange (in the 4 positive directions) will rot. Returns the minimum number of minutes that must elapse until there are no more fresh oranges in the cell. If not possible, return -1.
 
-示例1：
-	输入：[[2,1,1],[1,1,0],[0,1,1]]
-	输出：4
+Example 1:
+	Input: [[2,1,1],[1,1,0],[0,1,1]]
+	Output: 4
 
-示例2：
-	输入：[[2,1,1],[0,1,1],[1,0,1]]
-	输出：-1
-	解释：左下角的橘子（第2行，第0列）永远不会腐烂，因为腐烂只会发生在4个正向上。
+Example 2:
+	Input: [[2,1,1],[0,1,1],[1,0,1]]
+	Output: -1
+	Explanation: The orange in the lower left corner (row 2, column 0) will never rot because rot only occurs in the 4 positive directions.
 
-示例3：
-	输入：[[0,2]]
-	输出：0
-	解释：因为0分钟时已经没有新鲜橘子了，所以答案就是0。
+Example 3:
+	Input: [[0,2]]
+	Output: 0
+	Explanation: Because there are no fresh oranges at 0 minutes, the answer is 0.
 
-提示：
+hint:
 	1<=grid.length<=10
 	1<=grid[0].length<=10
-	grid[i][j]仅为0、1或2
+	grid[i][j] is only 0, 1 or 2
 ```
 
-**由题意：只有腐烂的橘子才可以去污染它周围四个方向上存在的新鲜橘子，且它每一分钟只能污染一次，下一次，被它腐蚀的橘子再去腐蚀自己周边的新鲜橘子，每次只有被新腐蚀的橘子才能继续向外腐蚀（因为旧的腐烂的橘子已经被“包围”了）**
+**The meaning of the question: Only rotten oranges can pollute the fresh oranges existing in the four directions around it, and it can only pollute once per minute. Next time, the oranges corroded by it will corrode the fresh oranges around it. Each time, only the newly corroded oranges can continue to corrode outwards (because the old rotten oranges have been "surrounded")**
 
-这就很像一个人得了传染病，只要他遇见人就会将病传染给那个人，而被传染的又会去感染别的人（不同的是，这里的橘子的位置是固定的，无法移动）
+This is very similar to a person who has an infectious disease. As long as he meets someone, he will infect that person, and the infected person will infect other people (the difference is that the position of the orange here is fixed and cannot be moved)
 
-思路是非常简单的，我们通过动态图直观理解下：
+The idea is very simple. Let’s understand it intuitively through dynamic diagrams:
 
-![腐烂的橘子gif演示](../Animation/腐烂的橘子01.gif)
+![Rotten Orange gif demonstration](../Animation/Rotten Orange01.gif)
 
-既然理清了思路，那么我们来试试代码：
-首先，我们需要知道初始状态下的单元格中有多少腐烂的橘子，并且要将它们的位置信息保存下来，我们可以用一个队列（**先入先出**）将（x，y）保存下来;然后我们开始遍历整个队列，每次弹出一个保存的位置信息，将这个位置周围的新鲜橘子全部腐蚀，并且将被腐蚀的橘子的位置信息存入队列中，在下次循环中从它们的位置上再“**向外延伸**”（注意：为了模拟同步，我们需要将每次存入队列中的所有位置都要在下一次全部取出来）；直到队列为空，循环结束，这个时候并不能说明整个单元格中已经不存在新鲜的橘子，因为可能存在下面这种情况：
+Now that the idea has been clarified, let's try the code:
+First, we need to know how many rotten oranges there are in the cells in the initial state, and to save their location information, we can use a queue (**first in first out**) to save (x, y); then we start traversing the entire queue, popping up a saved location information each time, corroding all the fresh oranges around this location, and corroding the corroded oranges The position information is stored in the queue, and will be "**extended**" from their positions in the next cycle (note: in order to simulate synchronization, we need to take out all the positions stored in the queue each time); until the queue is empty and the loop ends, it does not mean that there are no fresh oranges in the entire cell, because the following situation may exist:
 
 ![](../Animation/example01.png)
 
-很明显，标红的区域（新鲜橘子）永远不能被腐蚀，因为它周围唯一的两个单元格是空的。
+Obviously, the area marked red (fresh oranges) can never be corroded because the only two cells around it are empty.
 
-那么针对这种情况，我们在前面遍历统计腐烂橘子的时候可以顺便统计一下新鲜橘子的数量count，后面我们每腐蚀一个橘子就从count中减去1。最终循环结束的时候，我们只需要判断count是否大于0，若是，返回-1，否则返回轮数res。
+So for this situation, when we traverse and count the rotten oranges earlier, we can count the number of fresh oranges by the way. Later, we subtract 1 from the count for each corroded orange. When the final loop ends, we only need to determine whether count is greater than 0. If so, return -1, otherwise return the round number res.
 
 ------
 
-**代码：**
+**Code:**
 
 ```java
 public static int orangesRotting02(int[][] grid){
     int row = grid.length,col = grid[0].length;
     Queue<int[]> queue = new ArrayDeque();
-    int count = 0;//统计新鲜橘子的数量
+    int count = 0;//Count the number of fresh oranges
     for (int i = 0; i < row; i++) {
         for (int j = 0; j < col; j++) {
             if (grid[i][j] == 2) {
@@ -78,25 +78,25 @@ public static int orangesRotting02(int[][] grid){
         for (int i = 0; i < size; i++) {
             int[] temp = queue.poll();
             int r = temp[0],c = temp[1];//(x,y)
-            //上
+            //superior
             if (r > 0 && grid[r-1][c] == 1) {
                 grid[r-1][c] = 2;
                 count--;
                 queue.add(new int[]{r-1,c});
             }
-            //下
+            //Down
             if (r < grid.length-1 && grid[r+1][c] == 1) {
                 grid[r+1][c] = 2;
                 count--;
                 queue.add(new int[]{r+1,c});
             }
-            //左
+            //Left
             if (c > 0 && grid[r][c-1] == 1) {
                 grid[r][c-1] = 2;
                 count--;
                 queue.add(new int[]{r,c-1});
             }
-            //右
+            //right
             if (c < grid[0].length-1 && grid[r][c+1] == 1) {
                 grid[r][c+1] = 2;
                 count--;

@@ -1,37 +1,37 @@
-# LeetCode 第 86 号问题：分割链表
+# LeetCode Question No. 86: Split a Linked List
 
-> 本文首发于公众号「五分钟学算法」，是[图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>)系列文章之一。
+> This article was first published on the public account "Learning Algorithms in Five Minutes" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 个人网站：[https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
+> Personal website: [https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
 
-题目来源于 LeetCode 上第 86 号问题：分割链表。题目难度为 Easy，目前通过率为 47.8% 。
+The question comes from question No. 86 on LeetCode: Splitting a linked list. The difficulty of the questions is Easy, and the current passing rate is 47.8%.
 
-### 题目描述
+### Title description
 
-给定一个链表和一个特定值 *x*，对链表进行分隔，使得所有小于 *x* 的节点都在大于或等于 *x* 的节点之前。
+Given a linked list and a specific value *x*, split the linked list so that all nodes less than *x* precede nodes greater than or equal to *x*.
 
-你应当保留两个分区中每个节点的初始相对位置。
+You should preserve the initial relative position of each node in both partitions.
 
-**示例:**
+**Example:**
 
 ```
-输入: head = 1->4->3->2->5->2, x = 3
-输出: 1->2->2->4->3->5
+Input: head = 1->4->3->2->5->2, x = 3
+Output: 1->2->2->4->3->5
 ```
 
-### 题目解析
+### Question analysis
 
-这道题要求我们划分链表，把所有小于给定值的节点都移到前面，大于该值的节点顺序不变，相当于一个局部排序的问题。
+This question requires us to divide the linked list and move all nodes smaller than a given value to the front. The order of nodes larger than the value remains unchanged, which is equivalent to a local sorting problem.
 
-- 设定两个虚拟节点，`dummyHead1 `用来保存小于于该值的链表，`dummyHead2 `来保存大于等于该值的链表
-- 遍历整个原始链表，将小于该值的放于`dummyHead1 `中，其余的放置在`dummyHead2 `中
-- 遍历结束后，将`dummyHead2 `插入到`dummyHead1 `后面
+- Set two virtual nodes, `dummyHead1` is used to save the linked list less than this value, `dummyHead2` is used to save the linked list greater than or equal to this value
+- Traverse the entire original linked list, place the value less than this value in `dummyHead1`, and the rest in `dummyHead2`
+- After the traversal, insert `dummyHead2` after `dummyHead1`
 
-### 动画描述
+### Animation description
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/t96zg.gif)
 
-### 代码实现
+### Code implementation
 
 ```
 class Solution {

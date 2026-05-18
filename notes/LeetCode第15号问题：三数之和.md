@@ -1,26 +1,26 @@
-# LeetCode 第 15 号问题：三数之和
+# LeetCode Problem No. 15: Sum of Three Numbers
 
-> 本文首发于公众号「五分钟学算法」，是[图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>)系列文章之一。
+> This article was first published on the public account "Learning Algorithms in Five Minutes" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 个人网站：[https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
+> Personal website: [https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
 
-题目来源于 LeetCode 上第 15 号问题：三数之和。
+The question comes from question No. 15 on LeetCode: The sum of three numbers.
 
-### 题目描述
+### Title description
 
-给定一个包含 *n* 个整数的数组 `nums`，判断 `nums` 中是否存在三个元素 *a，b，c ，*使得 *a + b + c =* 0 ？找出所有满足条件且不重复的三元组。
+Given an array `nums` containing *n* integers, determine whether there are three elements *a, b, c in `nums` such that *a + b + c =* 0? Find all triplets that satisfy the condition and are not repeated.
 
-### 题目解析
+### Question analysis
 
-题目需要我们找出三个数且和为 0 ，那么除了三个数全是 0 的情况之外，肯定会有负数和正数，所以一开始可以先选择一个数，然后再去找另外两个数，这样只要找到两个数且和为第一个选择的数的相反数就行了。也就是说需要枚举 a 和 b ，将 c 的存入 map 即可。
+The question requires us to find three numbers and the sum is 0. Then, except for the case where the three numbers are all 0, there will definitely be negative numbers and positive numbers, so you can choose a number at the beginning, and then find the other two numbers. In this way, you only need to find two numbers and the sum is the opposite number of the first selected number. That is to say, you need to enumerate a and b and store c in the map.
 
-需要注意的是返回的结果中，不能有有重复的结果。这样的代码时间复杂度是 O(n^2)。在这里可以先将原数组进行排序，然后再遍历排序后的数组，这样就可以使用双指针以线性时间复杂度来遍历所有满足题意的两个数组合。
+It should be noted that there cannot be duplicate results among the returned results. The time complexity of such code is O(n^2). Here you can sort the original array first, and then traverse the sorted array. In this way, you can use double pointers to traverse all two array combinations that meet the meaning of the question with linear time complexity.
 
-### 动画描述
+### Animation description
 
-待补充
+To be added
 
-### 代码实现
+### Code implementation
 
 ### 
 

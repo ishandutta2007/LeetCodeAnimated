@@ -1,26 +1,26 @@
-# LeetCode 第 110 号问题：平衡二叉树
+# LeetCode Problem No. 110: Balancing Binary Trees
 
-> 本文首发于公众号「五分钟学算法」，是[图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>)系列文章之一。
+> This article was first published on the public account "Learning Algorithms in Five Minutes" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 个人网站：[https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
+> Personal website: [https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
 
-题目来源于 LeetCode 上第 110 号问题：平衡二叉树。
+The question comes from question No. 110 on LeetCode: Balancing Binary Trees.
 
-### 题目描述
+### Title description
 
-给定一个二叉树，判断它是否是高度平衡的二叉树。
+Given a binary tree, determine whether it is a height-balanced binary tree.
 
-### 题目解析
+### Question analysis
 
-采取**后序遍历**的方式遍历二叉树的每一个结点。
+Use **post-order traversal** to traverse each node of the binary tree.
 
-在遍历到一个结点之前已经遍历了它的左右子树，那么只要在遍历每个结点的时候记录它的深度（某一结点的深度等于它到叶结点的路径的长度），就可以一边遍历一边判断每个结点是不是平衡的。
+Before traversing to a node, its left and right subtrees have been traversed, so as long as its depth is recorded when traversing each node (the depth of a node is equal to the length of its path to the leaf node), you can judge whether each node is balanced while traversing.
 
-### 动画描述
+### Animation description
 
-待补充
+To be added
 
-### 代码实现
+### Code implementation
 
 ```java
 class Solution {

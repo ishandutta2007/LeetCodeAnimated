@@ -1,77 +1,77 @@
-# LeetCode 第 347 号问题：前 K 个高频元素
+# LeetCode Problem No. 347: Top K High Frequency Elements
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步博客：https://www.algomooc.com
+> Synchronized blog: https://www.algomooc.com
 
-今天分享的题目来源于 LeetCode 上第 347 号问题：前 K 个高频元素。题目难度为 Medium，目前通过率为 56.9% 。
+The topic shared today comes from question No. 347 on LeetCode: the first K high-frequency elements. The difficulty level of the questions is Medium, and the current passing rate is 56.9%.
 
-## 题目描述
+## Title description
 
-给定一个非空的整数数组，**返回其中出现频率前 k 高**的元素。
+Given a non-empty integer array, return the top k elements with the highest frequency.
 
-**示例 1:**
-
-```
-输入: nums = [1,1,1,2,2,3], k = 2
-输出: [1,2]
-```
-
-**示例 2:**
+**Example 1:**
 
 ```
-输入: nums = [1], k = 1
-输出: [1]
+Input: nums = [1,1,1,2,2,3], k = 2
+Output: [1,2]
 ```
 
-**说明：**
+**Example 2:**
 
-- 你可以假设给定的 k 总是合理的，且 1 ≤ k ≤ 数组中不相同的元素的个数。
-- 你的算法的时间复杂度必须优于 O(n log n) ， n 是数组的大小。
+```
+Input: nums = [1], k = 1
+Output: [1]
+```
 
-### 题目解析
+**illustrate:**
 
-### 解法一：粗暴排序法
+- You can assume that the given k is always reasonable and 1 ≤ k ≤ the number of distinct elements in the array.
+- The time complexity of your algorithm must be better than O(n log n) , where n is the size of the array.
 
-最简单粗暴的思路就是 **使用排序算法对元素按照频率由高到低进行排序**，然后再取前  k 个元素。
+### Question analysis
 
-以下十种排序算法，任你挑选！
+### Solution 1: Rough sorting method
+
+The simplest and crudest idea is to use a sorting algorithm to sort the elements from high to low frequency, and then take the top k elements.
+
+The following ten sorting algorithms are available for you to choose from!
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/qya5e.png)
 
-可以发现，使用常规的诸如 冒泡、选择、甚至快速排序都是不满足题目要求，它们的时间复杂度都是大于或者等于 O(n log⁡n) ，而题目要求算法的时间复杂度必须优于 O(n log n) 。
+It can be found that using conventional methods such as bubble, selection, and even quick sort do not meet the requirements of the question. Their time complexity is greater than or equal to O(n log⁡n), and the question requires that the time complexity of the algorithm must be better than O(n log n).
 
-#### 复杂度分析
+#### Complexity analysis
 
-- **时间复杂度**：O(nlogn)，n 表示数组长度。首先，遍历一遍数组统计元素的频率，这一系列操作的时间复杂度是 O(n)；接着，排序算法时间复杂度为O(nlogn) ；因此整体时间复杂度为 O(nlogn) 。
-- **空间复杂度**：O(n)，最极端的情况下（每个元素都不同），用于存储元素及其频率的 Map 需要存储 n 个键值对。
+- **Time complexity**: O(nlogn), n represents the array length. First, traverse the array to count the frequency of elements. The time complexity of this series of operations is O(n); then, the time complexity of the sorting algorithm is O(nlogn); therefore, the overall time complexity is O(nlogn).
+- **Space complexity**: O(n), in the most extreme case (different for each element), the Map used to store elements and their frequencies needs to store n key-value pairs.
 
-### 解法二：最小堆
+### Solution 2: Minimum heap
 
-题目最终需要返回的是前 k 个频率最大的元素，可以想到借助堆这种数据结构，对于 k 频率之后的元素不用再去处理，进一步优化时间复杂度。
+The question ultimately needs to return the first k elements with the highest frequency. It can be thought of that with the help of a data structure such as a heap, elements after k frequencies do not need to be processed, further optimizing the time complexity.
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/nloow.jpg)
 
-具体操作为：
+The specific operations are:
 
-- 借助 **哈希表** 来建立数字和其出现次数的映射，遍历一遍数组统计元素的频率
-- 维护一个元素数目为 k 的最小堆
-- 每次都将新的元素与堆顶元素（堆中频率最小的元素）进行比较
-- 如果新的元素的频率比堆顶端的元素大，则弹出堆顶端的元素，将新的元素添加进堆中
-- 最终，堆中的 k 个元素即为前 k 个高频元素
+- Use **hash table** to establish a mapping between numbers and their occurrence times, and traverse the array to count the frequency of elements
+- Maintain a min-heap with k elements
+- Compare the new element with the top element of the heap (the element with the smallest frequency in the heap) every time
+- If the frequency of the new element is greater than the element at the top of the heap, pop the element at the top of the heap and add the new element to the heap
+- Finally, the k elements in the heap are the top k high-frequency elements
 
 
 
-### 动画理解
+### Animation understanding
 
 ![](../Animation/Animation.gif)
 
-### 参考代码
+### Reference code
 
 ```java
 class Solution {
     public List<Integer> topKFrequent(int[] nums, int k) {
-        // 使用字典，统计每个元素出现的次数，元素为键，元素出现的次数为值
+        // Use a dictionary to count the number of occurrences of each element. The element is the key and the number of occurrences of the element is the value.
         HashMap<Integer,Integer> map = new HashMap();
         for(int num : nums){
             if (map.containsKey(num)) {
@@ -80,7 +80,7 @@ class Solution {
                 map.put(num, 1);
              }
         }
-        // 遍历map，用最小堆保存频率最大的k个元素
+        // Traverse the map and use the minimum heap to save the k elements with the highest frequency
         PriorityQueue<Integer> pq = new PriorityQueue<>(new Comparator<Integer>() {
             @Override
             public int compare(Integer a, Integer b) {
@@ -95,7 +95,7 @@ class Solution {
                 pq.add(key);
             }
         }
-        // 取出最小堆中的元素
+        //Remove elements from the min-heap
         List<Integer> res = new ArrayList<>();
         while (!pq.isEmpty()) {
             res.add(pq.remove());
@@ -106,27 +106,27 @@ class Solution {
 
 ```
 
-#### 复杂度分析
+#### Complexity analysis
 
-- **时间复杂度**：O(nlogk)， n 表示数组的长度。首先，遍历一遍数组统计元素的频率，这一系列操作的时间复杂度是 O(n)；接着，遍历用于存储元素频率的 map，如果元素的频率大于最小堆中顶部的元素，则将顶部的元素删除并将该元素加入堆中，**这里维护堆的数目是 k **，所以这一系列操作的时间复杂度是 O(nlogk)的；因此，总的时间复杂度是 O(nlog⁡k) 。
-- **空间复杂度**：O(n)，最坏情况下（每个元素都不同），map 需要存储 n 个键值对，优先队列需要存储 k个元素，因此，空间复杂度是 O(n)。
+- **Time complexity**: O(nlogk), n represents the length of the array. First, traverse the array to count the frequency of elements. The time complexity of this series of operations is O(n); then, traverse the map used to store the frequency of elements. If the frequency of the element is greater than the top element in the minimum heap, delete the top element and add the element to the heap. **The number of maintained heaps here is k**, so the time complexity of this series of operations is O(nlogk); therefore, the total time complexity is O(nlog⁡k).
+- **Space complexity**: O(n). In the worst case (each element is different), map needs to store n key-value pairs, and the priority queue needs to store k elements. Therefore, the space complexity is O(n).
 
 
 
-### 解法三：桶排序法
+### Solution 3: Bucket sorting method
 
-首先依旧使用哈希表统计频率，统计完成后，创建一个数组，将频率作为数组下标，对于出现频率不同的数字集合，存入对应的数组下标即可。
+First, still use the hash table to count the frequencies. After the statistics are completed, create an array and use the frequencies as the array subscripts. For sets of numbers with different frequencies, just store them in the corresponding array subscripts.
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/6tge2.jpg)
 
-代码实现如下：
+The code is implemented as follows:
 
 ```java
-//基于桶排序求解「前 K 个高频元素」
+//Solve the "top K high-frequency elements" based on bucket sorting
 class Solution {
     public List<Integer> topKFrequent(int[] nums, int k) {
         List<Integer> res = new ArrayList();
-        // 使用字典，统计每个元素出现的次数，元素为键，元素出现的次数为值
+        // Use a dictionary to count the number of occurrences of each element. The element is the key and the number of occurrences of the element is the value.
         HashMap<Integer,Integer> map = new HashMap();
         for(int num : nums){
             if (map.containsKey(num)) {
@@ -136,11 +136,11 @@ class Solution {
              }
         }
         
-        //桶排序
-        //将频率作为数组下标，对于出现频率不同的数字集合，存入对应的数组下标
+        //Bucket sorting
+        //Use frequency as an array subscript. For sets of numbers with different frequencies, store them in the corresponding array subscripts.
         List<Integer>[] list = new List[nums.length+1];
         for(int key : map.keySet()){
-            // 获取出现的次数作为下标
+            // Get the number of occurrences as a subscript
             int i = map.get(key);
             if(list[i] == null){
                list[i] = new ArrayList();
@@ -148,7 +148,7 @@ class Solution {
             list[i].add(key);
         }
         
-        // 倒序遍历数组获取出现顺序从大到小的排列
+        // Traverse the array in reverse order to get the order of appearance from largest to smallest
         for(int i = list.length - 1;i >= 0 && res.size() < k;i--){
             if(list[i] == null) continue;
             res.addAll(list[i]);
@@ -158,10 +158,10 @@ class Solution {
 }
 ```
 
-#### 复杂度分析
+#### Complexity analysis
 
-- **时间复杂度**：O(n)， n 表示数组的长度。首先，遍历一遍数组统计元素的频率，这一系列操作的时间复杂度是 O(n)；桶的数量为 n + 1，所以桶排序的时间复杂度为 O(n)；因此，总的时间复杂度是 O(n)。 
-- **空间复杂度**：很明显为 O(n)
+- **Time complexity**: O(n), n represents the length of the array. First, traverse the array to count the frequency of elements. The time complexity of this series of operations is O(n); the number of buckets is n + 1, so the time complexity of bucket sorting is O(n); therefore, the total time complexity is O(n).
+- **Space Complexity**: Obviously O(n)
 
 
 

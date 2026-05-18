@@ -1,70 +1,70 @@
-# 使用快慢指针求解「环形链表」so easy！
+# Use fast and slow pointers to solve "circular linked list" so easy!
 
-> 本文首发于公众号「五分钟学算法」，是[图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>)系列文章之一。
+> This article was first published on the public account "Learning Algorithms in Five Minutes" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 个人网站：[https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
+> Personal website: [https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
 
-今天分享的题目来源于 LeetCode 上第 141 号问题：环形链表。题目难度为 Easy，目前通过率为 40.4% 。
+The topic shared today comes from question No. 141 on LeetCode: Circular Linked List. The difficulty of the questions is Easy, and the current passing rate is 40.4%.
 
-使用快慢指针的方式去求解 **so easy** ！
+Use fast and slow pointers to solve **so easy**!
 
-### 题目描述
+### Title description
 
-给定一个链表，判断链表中是否有环。
+Given a linked list, determine whether there is a cycle in the linked list.
 
-为了表示给定链表中的环，我们使用整数 `pos` 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 `pos` 是 `-1`，则在该链表中没有环。
+To represent a cycle in a given linked list, we use the integer `pos` to represent the position in the linked list where the tail of the linked list is connected (indexing starts from 0). If `pos` is `-1`, there is no cycle in the linked list.
 
-**示例 1：**
+**Example 1:**
 
 ```
-输入：head = [3,2,0,-4], pos = 1
-输出：true
-解释：链表中有一个环，其尾部连接到第二个节点。
+Input: head = [3,2,0,-4], pos = 1
+Output: true
+Explanation: There is a ring in the linked list, the tail of which is connected to the second node.
 ```
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/vweoq.png)
 
-**示例 2：**
+**Example 2:**
 
 ```
-输入：head = [1,2], pos = 0
-输出：true
-解释：链表中有一个环，其尾部连接到第一个节点。
+Input: head = [1,2], pos = 0
+Output: true
+Explanation: There is a ring in the linked list, the tail of which is connected to the first node.
 ```
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/kxbrz.png)
 
-**示例 3：**
+**Example 3:**
 
 ```
-输入：head = [1], pos = -1
-输出：false
-解释：链表中没有环。
+Input: head = [1], pos = -1
+Output: false
+Explanation: There is no cycle in the linked list.
 ```
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/w3vsg.png)
 
-**进阶：**
+**Advanced:**
 
-你能用 O(1)（即，常量）内存解决此问题吗？
+Can you solve this problem with O(1) (i.e., constant) memory?
 
-### 题目解析
+### Question analysis
 
-这道题是快慢指针的**经典应用**。
+This question is a **classic application** of fast and slow pointers.
 
-设置两个指针，一个每次走一步的**慢指针**和一个每次走两步的**快指针**。
+Set up two pointers, a **slow pointer** that takes one step at a time and a **fast pointer** that takes two steps at a time.
 
-* 如果不含有环，跑得快的那个指针最终会遇到 null，说明链表不含环
-* 如果含有环，快指针会超慢指针一圈，和慢指针相遇，说明链表含有环。
+* If there is no cycle, the faster pointer will eventually encounter null, indicating that the linked list does not contain a cycle.
+* If there is a ring, the fast pointer will exceed the slow pointer by one circle and meet the slow pointer, indicating that the linked list contains a ring.
 
-### 动画描述
+### Animation description
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/mj4qo.gif)
 
-### 代码实现
+### Code implementation
 
 ```java
-//author:程序员小吴
+//author:Programmer Xiao Wu
 public class Solution {
     public boolean hasCycle(ListNode head) {
         ListNode slow = head, fast = head;

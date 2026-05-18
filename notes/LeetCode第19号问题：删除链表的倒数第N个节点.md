@@ -1,48 +1,48 @@
-# LeetCode 第 19 号问题：删除链表的倒数第 N 个节点
+# LeetCode Question No. 19: Delete the penultimate N node of the linked list
 
-> 本文首发于公众号「五分钟学算法」，是[图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>)系列文章之一。
+> This article was first published on the public account "Learning Algorithms in Five Minutes" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 个人网站：[https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
+> Personal website: [https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
 
-题目来源于 LeetCode 上第 19 号问题：删除链表的倒数第 N 个节点。题目难度为 Medium，目前通过率为 34.4% 。
+The question comes from question No. 19 on LeetCode: Delete the penultimate N node of the linked list. The difficulty level of the questions is Medium, and the current passing rate is 34.4%.
 
-### 题目描述
+### Title description
 
-给定一个链表，删除链表的倒数第 *n* 个节点，并且返回链表的头结点。
+Given a linked list, delete the last *n* node of the linked list and return the head node of the linked list.
 
-**示例：**
+**Example:**
 
 ```
-给定一个链表: 1->2->3->4->5, 和 n = 2.
+Given a linked list: 1->2->3->4->5, and n = 2.
 
-当删除了倒数第二个节点后，链表变为 1->2->3->5.
+When the penultimate node is deleted, the linked list becomes 1->2->3->5.
 ```
 
-**说明：**
+**illustrate:**
 
-给定的 *n* 保证是有效的。
+The given *n* are guaranteed to be valid.
 
-**进阶：**
+**Advanced:**
 
-你能尝试使用一趟扫描实现吗？
+Could you try using a one-pass scan implementation?
 
-### 题目解析
+### Question analysis
 
-采取双重遍历肯定是可以解决问题的，但题目要求我们一次遍历解决问题，那我们的思路得发散一下。
+The problem can definitely be solved by double traversal, but the question requires us to solve the problem by one traversal, so our thinking needs to be divergent.
 
-我们可以设想假设设定了双指针`p`和`q`的话，当`q`指向末尾的`NULL`，`p`与`q`之间相隔的元素个数为`n`时，那么删除掉`p`的下一个指针就完成了要求。
+We can imagine that if double pointers `p` and `q` are set, when `q` points to `NULL` at the end, and the number of elements separated between `p` and `q` is `n`, then deleting the next pointer of `p` will complete the requirement.
 
-- 设置虚拟节点`dummyHead`指向`head`
-- 设定双指针`p`和`q`，初始都指向虚拟节点`dummyHead`
-- 移动`q`，直到`p`与`q`之间相隔的元素个数为`n`
-- 同时移动`p`与`q`，直到`q`指向的为`NULL`
-- 将`p`的下一个节点指向下下个节点
+- Set the virtual node `dummyHead` to point to `head`
+- Set double pointers `p` and `q`, initially pointing to the virtual node `dummyHead`
+- Move `q` until the number of elements between `p` and `q` is `n`
+- Move `p` and `q` at the same time until `q` points to `NULL`
+- Point the next node of `p` to the next node
 
-### 动画描述
+### Animation description
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/r04hv.gif)
 
-### 代码实现
+### Code implementation
 
 ```
 class Solution {

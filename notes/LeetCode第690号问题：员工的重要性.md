@@ -1,56 +1,56 @@
-# LeetCode 第 690 号问题：员工的重要性
+# LeetCode Question No. 690: The Importance of Employees
 
-> 本文首发于公众号「五分钟学算法」，是[图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>)系列文章之一。
+> This article was first published on the public account "Learning Algorithms in Five Minutes" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 个人网站：[https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
+> Personal website: [https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
 
-题目来源于 LeetCode 第 690 号问题：员工的重要性。
+The question comes from LeetCode Question No. 690: The Importance of Employees.
 
-### 题目描述
+### Title description
 
-给定一个保存员工信息的数据结构，它包含了员工**唯一的id**，**重要度** 和 **直系下属的id**。
+Given a data structure that stores employee information, it contains the employee's unique ID, importance and direct subordinate IDs.
 
-比如，员工 1 是员工 2 的领导，员工 2 是员工 3 的领导。他们相应的重要度为 15, 10, 5 。那么员工 1 的数据结构是[1, 15, [2]]，员工 2 的数据结构是[2, 10, [3]]，员工3的数据结构是[3, 5, []]。注意虽然员工 3 也是员工 1 的一个下属，但是由于**并不是直系**下属，因此没有体现在员工1的数据结构中。
+For example, employee 1 is the leader of employee 2, and employee 2 is the leader of employee 3. Their corresponding importance is 15, 10, 5. Then the data structure of employee 1 is [1, 15, [2]], the data structure of employee 2 is [2, 10, [3]], and the data structure of employee 3 is [3, 5, []]. Note that although employee 3 is also a subordinate of employee 1, because ** is not a direct subordinate, it is not reflected in the data structure of employee 1.
 
-现在输入一个公司的所有员工信息，以及单个员工 id，返回这个员工和他所有下属的重要度之和。
+Now enter all employee information of a company, as well as a single employee ID, and return the sum of the importance of this employee and all his subordinates.
 
-**示例 1:**
+**Example 1:**
 
 ```
-输入: [[1, 5, [2, 3]], [2, 3, []], [3, 3, []]], 1
-输出: 11
-解释:
-员工 1 自身的重要度是 5，他有两个直系下属 2 和 3 ，而且 2 和 3 的重要度均为 3 。因此员工 1 的总重要度是 5 + 3 + 3 = 11。
+Input: [[1, 5, [2, 3]], [2, 3, []], [3, 3, []]], 1
+Output: 11
+explain:
+Employee 1's own importance is 5. He has two direct subordinates 2 and 3, and the importance of 2 and 3 is both 3. Therefore the total importance of employee 1 is 5 + 3 + 3 = 11.
 ```
 
-**注意:**
+**Notice:**
 
-1. 一个员工最多有一个**直系**领导，但是可以有多个**直系**下属
-2. 员工数量不超过 2000。
+1. An employee can have at most one **direct** leader, but can have multiple **direct** subordinates
+2. The number of employees does not exceed 2,000.
 
 ### 
 
-### 题目解析
+### Question analysis
 
-利用哈希表来存储员工的信息，找到指定 id 的员工后，采用广度优先遍历算法来遍历编号为 id 的员工及其下属员工。
+Use a hash table to store employee information. After finding the employee with the specified id, use a breadth-first traversal algorithm to traverse the employee with the id and its subordinate employees.
 
-### 动画描述
+### Animation description
 
-待补充
+To be added
 
-### 代码实现
+### Code implementation
 
 ```
 public int getImportance(List<Employee> employees, int id) {
         Employee emp = null;
-        //重要度
+        //Importance
 		int sum = 0;   
-        //存储员工信息
+        //Storage employee information
 		HashMap<Integer,Employee> map=new HashMap<Integer,Employee>();  /
 	    for(Employee e:employees) {
 	    	map.put(e.id, e);
 	    }
-	    //使用广度优先遍历员工
+	    //Use breadth first to traverse employees
 	    ArrayDeque<Employee> queue=new ArrayDeque<Employee>();
 	    queue.addLast(map.get(id));
 	    while(!queue.isEmpty()) {

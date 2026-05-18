@@ -1,40 +1,40 @@
-# LeetCode 第 187 号问题：重复的 DNA 序列
+#LeetCode Issue 187: Repeated DNA Sequences
 
-> 本文首发于公众号「五分钟学算法」，是[图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>)系列文章之一。
+> This article was first published on the public account "Learning Algorithms in Five Minutes" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 个人网站：[https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
+> Personal website: [https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
 
-题目来源于 LeetCode 上第 187 号问题：重复的 DNA 序列。
+The question comes from Question No. 187 on LeetCode: Repeated DNA Sequences.
 
-### 题目描述
+### Title description
 
-所有 DNA 由一系列缩写为 A，C，G 和 T 的核苷酸组成，例如：“ACGAATTCCG”。在研究 DNA 时，识别 DNA 中的重复序列有时会对研究非常有帮助。
+All DNA is made up of a series of nucleotides abbreviated A, C, G and T, for example: "ACGAATTCCG". When studying DNA, it can sometimes be very helpful to identify repeating sequences in DNA.
 
-编写一个函数来查找 DNA 分子中所有出现超过一次的 10 个字母长的序列（子串）。
+Write a function that finds all 10-letter sequences (substrings) that occur more than once in a DNA molecule.
 
-### 题目解析
+### Question analysis
 
-首先，先将  A , C , G , T 的 ASCII 码用二进制来表示：
+First, first represent the ASCII codes of A, C, G, and T in binary:
 
 A: 0100 0**001**　　C: 0100 0**011**　　G: 0100 0**111**　　T: 0101 0**100**
 
-通过观察发现每个字符的后三位都不相同，因此可以用**末尾的三位**来区分这四个字符。
+Through observation, it is found that the last three characters of each character are different, so the three characters at the end can be used to distinguish these four characters.
 
-题目要求是查找 10 个字母长的序列，这里我们将每个字符用三位来区分的话，10 个字符就需要 30 位 ，在32位机上也 OK 。
+The question requirement is to find a 10-letter sequence. If we use three characters to distinguish each character, 10 characters will require 30 bits, which is OK on a 32-bit machine.
 
-为了提取出后 30 位，需要使用 **mask** ，取值为 0x7ffffff（二进制表示含有 27 个 1） ，先用此 mask 可取出**整个序列**的后 27 位，然后再向左平移三位可取出 10 个字母长的序列 （ 30 位）。
+In order to extract the last 30 bits, you need to use **mask**, with a value of 0x7ffffff (the binary representation contains 27 1s). First, use this mask to extract the last 27 bits of the **entire sequence**, and then shift it to the left by three bits to extract a 10-letter sequence (30 bits).
 
-为了保存子串的频率，这里使用**哈希表**。
+In order to save the frequency of substrings, a hash table is used here.
 
-首先当取出第十个字符时，将其存在哈希表里，和该字符串出现频率映射，之后每向左移三位替换一个字符，查找新字符串在哈希表里出现次数，如果之前刚好出现过一次，则将当前字符串存入返回值的数组并将其出现次数加一，如果从未出现过，则将其映射到 1。
+First, when the tenth character is taken out, it is stored in the hash table and mapped with the frequency of occurrence of the string. Then, one character is replaced every three places to the left, and the number of occurrences of the new string in the hash table is found. If it has appeared once before, the current string is stored in the array of the return value and the number of occurrences is increased by one. If it has never appeared, map it to 1.
 
 ### 
 
-### 动画描述
+### Animation description
 
-待补充
+To be added
 
-### 代码实现
+### Code implementation
 
 ```c++
 class Solution {

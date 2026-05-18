@@ -1,49 +1,49 @@
-# LeetCode 第 328 号问题：奇偶链表
+# LeetCode Issue No. 328: Odd-Even Linked List
 
-> 本文首发于公众号「五分钟学算法」，是[图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>)系列文章之一。
+> This article was first published on the public account "Learning Algorithms in Five Minutes" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 个人网站：[https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
+> Personal website: [https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
 
-题目来源于 LeetCode 上第 328 号问题：奇偶链表。题目难度为 Medium，目前通过率为 52.0% 。
+The question comes from question No. 328 on LeetCode: Odd-even linked list. The difficulty level of the questions is Medium, and the current pass rate is 52.0%.
 
-### 题目描述
+### Title description
 
-给定一个单链表，把所有的奇数节点和偶数节点分别排在一起。请注意，这里的奇数节点和偶数节点指的是节点编号的奇偶性，而不是节点的值的奇偶性。
+Given a singly linked list, arrange all odd nodes and even nodes together. Please note that the odd and even nodes here refer to the parity of the node number, not the parity of the node's value.
 
-请尝试使用原地算法完成。你的算法的空间复杂度应为 O(1)，时间复杂度应为 O(nodes)，nodes 为节点总数。
+Please try to use the in-place algorithm to complete. Your algorithm should have a space complexity of O(1) and a time complexity of O(nodes), where nodes is the total number of nodes.
 
-**示例 1:**
-
-```
-输入: 1->2->3->4->5->NULL
-输出: 1->3->5->2->4->NULL
-```
-
-**示例 2:**
+**Example 1:**
 
 ```
-输入: 2->1->3->5->6->4->7->NULL 
-输出: 2->3->6->7->1->5->4->NULL
+Input: 1->2->3->4->5->NULL
+Output: 1->3->5->2->4->NULL
 ```
 
-**说明:**
+**Example 2:**
 
-- 应当保持奇数节点和偶数节点的相对顺序。
-- 链表的第一个节点视为奇数节点，第二个节点视为偶数节点，以此类推。
+```
+Input: 2->1->3->5->6->4->7->NULL
+Output: 2->3->6->7->1->5->4->NULL
+```
 
-### 题目解析
+**illustrate:**
 
-这道题给了我们一个链表，让我们分开奇偶节点，所有奇节点在前，偶节点在后。
+- The relative order of odd and even nodes should be maintained.
+- The first node of the linked list is considered an odd node, the second node is considered an even node, and so on.
 
-* 设定两个虚拟节点，`dummyHead1 `用来保存奇节点，`dummyHead2 `来保存偶节点；
-* 遍历整个原始链表，将奇节点放于`dummyHead1 `中，其余的放置在`dummyHead2 `中
-* 遍历结束后，将`dummyHead2 `插入到`dummyHead1 `后面
+### Question analysis
 
-### 动画描述
+This question gives us a linked list, allowing us to separate odd and even nodes, with all odd nodes in front and even nodes in the back.
+
+* Set two virtual nodes, `dummyHead1` is used to save odd nodes, `dummyHead2` is used to save even nodes;
+* Traverse the entire original linked list, place the odd nodes in `dummyHead1`, and the rest in `dummyHead2`
+* After the traversal, insert `dummyHead2` after `dummyHead1`
+
+### Animation description
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/xh0aj.gif)
 
-### 代码实现
+### Code implementation
 
 ```
 class Solution {

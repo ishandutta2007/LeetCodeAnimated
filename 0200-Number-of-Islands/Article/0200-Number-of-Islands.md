@@ -1,48 +1,48 @@
-# LeetCode 图解 | 200. 岛屿数量
+# LeetCode Illustration | 200. Number of Islands
 
-## 题目描述
+## Title description
 
-给定一个由 `'1'`（陆地）和 `'0'`（水）组成的的二维网格，计算岛屿的数量。一个岛被水包围，并且它是通过水平方向或垂直方向上相邻的陆地连接而成的。你可以假设网格的四个边均被水包围。
+Given a 2D grid consisting of `'1'` (land) and `'0'` (water), count the number of islands. An island is surrounded by water and is connected by adjacent land masses either horizontally or vertically. You can assume that all four sides of the grid are surrounded by water.
 
-**示例 1:**
+**Example 1:**
 
 ```
-输入:
+enter:
 11110
 11010
 11000
 00000
 
-输出: 1
+Output: 1
 ```
 
-**示例 2:**
+**Example 2:**
 
 ```
-输入:
+enter:
 11000
 11000
 00100
 00011
 
-输出: 3
+Output: 3
 ```
 
-## 题目解析
+## Question analysis
 
-这道题的主要思路是深度优先搜索。每次走到一个是 1 的格子，就搜索整个岛屿。
+The main idea of ​​​​this question is depth-first search. Every time you go to a grid with a 1, search the entire island.
 
-网格可以看成是一个无向图的结构，每个格子和它上下左右的四个格子相邻。如果四个相邻的格子坐标合法，且是陆地，就可以继续搜索。
+The grid can be viewed as an undirected graph structure, with each grid adjacent to its four grids above, below, left, and right. If the coordinates of the four adjacent grids are legal and they are land, you can continue searching.
 
-在深度优先搜索的时候要注意避免重复遍历。我们可以把已经遍历过的陆地改成 2，这样遇到 2 我们就知道已经遍历过这个格子了，不进行重复遍历。
+When doing depth-first search, be careful to avoid repeated traversals. We can change the land that has been traversed to 2, so that when we encounter 2, we will know that we have already traversed this grid and will not repeat the traversal.
 
-每遇到一个陆地格子就进行深度优先搜索，最终搜索了几次就知道有几个岛屿。
+Every time a land grid is encountered, a depth-first search is performed. Finally, after several searches, the number of islands is known.
 
-## 动画理解
+## Animation understanding
 
 ![](../Animation/Animation.gif)
 
-## 参考代码
+## Reference code
 
 ```Java
 class Solution {
@@ -79,6 +79,6 @@ class Solution {
 }
 ```
 
-## 复杂度分析
+## Complexity analysis
 
-设网格的边长为 $n$，则时间复杂度为 $O(n^2)$。
+Assuming the side length of the grid is $n$, the time complexity is $O(n^2)$.

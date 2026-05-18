@@ -1,47 +1,47 @@
-# LeetCode 第 94 号问题：二叉树的中序遍历
+# LeetCode Problem No. 94: In-order traversal of binary trees
 
-> 本文首发于公众号「五分钟学算法」，是[图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>)系列文章之一。
+> This article was first published on the public account "Learning Algorithms in Five Minutes" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 个人网站：[https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
+> Personal website: [https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
 
-题目来源于 LeetCode 上第 94 号问题：二叉树的中序遍历。题目难度为 Medium，目前通过率为 35.8% 。
+The question comes from question No. 94 on LeetCode: In-order traversal of a binary tree. The difficulty level of the questions is Medium, and the current passing rate is 35.8%.
 
-### 题目描述
+### Title description
 
-给定一个二叉树，返回它的*中序* 遍历。
+Given a binary tree, return its in-order traversal.
 
-**示例:**
+**Example:**
 
 ```
-输入: [1,null,2,3]
+Input: [1,null,2,3]
    1
     \
      2
     /
    3
 
-输出: [1,3,2]
+Output: [1,3,2]
 ```
 
-**进阶:** 递归算法很简单，你可以通过迭代算法完成吗？
+**Advanced:** The recursive algorithm is simple, can you do it with an iterative algorithm?
 
-### 题目解析
+### Question analysis
 
-用**栈(Stack)**的思路来处理问题。
+Use the stack idea to deal with problems.
 
-中序遍历的顺序为**左-根-右**，具体算法为：
+The order of in-order traversal is **Left-Root-Right**, and the specific algorithm is:
 
-- 从根节点开始，先将根节点压入栈
-- 然后再将其所有左子结点压入栈，取出栈顶节点，保存节点值
-- 再将当前指针移到其右子节点上，若存在右子节点，则在下次循环时又可将其所有左子结点压入栈中
+- Starting from the root node, push the root node onto the stack first
+- Then push all its left child nodes onto the stack, take out the top node of the stack, and save the node value
+- Then move the current pointer to its right child node. If there is a right child node, all its left child nodes can be pushed onto the stack in the next loop.
 
 
 
-### 动画描述
+### Animation description
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/v17b8.gif)
 
-### 代码实现
+### Code implementation
 
 ```
 class Solution {

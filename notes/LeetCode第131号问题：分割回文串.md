@@ -1,22 +1,22 @@
-# LeetCode 第 131 号问题：分割回文串
+# LeetCode Problem No. 131: Splitting a Palindrome
 
-> 本文首发于公众号「五分钟学算法」，是[图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>)系列文章之一。
+> This article was first published on the public account "Learning Algorithms in Five Minutes" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 个人网站：[https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
+> Personal website: [https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
 
-题目来源于 LeetCode 上第 131 号问题：分割回文串。题目难度为 Medium，目前通过率为 45.8% 。
+The question comes from question No. 131 on LeetCode: Split palindrome strings. The difficulty level of the questions is Medium, and the current pass rate is 45.8%.
 
-### 题目描述
+### Title description
 
-给定一个字符串 *s*，将 *s* 分割成一些子串，使每个子串都是回文串。
+Given a string *s*, split *s* into substrings such that each substring is a palindrome.
 
-返回 *s* 所有可能的分割方案。
+Return *s* all possible splitting options.
 
-**示例:**
+**Example:**
 
 ```yaml
-输入: "aab"
-输出:
+Input: "aab"
+Output:
 [
   ["aa","b"],
   ["a","a","b"]
@@ -25,31 +25,31 @@
 
 ### 
 
-### 题目解析
+### Question analysis
 
-首先，对于一个字符串的分割，肯定需要将所有分割情况都遍历完毕才能判断是不是回文数。不能因为 **abba** 是回文串，就认为它的所有子串都是回文的。
+First of all, for the division of a string, it is definitely necessary to traverse all division situations to determine whether it is a palindrome. Just because **abba** is a palindrome string, it does not mean that all its substrings are palindromes.
 
-既然需要将所有的分割方法都找出来，那么肯定需要用到DFS（深度优先搜索）或者BFS（广度优先搜索）。
+Since all segmentation methods need to be found, DFS (depth first search) or BFS (breadth first search) must be used.
 
-在分割的过程中对于每一个字符串而言都可以分为两部分：左边一个回文串加右边一个子串，比如 "abc" 可分为 "a" + "bc" 。 然后对"bc"分割仍然是同样的方法，分为"b"+"c"。
+During the splitting process, each string can be divided into two parts: a palindrome string on the left and a substring on the right. For example, "abc" can be divided into "a" + "bc". Then the "bc" segmentation is still the same, divided into "b" + "c".
 
-在处理的时候去优先寻找更短的回文串，然后回溯找稍微长一些的回文串分割方法，不断回溯，分割，直到找到所有的分割方法。
+When processing, give priority to finding shorter palindrome strings, then backtrack to find slightly longer palindrome string segmentation methods, and continue to backtrack and segment until all segmentation methods are found.
 
-举个🌰：分割"aac"。
+For example: Split "aac".
 
-1. 分割为 a + ac
-2. 分割为 a + a + c，分割后，得到一组结果，再回溯到  a + ac
-3. a + ac 中 ac 不是回文串，继续回溯，回溯到 aac
-4. 分割为稍长的回文串，分割为 aa + c 分割完成得到一组结果，再回溯到 aac
-5. aac 不是回文串，搜索结束
+1. Divide into a + ac
+2. Divide it into a + a + c. After the division, get a set of results, and then go back to a + ac
+3. a + ac in ac is not a palindrome string, continue to trace back to aac
+4. Split into a slightly longer palindrome string, split into aa + c. After the split is completed, a set of results is obtained, and then traced back to aac
+5. aac is not a palindrome, search is over
 
 
 
-### 动画描述
+### Animation description
 
 ![](<https://bucket-1257126549.cos.ap-guangzhou.myqcloud.com/blog/4r4mw.gif>)
 
-### 代码实现
+### Code implementation
 
 ```java
 class Solution {
@@ -63,20 +63,20 @@ class Solution {
     }
     
     public void dfs(String s,List<String> remain,int left){
-        if(left==s.length()){  //判断终止条件
-            res.add(new ArrayList<String>(remain));  //添加到结果中
+        if(left==s.length()){ //Determine the termination condition
+            res.add(new ArrayList<String>(remain)); //Add to the result
             return;
         }
-        for(int right=left;right<s.length();right++){  //从left开始，依次判断left->right是不是回文串
-            if(isPalindroom(s,left,right)){  //判断是否是回文串
-                remain.add(s.substring(left,right+1));   //添加到当前回文串到list中
-                dfs(s,remain,right+1);  //从right+1开始继续递归，寻找回文串
-                remain.remove(remain.size()-1);  //回溯，从而寻找更长的回文串
+        for(int right=left;right<s.length();right++){ //Start from left and determine whether left->right is a palindrome string
+            if(isPalindroom(s,left,right)){ //Determine whether it is a palindrome string
+                remain.add(s.substring(left,right+1)); //Add the current palindrome string to the list
+                dfs(s,remain,right+1); //Continue recursion from right+1 to find the palindrome string
+                remain.remove(remain.size()-1); //Backtrack to find a longer palindrome string
             }
         }
     }
     /**
-    * 判断是否是回文串
+    * Determine whether it is a palindrome string
     */
     public boolean isPalindroom(String s,int left,int right){
         while(left<right&&s.charAt(left)==s.charAt(right)){

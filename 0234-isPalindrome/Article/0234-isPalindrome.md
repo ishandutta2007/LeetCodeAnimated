@@ -1,37 +1,37 @@
-## LeetCode第234号问题：回文链表
+## LeetCode Question No. 234: Palindrome Linked List
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 个人博客：www.zhangxiaoshuai.fun
+> Personal blog: www.zhangxiaoshuai.fun
 
-**本题选择leetcode第234题，easy难度，目前通过率41.5%**
+**This question chooses Leetcode question 234, easy difficulty, the current pass rate is 41.5%**
 
 ```txt
-题目描述：
-请判断一个链表是否为回文链表。
-示例 1:
-    输入: 1->2
-    输出: false
+Topic description:
+Please determine whether a linked list is a palindrome linked list.
+Example 1:
+    Input: 1->2
+    Output: false
 
-示例 2:
-    输入: 1->2->2->1
-    输出: true
+Example 2:
+    Input: 1->2->2->1
+    Output: true
 ```
 
-***这道题还有进阶版本，我们先实现这个普通版本再看。***
+***This question also has an advanced version. Let’s implement this ordinary version first and then look at it. ***
 
-### 题目分析：
+### Question analysis:
 
 ```
-首先，我们先遍历一遍链表，将链表中的每个值存入数组当中，然后我们判断数组中的元素是否满足回文数条件即可。
-这里因为我们不知道链表的长度，我们先使用动态数组将值存起来，然后再存到固定大小的数组中。
+First, we traverse the linked list and store each value in the linked list into an array. Then we determine whether the elements in the array meet the palindrome number condition.
+Here, because we don't know the length of the linked list, we first use a dynamic array to store the value, and then store it in a fixed-size array.
 ```
 
-### 解法一gif动画演示：
+### Solution: GIF animation demonstration:
 
 ![01](../Animation/solved01.gif)
 
-### 代码：
+### Code:
 
 ```java
 public boolean isPalindrome(ListNode head) {
@@ -56,19 +56,19 @@ public boolean isPalindrome(ListNode head) {
 }
 ```
 
-**时间复杂度：O(n)  空间复杂度：O(n)**
+**Time complexity: O(n) Space complexity: O(n)**
 
-### 进阶：
+### Advanced:
 
-**你能否用 O(n) 时间复杂度和 O(1) 空间复杂度解决此题？**
+**Can you solve this problem in O(n) time complexity and O(1) space complexity? **
 
-**思路分析：**我们先找到链表的中间结点，然后将中间结点后面的链表进行反转，反转之后再和前半部分链表进行比较，如果相同则表示该链表属于回文链表，返回true；否则，否则返回false
+**Idea analysis:** We first find the middle node of the linked list, and then invert the linked list behind the middle node. After the inversion, compare it with the first half of the linked list. If they are the same, it means that the linked list is a palindromic linked list, and returns true; otherwise, it returns false.
 
-### 解法二gif动画演示：
+### Solution 2 gif animation demonstration:
 
 ![02](../Animation/solved02.gif)
 
-### 代码：
+### Code:
 
 ```java
 public boolean isPalindrome(ListNode head) {
@@ -77,7 +77,7 @@ public boolean isPalindrome(ListNode head) {
    ListNode low = p;
    ListNode fast = p;
    p.next = head;
-   //使用快慢指针来确定中间结点
+   //Use fast and slow pointers to determine intermediate nodes
    while(fast != null && fast.next != null){
        low = low.next;
        fast = fast.next.next;
@@ -87,14 +87,14 @@ public boolean isPalindrome(ListNode head) {
    low.next = null;
    low = p.next;
 
-   //反转后半部分链表
+   //Reverse the second half of the linked list
    while(cur != null){
        ListNode tmp = cur.next;
        cur.next = pre;
        pre = cur;
        cur = tmp;
    }
-   //将前半部分链表和后半部分进行比较
+   //Compare the first half of the linked list with the second half
    while(pre != null){
        if(low.val != pre.val){
            return false;
@@ -106,6 +106,6 @@ public boolean isPalindrome(ListNode head) {
 }
 ```
 
-**时间复杂度：O(n)  空间复杂度：O(1)**
+**Time complexity: O(n) Space complexity: O(1)**
 
-**没错，可以看到上面的代码是完全能可以通过的，虽然我们完成了题目，但是我们改变了链表的结构，也就是说它现在不是它了；出题人应该是不希望我们破坏链表的，所以在我们完成判断之后，需要将链表恢复原样，也就是将后半部分链表反转之后接到前半部分链表的末尾。**
+**Yes, you can see that the above code is completely passable. Although we have completed the question, we have changed the structure of the linked list, which means that it is not it now; the person who asked the question probably does not want us to destroy the linked list, so after we complete the judgment, we need to restore the linked list to its original state, that is, reverse the second half of the linked list and connect it to the end of the first half of the linked list. **

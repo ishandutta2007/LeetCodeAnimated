@@ -1,60 +1,60 @@
-# LeetCode 第 283 号问题：移动零
+# LeetCode Issue No. 283: Moving Zeros
 
-> 本文首发于公众号「五分钟学算法」，是[图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>)系列文章之一。
+> This article was first published on the public account "Learning Algorithms in Five Minutes" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 个人网站：[https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
+> Personal website: [https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
 
-题目来源于 LeetCode 上第 283 号问题：移动零。题目难度为 Easy，目前通过率为 53.8% 。
+The question comes from question No. 283 on LeetCode: Moving Zeros. The difficulty of the questions is Easy, and the current passing rate is 53.8%.
 
-### 题目描述
+### Title description
 
-给定一个数组 `nums`，编写一个函数将所有 `0` 移动到数组的末尾，同时保持非零元素的相对顺序。
+Given an array `nums`, write a function that moves all `0`s to the end of the array while maintaining the relative order of the non-zero elements.
 
-**示例:**
+**Example:**
 
 ```
-输入: [0,1,0,3,12]
-输出: [1,3,12,0,0]
+Input: [0,1,0,3,12]
+Output: [1,3,12,0,0]
 ```
 
-**说明**:
+**illustrate**:
 
-1. 必须在原数组上操作，不能拷贝额外的数组。
-2. 尽量减少操作次数。
+1. The operation must be performed on the original array, and additional arrays cannot be copied.
+2. Minimize the number of operations.
 
-### 题目解析
+### Question analysis
 
-设定一个临时变量 k = 0，遍历数组 nums ，将非零元素移动到 nums[k]位 置，同时 k++，而后将【k,….nums.size()】中的元素置零。
+Set a temporary variable k = 0, traverse the array nums, move the non-zero elements to the nums[k] position, use k++ at the same time, and then set the elements in [k,….nums.size()] to zero.
 
-### 解法一
+### Solution 1
 
-创建一个临时数组 nonZeroElements ，遍历 nums ，将 nums 中非 0 元素赋值到 nonZeroElements中，而后按顺序将 nonZeroElements 赋值到 nums 上，未遍历的元素置 0 ；
+Create a temporary array nonZeroElements, traverse nums, assign the non-0 elements in nums to nonZeroElements, and then assign nonZeroElements to nums in order, and set the untraversed elements to 0;
 
-动画如下：
+The animation is as follows:
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/0eeix.gif)
 
-代码如下：
+The code is as follows:
 
 ```
-// 时间复杂度: O(n)
-// 空间复杂度: O(n)
+// Time complexity: O(n)
+// Space complexity: O(n)
 class Solution {
 public:
     void moveZeroes(vector<int>& nums) {
 
         vector<int> nonZeroElements;
 
-        // 将vec中所有非0元素放入nonZeroElements中
+        // Put all non-0 elements in vec into nonZeroElements
         for(int i = 0 ; i < nums.size() ; i ++)
             if(nums[i])
                 nonZeroElements.push_back(nums[i]);
 
-        // 将nonZeroElements中的所有元素依次放入到nums开始的位置
+        //Put all elements in nonZeroElements to the beginning of nums in sequence
         for(int i = 0 ; i < nonZeroElements.size() ; i ++)
             nums[i] = nonZeroElements[i];
 
-        // 将nums剩余的位置放置为0
+        // Place the remaining positions of nums as 0
         for(int i = nonZeroElements.size() ; i < nums.size() ; i ++)
             nums[i] = 0;
     }
@@ -62,62 +62,62 @@ public:
 
 ```
 
-### 解法二
+### Solution 2
 
-设定一个临时变量 k = 0，遍历数组 nums ，将非零元素移动到 nums[k] 位置，同时 k++，而后将【k,….nums.size()】中的元素置零。
+Set a temporary variable k = 0, traverse the array nums, move the non-zero elements to the nums[k] position, use k++ at the same time, and then set the elements in [k,….nums.size()] to zero.
 
-动画如下：
+The animation is as follows:
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/jodp0.gif)
 
-代码如下：
+The code is as follows:
 
 ```
-// 原地(in place)解决该问题
-// 时间复杂度: O(n)
-// 空间复杂度: O(1)
+// Solve the problem in place
+// Time complexity: O(n)
+// Space complexity: O(1)
 class Solution {
 public:
     void moveZeroes(vector<int>& nums) {
 
-        int k = 0; // nums中, [0...k)的元素均为非0元素
+        int k = 0; // In nums, the elements of [0...k) are all non-0 elements
 
-        // 遍历到第i个元素后,保证[0...i]中所有非0元素
-        // 都按照顺序排列在[0...k)中
+        // After traversing to the i-th element, ensure all non-0 elements in [0...i]
+        // They are all arranged in [0...k) in order
         for(int i = 0 ; i < nums.size() ; i ++)
             if(nums[i])
                 nums[k++] = nums[i];
 
-        // 将nums剩余的位置放置为0
+        // Place the remaining positions of nums as 0
         for(int i = k ; i < nums.size() ; i ++)
             nums[i] = 0;
     }
 };
 ```
 
-### 解法三
+### Solution 3
 
-思路：设定一个临时变量 k = 0，遍历数组 nums，将非零元素与之前的零元素进行交换，维护变量k的值。
+Idea: Set a temporary variable k = 0, traverse the array nums, exchange non-zero elements with previous zero elements, and maintain the value of variable k.
 
-动画如下：
+The animation is as follows:
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/gcetr.gif)
-代码如下：
+The code is as follows:
 C++ Code：
 
 ```c++
-// 原地(in place)解决该问题
-// 时间复杂度: O(n)
-// 空间复杂度: O(1)
+// Solve the problem in place
+// Time complexity: O(n)
+// Space complexity: O(1)
 class Solution {
 public:
     void moveZeroes(vector<int>& nums) {
 
-        int k = 0; // nums中, [0...k)的元素均为非0元素
+        int k = 0; // In nums, the elements of [0...k) are all non-0 elements
 
-        // 遍历到第i个元素后,保证[0...i]中所有非0元素
-        // 都按照顺序排列在[0...k)中
-        // 同时, [k...i] 为 0
+        // After traversing to the i-th element, ensure all non-0 elements in [0...i]
+        // They are all arranged in [0...k) in order
+        // At the same time, [k...i] is 0
         for(int i = 0 ; i < nums.size() ; i ++)
             if(nums[i]){
                 if(k != i){
@@ -136,11 +136,11 @@ Java Code：
 ```java
 class Solution {
     public void moveZeroes(int[] nums) {
-        // 双指针
+        //double pointer
         int i = 0;
         for(int j=0; j<nums.length; j++)
         {
-            // 不为0，前移
+            // If not 0, move forward
             if(nums[j] != 0)
             {
                 int temp = nums[i];
@@ -161,10 +161,10 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        # 双指针
+        #Double pointer
         i = 0
         for j in range(len(nums)):
-            # 不为0，前移
+            # If not 0, move forward
             if nums[j] != 0:
                 nums[i], nums[j] = nums[j], nums[i]
                 i+=1

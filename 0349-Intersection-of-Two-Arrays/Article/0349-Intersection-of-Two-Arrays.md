@@ -1,47 +1,47 @@
-# LeetCode 第 349 号问题：两个数组的交集
+# LeetCode Problem No. 349: Intersection of Two Arrays
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步博客：https://www.algomooc.com
+> Synchronized blog: https://www.algomooc.com
 
-题目来源于 LeetCode 上第 349 号问题：两个数组的交集。题目难度为 Easy，目前通过率为 62.3% 。
+The question comes from question No. 349 on LeetCode: Intersection of two arrays. The difficulty of the questions is Easy, and the current passing rate is 62.3%.
 
-### 题目描述
+### Title description
 
-给定两个数组，编写一个函数来计算它们的交集。
+Given two arrays, write a function to calculate their intersection.
 
-**示例 1:**
-
-```
-输入: nums1 = [1,2,2,1], nums2 = [2,2]
-输出: [2]
-```
-
-**示例 2:**
+**Example 1:**
 
 ```
-输入: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
-输出: [9,4]
+Input: nums1 = [1,2,2,1], nums2 = [2,2]
+Output: [2]
 ```
 
-**说明:**
+**Example 2:**
 
-- 输出结果中的每个元素一定是唯一的。
-- 我们可以不考虑输出结果的顺序。
+```
+Input: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
+Output: [9,4]
+```
 
-### 题目解析
+**illustrate:**
 
-容器类 [set](https://zh.cppreference.com/w/cpp/container/set) 的使用。
+- Each element in the output result must be unique.
+- We can ignore the order of output results.
 
-- 遍历 num1，通过 set 容器 record 存储 num1 的元素
-- 遍历 num2 ，在 record 中查找是否有相同的元素，如果有，用 set 容器 resultSet 进行存储
-- 将 resultSet 转换为 vector 类型
+### Question analysis
 
-### 动画描述
+Use of container class [set](https://zh.cppreference.com/w/cpp/container/set).
+
+- Traverse num1 and store the elements of num1 through the set container record
+- Traverse num2 and find whether there are the same elements in record. If so, use the set container resultSet to store them.
+- Convert resultSet to vector type
+
+### Animation description
 
 ![](../Animation/Animation.gif)
 
-### 代码实现
+### Code implementation
 
 ```
 class Solution {

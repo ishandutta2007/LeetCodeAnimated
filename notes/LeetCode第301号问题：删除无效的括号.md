@@ -1,52 +1,52 @@
-# LeetCode 第 301 号问题：删除无效的括号
+# LeetCode Issue No. 301: Remove invalid brackets
 
-> 本文首发于公众号「五分钟学算法」，是[图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>)系列文章之一。
+> This article was first published on the public account "Learning Algorithms in Five Minutes" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 个人网站：[https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
+> Personal website: [https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
 
-题目来源于 LeetCode 第 301 号问题：删除无效的括号。有小伙伴后台留言说这题是中山大学计算机考研机试题。
+The question comes from LeetCode question No. 301: Remove invalid brackets. A friend left a message in the background saying that this question was a computer-based test question for the Sun Yat-sen University computer postgraduate entrance examination.
 
-### 题目描述
+### Title description
 
-删除最小数量的无效括号，使得输入的字符串有效，返回所有可能的结果。
+Removes the minimum number of invalid parentheses to make the input string valid, returning all possible results.
 
-**说明:** 输入可能包含了除 `(` 和 `)` 以外的字符。
+**Note:** The input may contain characters other than `(` and `)`.
 
-**示例 1:**
-
-```
-输入: "()())()"
-输出: ["()()()", "(())()"]
-```
-
-**示例 2:**
+**Example 1:**
 
 ```
-输入: "(a)())()"
-输出: ["(a)()()", "(a())()"]
+Input: "()())()"
+Output: ["()()()", "(())()"]
 ```
 
-**示例 3:**
+**Example 2:**
 
 ```
-输入: ")("
-输出: [""]
+Input: "(a)())()"
+Output: ["(a)()()", "(a())()"]
+```
+
+**Example 3:**
+
+```
+Input: ")("
+Output: [""]
 ```
 
 
 
-### 题目解析
+### Question analysis
 
-所谓有效的括号，那么字符串中的左右括号数应该相同，而且每个右括号左边一定有其对应的左括号。这里很容易想到使用一个栈来模拟匹配过程，'(' 入栈，')' 出栈，若栈为空说明该串是符合题意的。
+The so-called valid brackets mean that the number of left and right brackets in the string should be the same, and there must be a corresponding left bracket to the left of each right bracket. It is easy to think of using a stack to simulate the matching process. '(' is pushed into the stack and ')' is popped out of the stack. If the stack is empty, it means that the string is consistent with the meaning of the question.
 
-首先对括号进行删除，遍历从前往后遍历可以删除不符合的 ')' 括号，从后往前遍历可以删除不符合的'('括号，通过 BFS，不断的对队列的字符串进行 checkLeft 和 checkRight 操作，若遇到 ture，则说明当前的字符串已经是删除最少无效的括号的最优解了，接着就对队列中的其他字符串进行 check 即可。
-这道题目的动画与 LeetCode 第 20 号问题--有效的括号很类似，这里就拿出来进行参考理解一下，区别点就在于多了遍历和哈希存储。
+First, delete the brackets. By traversing from front to back, you can delete the non-conforming ')' brackets. By traversing from back to front, you can delete the non-conforming '(' brackets. Through BFS, continuously perform checkLeft and checkRight operations on the strings in the queue. If true is encountered, it means that the current string is already the optimal solution to delete the least invalid brackets, and then check other strings in the queue.
+The animation of this question is very similar to LeetCode Question No. 20 - Valid Parentheses. Here it is used for reference and understanding. The difference lies in the addition of traversal and hash storage.
 
-### 动画描述
+### Animation description
 
-待补充
+To be added
 
-### 代码实现
+### Code implementation
 
 ```
 
@@ -73,7 +73,7 @@ public class Solution {
     Set<String> vis=new HashSet<String>();
     Queue<String> queue=new LinkedList<String>();
 
-    public void check(String s,List<String> ans){  //查看是否正确
+    public void check(String s,List<String> ans){ //Check whether it is correct
         Stack<Character> st=new Stack<Character>();
         for(char c:s.toCharArray()){
             if(c=='('){
@@ -91,7 +91,7 @@ public class Solution {
         }
     }
 
-    public boolean checkLeft(String s,List<String> ans){ //检查左边
+    public boolean checkLeft(String s,List<String> ans){ //Check left
         //delete right
         Stack<Character> st=new Stack<Character>();
         for(int i=0;i<s.length();++i){
@@ -99,7 +99,7 @@ public class Solution {
                 st.push(s.charAt(i));
             }else if(s.charAt(i)==')'){
                 if(st.isEmpty()){
-                    for(int j=i;j>=0;--j){ //删除不符合的')'  多种情况
+                    for(int j=i;j>=0;--j){ //Delete inconsistent ')' in various situations
                         if(s.charAt(j)==')'){
                             String s1=s.substring(0,j)+s.substring(j+1);
                             if(!vis.contains(s1)){
@@ -121,7 +121,7 @@ public class Solution {
         return false;
     }
 
-    public boolean checkRight(String s,List<String> ans){ //检查右边
+    public boolean checkRight(String s,List<String> ans){ //Check the right
         //delete right
         Stack<Character> st=new Stack<Character>();
         st.clear();
@@ -131,7 +131,7 @@ public class Solution {
             }else if(s.charAt(i)=='('){
                 if(st.isEmpty()){
                     for(int j=i;j<s.length();++j){
-                        if(s.charAt(j)=='('){  //删除不符合的'(' 多种情况
+                        if(s.charAt(j)=='('){ //Delete inconsistent '(' multiple situations
                             String s1=s.substring(0,j)+s.substring(j+1);
                             if(!vis.contains(s1)){
                                 vis.add(s1);

@@ -1,25 +1,25 @@
-# LeetCode 第 239 号问题：滑动窗口最大值
+# LeetCode Issue No. 239: Maximum sliding window
 
-> 本文首发于公众号「五分钟学算法」，是[图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>)系列文章之一。
+> This article was first published on the public account "Learning Algorithms in Five Minutes" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 个人网站：[https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
+> Personal website: [https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
 
-题目来源于 LeetCode 上第 239 号问题：滑动窗口最大值。题目难度为 Hard，目前通过率为 40.5% 。
+The question comes from question No. 239 on LeetCode: Maximum value of sliding window. The difficulty of the questions is Hard, and the current passing rate is 40.5%.
 
-### 题目描述
+### Title description
 
-给定一个数组 *nums*，有一个大小为 *k* 的滑动窗口从数组的最左侧移动到数组的最右侧。你只可以看到在滑动窗口 *k* 内的数字。滑动窗口每次只向右移动一位。
+Given an array *nums*, there is a sliding window of size *k* moving from the leftmost side of the array to the rightmost side of the array. You can only see numbers within the sliding window *k*. The sliding window only moves one position to the right at a time.
 
-返回滑动窗口最大值。
+Returns the sliding window maximum value.
 
-**示例:**
+**Example:**
 
 ```
-输入: nums = [1,3,-1,-3,5,3,6,7], 和 k = 3
-输出: [3,3,5,5,6,7] 
-解释: 
+Input: nums = [1,3,-1,-3,5,3,6,7], and k = 3
+Output: [3,3,5,5,6,7]
+explain:
 
-  滑动窗口的位置                最大值
+  Sliding window position maximum
 ---------------               -----
 [1  3  -1] -3  5  3  6  7       3
  1 [3  -1  -3] 5  3  6  7       3
@@ -29,53 +29,53 @@
  1  3  -1  -3  5 [3  6  7]      7
 ```
 
-**注意：**
+**Notice:**
 
-你可以假设 *k* 总是有效的，1 ≤ k ≤ 输入数组的大小，且输入数组不为空。
+You can assume that *k* is always valid, 1 ≤ k ≤ the size of the input array, and that the input array is not empty.
 
-**进阶：**
+**Advanced:**
 
-你能在线性时间复杂度内解决此题吗？
+Can you solve this problem in linear time complexity?
 
-### 题目解析
+### Question analysis
 
-利用一个 **双端队列**，在队列中存储元素在数组中的位置， 并且维持队列的严格递减,，也就说维持队首元素是 **最大的 **，当遍历到一个新元素时, 如果队列里有比当前元素小的，就将其移除队列，以保证队列的递减。当队列元素位置之差大于 k，就将队首元素移除。
+Use a **double-ended queue** to store the position of the element in the array in the queue, and maintain strict decrement of the queue, that is to say, the head element of the queue is maintained to be the **largest**. When a new element is traversed, if there is an element in the queue that is smaller than the current element, it will be removed from the queue to ensure the decrement of the queue. When the difference in queue element positions is greater than k, the head element of the queue is removed.
 
-### 补充：什么是双端队列（Dqueue）
+### Supplement: What is a double-ended queue (Dqueue)
 
-Deque 的含义是 “double ended queue”，即双端队列，它具有队列和栈的性质的数据结构。顾名思义，它是一种前端与后端都支持插入和删除操作的队列。
+Deque means "double ended queue", which is a data structure with the properties of queue and stack. As the name suggests, it is a queue that supports insertion and deletion operations on both the front end and the back end.
 
-Deque 继承自 Queue（队列），它的直接实现有 ArrayDeque、LinkedList 等。
+Deque inherits from Queue (queue), and its direct implementations include ArrayDeque, LinkedList, etc.
 
 ### 
 
 
 
-### 动画描述
+### Animation description
 
-![动画描述 Made by Jun Chen](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/8ggd3.gif)
+![Animation description Made by Jun Chen](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/8ggd3.gif)
 
-### 代码实现
+### Code implementation
 
 ```
 class Solution {
    public int[] maxSlidingWindow(int[] nums, int k) {
-        //有点坑，题目里都说了数组不为空，且 k > 0。但是看了一下，测试用例里面还是有nums = [], k = 0，所以只好加上这个判断
+        //It's a bit tricky. The question says that the array is not empty and k > 0. But after taking a look, the test case still contains nums = [], k = 0, so I had to add this judgment.
         if (nums == null || nums.length < k || k == 0) return new int[0];
         int[] res = new int[nums.length - k + 1];
-        //双端队列
+        //double ended queue
         Deque<Integer> deque = new LinkedList<>();
         for (int i = 0; i < nums.length; i++) {
-            //在尾部添加元素，并保证左边元素都比尾部大
+            //Add elements to the tail and ensure that the elements on the left are larger than the tail
             while (!deque.isEmpty() && nums[deque.getLast()] < nums[i]) {
                 deque.removeLast();
             }
             deque.addLast(i);
-            //在头部移除元素
+            //Remove elements from the head
             if (deque.getFirst() == i - k) {
                 deque.removeFirst();
             }
-            //输出结果
+            //Output results
             if (i >= k - 1) {
                 res[i - k + 1] = nums[deque.getFirst()];
             }

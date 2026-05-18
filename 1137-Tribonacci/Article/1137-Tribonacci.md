@@ -1,50 +1,50 @@
-## LeetCode第1137号问题：第N个泰波那契数
+## LeetCode Problem No. 1137: Nth Tabonacci Number
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 个人博客：www.zhangxiaoshuai.fun
+> Personal blog: www.zhangxiaoshuai.fun
 
-**本题选自leetcode中第1137题，easy级别，目前通过率52.4%**
+**This question is selected from question 1137 in leetcode, easy level, current pass rate is 52.4%**
 
-### 题目描述：
+### Title description:
 
 ```txt
-泰波那契序列 Tn 定义如下： 
-T0 = 0, T1 = 1, T2 = 1, 且在 n >= 0 的条件下 Tn+3 = Tn + Tn+1 + Tn+2
-给你整数 n，请返回第 n 个泰波那契数 Tn 的值。
+The Tabonacci sequence Tn is defined as follows:
+T0 = ​​0, T1 = 1, T2 = 1, and under the condition that n >= 0, Tn+3 = Tn + Tn+1 + Tn+2
+Given an integer n, please return the value of the nth Tabonacci number Tn.
 
-示例 1：
-输入：n = 4
-输出：4
-解释：
+Example 1:
+Input: n = 4
+Output: 4
+explain:
 T_3 = 0 + 1 + 1 = 2
 T_4 = 1 + 1 + 2 = 4
 
-示例 2：
-输入：n = 25
-输出：1389537
+Example 2:
+Input: n = 25
+Output: 1389537
 
-提示：
+hint:
     0 <= n <= 37
-    答案保证是一个 32 位整数，即 answer <= 2^31 - 1。
+    The answer is guaranteed to be a 32-bit integer, i.e. answer <= 2^31 - 1.
 ```
 
-### 题目分析：
-要是之前有接触过斐波那契数列的话，这道题是非常容易有解决思路的。我们有以下三种方法（正经方法两种，哈哈哈）来解决该问题：
+### Question analysis:
+If you have been exposed to the Fibonacci sequence before, it is very easy to have a solution to this problem. We have the following three methods (two serious methods, hahaha) to solve this problem:
 
 ```
-1.递归（但是leetcode中是无法AC的，超出时间限制，但是还是会将代码展示出来）
-2.动态规划（这种题都是已知前面的来求得未知的，使用dp再合适不过）
-3.暴力（抖机灵，看一乐就可以啦）
+1. Recursion (but AC cannot be used in leetcode, and the time limit is exceeded, but the code will still be displayed)
+2. Dynamic programming (this kind of problem is all about finding the unknown by knowing the previous ones, so it is best to use dp)
+3. Violence (show your wits, just watch it for fun)
 ```
 
-### GIF动画演示：
+### GIF animation demonstration:
 
 ![](../Animation/1137-Tribonacci.gif)
 
-## 代码：
+## Code:
 
-### 递归版本：
+### Recursive version:
 
 ```java
 public int tribonacci(int n) {
@@ -58,7 +58,7 @@ public int tribonacci(int n) {
 }
 ```
 
-### 动态规划
+### Dynamic programming
 
 ```java
 int[] dp = new int[38];
@@ -78,7 +78,7 @@ public int tribonacci(int n) {
 }
 ```
 
-### 暴力法（十分暴力，哈哈哈哈……）
+### Violent law (very violent, hahahaha...)
 
 ```java
 public int tribonacci(int n) {

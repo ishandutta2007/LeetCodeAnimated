@@ -1,47 +1,47 @@
-# LeetCode 第 203 号问题：移除链表元素
+# LeetCode Issue No. 203: Remove linked list elements
 
-> 本文首发于公众号「五分钟学算法」，是[图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>)系列文章之一。
+> This article was first published on the public account "Learning Algorithms in Five Minutes" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 个人网站：[https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
+> Personal website: [https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
 
-题目来源于 LeetCode 上第 203 号问题：移除链表元素。题目难度为 Easy，目前通过率为 55.8% 。
+The question comes from question No. 203 on LeetCode: Remove linked list elements. The difficulty of the questions is Easy, and the current passing rate is 55.8%.
 
-### 题目描述
+### Title description
 
-删除链表中等于给定值 **val** 的所有节点。
+Delete all nodes in the linked list that are equal to the given value **val**.
 
-**示例:**
+**Example:**
 
 ```
-输入: 1->2->6->3->4->5->6, val = 6
-输出: 1->2->3->4->5
+Input: 1->2->6->3->4->5->6, val = 6
+Output: 1->2->3->4->5
 ```
 
-### 题目解析
+### Question analysis
 
-主要考察了基本的链表遍历和设置指针的知识点。
+It mainly examines the basic knowledge points of linked list traversal and pointer setting.
 
-定义一个虚拟头节点`dummyHead `，遍历查看原链表，遇到与给定值相同的元素，将该元素的前后两个节点连接起来，然后删除该元素即可。
+Define a virtual head node `dummyHead`, traverse the original linked list, and when encountering an element with the same value as the given value, connect the two nodes before and after the element, and then delete the element.
 
-### 动画描述
+### Animation description
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/tuy84.gif)
 
-### 代码实现
+### Code implementation
 
-#### 代码一
+#### Code 1
 
 ```
 // 203. Remove Linked List Elements
 // https://leetcode.com/problems/remove-linked-list-elements/description/
-// 使用虚拟头结点
-// 时间复杂度: O(n)
-// 空间复杂度: O(1)
+//Use virtual header node
+// Time complexity: O(n)
+// Space complexity: O(1)
 class Solution {
 public:
     ListNode* removeElements(ListNode* head, int val) {
 
-        // 创建虚拟头结点
+        //Create virtual header node
         ListNode* dummyHead = new ListNode(0);
         dummyHead->next = head;
 
@@ -65,11 +65,11 @@ public:
 
 ```
 
-#### 代码二
+#### Code 2
 
-用递归来解。
+Use recursion to solve.
 
-通过递归调用到链表末尾，然后回来，需要删的元素，将链表next指针指向下一个元素即可。
+By recursively calling to the end of the linked list, and then coming back, if you want to delete the element, just point the next pointer of the linked list to the next element.
 
 ```
 class Solution {

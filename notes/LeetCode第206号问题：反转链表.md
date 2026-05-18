@@ -1,39 +1,39 @@
-# LeetCode 第 206 号问题：反转链表
+# LeetCode Issue No. 206: Reverse linked list
 
-> 本文首发于公众号「五分钟学算法」，是[图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>)系列文章之一。
+> This article was first published on the public account "Learning Algorithms in Five Minutes" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 个人网站：[https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
+> Personal website: [https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
 
-题目来源于 LeetCode 上第 206 号问题：反转链表。题目难度为 Easy，目前通过率为 45.8% 。
+The question comes from question No. 206 on LeetCode: Reverse linked list. The difficulty of the questions is Easy, and the current passing rate is 45.8%.
 
-### 题目描述
+### Title description
 
-反转一个单链表。
+Reverse a singly linked list.
 
-**示例:**
+**Example:**
 
 ```
-输入: 1->2->3->4->5->NULL
-输出: 5->4->3->2->1->NULL
+Input: 1->2->3->4->5->NULL
+Output: 5->4->3->2->1->NULL
 ```
 
-**进阶:**
-你可以迭代或递归地反转链表。你能否用两种方法解决这道题？
+**Advanced:**
+You can reverse a linked list iteratively or recursively. Can you solve this problem in two ways?
 
-### 题目解析
+### Question analysis
 
-设置三个节点`pre`、`cur`、`next`
+Set three nodes `pre`, `cur`, `next`
 
-- （1）每次查看`cur`节点是否为`NULL`，如果是，则结束循环，获得结果
-- （2）如果`cur`节点不是为`NULL`，则先设置临时变量`next`为`cur`的下一个节点
-- （3）让`cur`的下一个节点变成指向`pre`，而后`pre`移动`cur`，`cur`移动到`next`
-- （4）重复（1）（2）（3）
+- (1) Check whether the `cur` node is `NULL` each time. If so, end the loop and obtain the result.
+- (2) If the `cur` node is not `NULL`, first set the temporary variable `next` to the next node of `cur`
+- (3) Let the next node of `cur` point to `pre`, then `pre` moves `cur`, and `cur` moves to `next`
+- (4) Repeat (1) (2) (3)
 
-### 动画描述
+### Animation description
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/voxlq.gif)
 
-### 代码实现
+### Code implementation
 
 ```
 class Solution {

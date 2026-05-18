@@ -1,46 +1,46 @@
-# LeetCode 第 242 号问题：有效的字母异位词
+# LeetCode Issue No. 242: Valid Anagrams
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步博客：https://www.algomooc.com
+> Synchronized blog: https://www.algomooc.com
 
-题目来源于 LeetCode 上第 242 号问题：有效的字母异位词。题目难度为 Easy，目前通过率为 60.5% 。
+The question comes from question 242 on LeetCode: Valid allophones. The difficulty of the questions is Easy, and the current passing rate is 60.5%.
 
-### 题目描述
+### Title description
 
-给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。
+Given two strings s and t , write a function to determine whether t is an anagram of s .
 
-**示例 1:**
-
-```
-输入: s = "anagram", t = "nagaram"
-输出: true
-```
-
-**示例 2:**
+**Example 1:**
 
 ```
-输入: s = "rat", t = "car"
-输出: false
+Input: s = "anagram", t = "nagaram"
+Output: true
 ```
 
-**说明：**
+**Example 2:**
 
-你可以假设字符串只包含小写字母。
+```
+Input: s = "rat", t = "car"
+Output: false
+```
 
-**进阶：**
+**illustrate:**
 
-如果输入字符串包含 unicode 字符怎么办？你能否调整你的解法来应对这种情况？
+You can assume that the string contains only lowercase letters.
 
-### 题目解析
+**Advanced:**
 
-字母异位词的意思是，如果两个字符串互为字母异位词，那么两个字符串里的字符数量和种类都一样，不一样的是每个字符出现的位置，以及先后顺序。最简单的方法是直接将字符串按一定的规则排序，然后遍历对比即可。这种方法省空间，但是因为涉及到排序，时间复杂度就是 `O(nlgn)`。
+What if the input string contains unicode characters? Can you adapt your solution to handle this situation?
 
-还有一个类似计数排序的方法，就是统计一个字符串里面所有字符对应的个数，然后再拿另外一个字符串做对比，这么做可以把时间复杂度降到 `O(n)`，如果这道题目中的字符串仅仅包含小写字母的话，我们可以开辟一个长度是 26 的数组，这样就不需要额外的空间，但如果说输入的字符串包含 unicode 字符，由于 unicode 字符集过于庞大，常量级别的数组变得不那么可取，我们可以考虑使用散列表这样的结构进行存储，逻辑是和之前一样的，但是这里的空间复杂度就不再是 `O(1)`，而是 `O(n)`
+### Question analysis
+
+The meaning of anagrams is that if two strings are anagrams of each other, then the number and types of characters in the two strings are the same, but the difference is the position and order in which each character appears. The simplest method is to directly sort the strings according to certain rules, and then traverse and compare them. This method saves space, but because it involves sorting, the time complexity is `O(nlgn)`.
+
+There is another method similar to counting sorting, which is to count the number of all characters in a string, and then compare it with another string. This can reduce the time complexity to `O(n)`. If the string in this question only contains lowercase letters, we can open an array with a length of 26, so that no additional space is needed. But if the input string contains unicode characters, due to unicode The character set is too large, and constant-level arrays become less desirable. We can consider using a structure such as a hash table for storage. The logic is the same as before, but the space complexity here is no longer `O(1)`, but `O(n)`
 
 <br>
 
-### 代码实现（排序）
+### Code implementation (sorting)
 
 ```java
 public boolean isAnagram(String s, String t) {
@@ -55,7 +55,7 @@ public boolean isAnagram(String s, String t) {
 }
 ```
 
-### 代码实现（哈希）
+### Code implementation (hash)
 
 ```java
 public boolean isAnagram(String s, String t) {
@@ -82,7 +82,7 @@ public boolean isAnagram(String s, String t) {
 }
 ```
 
-### 动画描述
+### Animation description
 
 ![](../Animation/242.gif)
 

@@ -1,40 +1,40 @@
-# LeetCode 第 2 号问题：两数相加
+# LeetCode Problem No. 2: Adding Two Numbers
 
-> 本文首发于公众号「五分钟学算法」，是[图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>)系列文章之一。
+> This article was first published on the public account "Learning Algorithms in Five Minutes" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 个人网站：[https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
+> Personal website: [https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
 
-题目来源于 LeetCode 上第 2 号问题：两数相加。题目难度为 Medium，目前通过率为 33.9% 。
+The question comes from question No. 2 on LeetCode: Adding two numbers. The difficulty level of the questions is Medium, and the current pass rate is 33.9%.
 
-### 题目描述
+### Title description
 
-给出两个 **非空** 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 **逆序** 的方式存储的，并且它们的每个节点只能存储 **一位** 数字。
+Given two **non-empty** linked lists representing two non-negative integers. Among them, their respective digits are stored in **reverse order**, and each of their nodes can only store **one** digit.
 
-如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。
+If, we add these two numbers, a new linked list will be returned representing their sum.
 
-您可以假设除了数字 0 之外，这两个数都不会以 0 开头。
+You can assume that neither number starts with 0 except for the number 0.
 
-**示例：**
+**Example:**
 
 ```
-输入：(2 -> 4 -> 3) + (5 -> 6 -> 4)
-输出：7 -> 0 -> 8
-原因：342 + 465 = 807
+Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
+Output: 7 -> 0 -> 8
+Reason: 342 + 465 = 807
 ```
 
-### 题目解析
+### Question analysis
 
-设立一个表示进位的变量`carried`，建立一个新链表，把输入的两个链表从头往后同时处理，每两个相加，将结果加上`carried`后的值作为一个新节点到新链表后面。
+Set up a variable `carried` that represents carry, create a new linked list, process the two input linked lists simultaneously from the beginning to the end, add each two, and add the value after `carried` to the result as a new node to the back of the new linked list.
 
-### 动画描述
+### Animation description
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/lchmg.gif)
 
-### 代码实现
+### Code implementation
 
 ```
-/// 时间复杂度: O(n)
-/// 空间复杂度: O(n)
+/// Time complexity: O(n)
+/// Space complexity: O(n)
 /**
  * Definition for singly-linked list.
  * public class ListNode {

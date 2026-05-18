@@ -1,58 +1,58 @@
-# LeetCode 第 268 号问题：缺失数字
+# LeetCode Issue No. 268: Missing Numbers
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步博客：https://www.algomooc.com
+> Synchronized blog: https://www.algomooc.com
 
-今天分享一道很简单的算法题。
+Today I will share a very simple algorithm question.
 
-题目来源于 LeetCode 上第 268 号问题：缺失数字。题目难度为 Easy，目前通过率为 50.2% 。
+The question comes from question No. 268 on LeetCode: Missing Numbers. The difficulty of the questions is Easy, and the current passing rate is 50.2%.
 
-## 题目描述
+## Title description
 
-给定一个包含 `0, 1, 2, ..., n` 中 *n* 个数的序列，找出 0 .. *n* 中没有出现在序列中的那个数。
+Given a sequence containing *n* numbers in `0, 1, 2, ..., n`, find the number among 0 .. *n* that does not appear in the sequence.
 
-**说明：**
+**illustrate:**
 
-你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？
+Your algorithm should have linear time complexity. Can you do it without using extra space?
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/i47fw.png)
 
-## 题目解析
+## Question analysis
 
-这道题目有三种解法。
+There are three solutions to this question.
 
-### 解法一：异或法
+### Solution 1: XOR method
 
-和之前那道 **只出现一次的数字** 很类似：
+It is very similar to the previous **number that only appears once**:
 
-> 只出现一次的数字:  给定一个**非空**整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。
+> Numbers that appear only once: Given a **non-empty** array of integers, each element appears twice except for one element that appears only once. Find the element that appears only once.
 
-如果我们补充一个完整的数组和原数组进行组合，那所求解的问题就变成了 **只出现一次的数字**。
+If we add a complete array and combine it with the original array, the problem solved becomes **numbers that only appear once**.
 
-将少了一个数的数组与 0 到 n 之间完整的那个数组进行异或处理，因为相同的数字异或会变为了 0 ，那么全部数字异或后，剩下的就是少了的那个数字。
+XOR the array with one missing number and the complete array between 0 and n, because the same number will become 0 through XOR, then after XORing all the numbers, the remaining number will be the missing number.
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/el8zt.png)
 
-#### 代码实现1
+#### Code implementation 1
 
 ```java
 class Solution {
     public int missingNumber(int[] nums) {
         int res = 0;
         int i = 0;
-        //注意数组越界情况
+        //Pay attention to array out-of-bounds situations
         for (; i < nums.length;i++){
-            // i 表示完整数组中的数字，与原数组中的数字 nums[i] 进行异或，再与保存的结果异或
+            // i represents the number in the complete array, XOR it with the number nums[i] in the original array, and then XOR it with the saved result
             res = res^i^nums[i];
         }
-        //最后需要与循环中无法使用到的那个最大的数异或
+        //Finally, it needs to be XORed with the largest number that cannot be used in the loop
         return res^i;
     }
 }
 ```
 
-#### 代码实现2
+#### Code implementation 2
 
 ```java
 class Solution {
@@ -69,16 +69,16 @@ class Solution {
 
 
 
-### 解法二：求和法
+### Solution 2: Summation method
 
-- 求出 0 到 n 之间所有的数字之和
-- 遍历数组计算出原始数组中数字的累积和
-- 两和相减，差值就是丢失的那个数字
+- Find the sum of all numbers between 0 and n
+- Iterate through the array and calculate the cumulative sum of the numbers in the original array
+- Subtract two sums, and the difference is the missing number.
 
 ![](../Animation/Animation.gif)
 
 ```java
-//小吴之前担心会数据溢出，不过估计这题考察的不是这个，所以测试用例没写这种吧，还是能 AC 的
+//Xiao Wu was worried about data overflow before, but I guess this is not what this question is examining, so the test case is not written like this. It can still be AC.
 class Solution {
    public int missingNumber(int[] nums) {
         int n = nums.length;
@@ -93,14 +93,14 @@ class Solution {
 
 
 
-### 解法三：二分法
+### Solution 3: Dichotomy
 
-将数组进行排序后，利用二分查找的方法来找到缺少的数字，注意搜索的范围为 0 到 n 。
+After sorting the array, use binary search to find the missing numbers. Note that the search range is 0 to n.
 
-- 首先对数组进行排序
-- 用元素值和下标值之间做对比，如果元素值大于下标值，则说明缺失的数字在左边，此时将 right 赋为 mid ，反之则将 left 赋为 mid + 1 。
+- First sort the array
+- Compare the element value and the subscript value. If the element value is greater than the subscript value, it means that the missing number is on the left. In this case, right is assigned to mid, otherwise left is assigned to mid + 1.
 
-> 注：由于一开始进行了排序操作，因此使用二分法的性能是不如上面两种方法。
+> Note: Since the sorting operation is performed at the beginning, the performance of using the binary method is not as good as the above two methods.
 
 ```java
 public class Solution {

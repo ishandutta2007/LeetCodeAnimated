@@ -1,20 +1,20 @@
-# LeetCode 图解 | 
+# LeetCode Illustration |
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步博客：https://www.algomooc.com
+> Synchronized blog: https://www.algomooc.com
 
-本题解作者：nettee
+Author of this solution: nettee
 
-## 题目描述
+## Title description
 
-给定一个包含了一些 `0` 和 `1` 的非空二维数组 `grid`。
+Given a non-empty two-dimensional array `grid` containing some `0` and `1`.
 
-一个**岛屿**是由一些相邻的 `1` (代表土地) 构成的组合，这里的「相邻」要求两个 `1` 必须在水平或者竖直方向上相邻。你可以假设 `grid` 的四个边缘都被 `0`（代表水）包围着。
+An **Island** is a combination of some adjacent `1` (representing land). The "adjacent" here requires that two `1` must be adjacent horizontally or vertically. You can assume that the four edges of the `grid` are surrounded by `0` (representing water).
 
-找到给定的二维数组中最大的岛屿面积。(如果没有岛屿，则返回面积为 `0`。)
+Find the largest island area in the given 2D array. (If there are no islands, the returned area is `0`.)
 
-**示例 1:**
+**Example 1:**
 
 ```
 [[0,0,1,0,0,0,0,1,0,0,0,0,0],
@@ -28,34 +28,34 @@
 ```
 
 
-对于上面这个给定矩阵应返回 6。注意答案不应该是 11 ，因为岛屿只能包含水平或垂直的四个方向的 `1` 。
+For the given matrix above it should return 6. Note that the answer should not be 11 because the island can only contain `1`s in four directions, horizontal or vertical.
 
-**示例 2:**
+**Example 2:**
 
 ```
 [[0,0,0,0,0,0,0,0]]
 ```
 
 
-对于上面这个给定的矩阵, 返回 0。
+For the given matrix above, returns 0.
 
-注意: 给定的矩阵 `grid` 的长度和宽度都不超过 50。
+Note: The length and width of the given matrix `grid` cannot exceed 50.
 
-## 题目解析
+## Question analysis
 
-这道题的主要思路是深度优先搜索。每次走到一个是 1 的格子，就搜索整个岛屿，并计算当前岛屿的面积。最后返回岛屿面积的最大值。
+The main idea of ​​​​this question is depth-first search. Every time you go to a grid with a value of 1, search the entire island and calculate the area of ​​the current island. Finally, the maximum value of the island area is returned.
 
-网格可以看成是一个无向图的结构，每个格子和它上下左右的四个格子相邻。如果四个相邻的格子坐标合法，且是陆地，就可以继续搜索。
+The grid can be viewed as an undirected graph structure, with each grid adjacent to its four grids above, below, left, and right. If the coordinates of the four adjacent grids are legal and they are land, you can continue searching.
 
-在深度优先搜索的时候要注意避免重复遍历。我们可以把已经遍历过的陆地改成 2，这样遇到 2 我们就知道已经遍历过这个格子了，不进行重复遍历。
+When doing depth-first search, be careful to avoid repeated traversals. We can change the land that has been traversed to 2, so that when we encounter 2, we will know that we have already traversed this grid and will not repeat the traversal.
 
-## 动画理解
+## Animation understanding
 
 ![](../Animation/Animation.gif)
 
-## 参考代码
+## Reference code
 
-C++ 代码：
+C++ code:
 
 ```C++
 class Solution {
@@ -96,7 +96,7 @@ public:
 };
 ```
 
-Java 代码：
+Java code:
 
 ```Java
 class Solution {
@@ -136,7 +136,7 @@ class Solution {
 }
 ```
 
-Python 代码：
+Python code:
 
 ```Python
 class Solution:
@@ -168,6 +168,6 @@ class Solution:
 
 
 
-## 复杂度分析
+## Complexity analysis
 
-设网格的边长为 n，则时间复杂度为 O(n²)。
+Assuming the side length of the grid is n, the time complexity is O(n²).

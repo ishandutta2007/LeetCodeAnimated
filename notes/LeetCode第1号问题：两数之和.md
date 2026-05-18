@@ -1,49 +1,49 @@
-# LeetCode 第 1 号问题：两数之和
+# LeetCode Problem No. 1: Sum of Two Numbers
 
-> 本文首发于公众号「五分钟学算法」，是[图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>)系列文章之一。
+> This article was first published on the public account "Learning Algorithms in Five Minutes" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 个人网站：[https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
+> Personal website: [https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
 >
-> 视频讲解：[【跟着程序员小吴图解 LeetCode 】LeetCode 第 1 号问题：两数之和](<https://www.bilibili.com/video/av51296602>)
+> Video explanation: [[Follow programmer Xiao Wu’s illustration of LeetCode] LeetCode Question No. 1: The sum of two numbers](<https://www.bilibili.com/video/av51296602>)
 
-题目来源于 LeetCode 上第 1 号问题：两数之和。题目难度为 Easy，目前通过率为 45.8% 。
+The question comes from question No. 1 on LeetCode: The sum of two numbers. The difficulty of the questions is Easy, and the current passing rate is 45.8%.
 
-### 题目描述
+### Title description
 
-给定一个整数数组 `nums` 和一个目标值 `target`，请你在该数组中找出和为目标值的那 **两个** 整数，并返回他们的数组下标。
+Given an integer array `nums` and a target value `target`, please find the **two** integers in the array whose sum is the target value, and return their array subscripts.
 
-你可以假设每种输入只会对应一个答案。但是，你不能重复利用这个数组中同样的元素。
+You can assume that each input will correspond to only one answer. However, you cannot reuse the same elements in this array.
 
-**示例:**
+**Example:**
 
 ```
-给定 nums = [2, 7, 11, 15], target = 9
+Given nums = [2, 7, 11, 15], target = 9
 
-因为 nums[0] + nums[1] = 2 + 7 = 9
-所以返回 [0, 1]
+Because nums[0] + nums[1] = 2 + 7 = 9
+So it returns [0, 1]
 ```
 
-### 题目解析
+### Question analysis
 
-使用查找表来解决该问题。
+Use a lookup table to solve this problem.
 
-设置一个 map 容器 record 用来记录元素的值与索引，然后遍历数组 nums。
+Set up a map container record to record the value and index of the element, and then traverse the array nums.
 
-* 每次遍历时使用临时变量 complement 用来保存目标值与当前值的差值
-* 在此次遍历中查找 record ，查看是否有与 complement 一致的值，如果查找成功则返回查找值的索引值与当前变量的值 i
-* 如果未找到，则在 record 保存该元素与索引值 i
+* Use the temporary variable complement each time it traverses to save the difference between the target value and the current value
+* Search record in this traversal to see if there is a value consistent with complement. If the search is successful, return the index value of the search value and the value of the current variable i
+* If not found, save the element and index value i in record
 
-### 动画描述
+### Animation description
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/mol6g.gif)
 
-### 代码实现
+### Code implementation
 
 ```
 // 1. Two Sum
 // https://leetcode.com/problems/two-sum/description/
-// 时间复杂度：O(n)
-// 空间复杂度：O(n)
+// Time complexity: O(n)
+// Space complexity: O(n)
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {

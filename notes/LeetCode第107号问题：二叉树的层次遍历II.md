@@ -1,17 +1,17 @@
-# LeetCode 第 107 号问题：二叉树的层次遍历 II
+# LeetCode Question No. 107: Level Traversal of Binary Tree II
 
-> 本文首发于公众号「五分钟学算法」，是[图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>)系列文章之一。
+> This article was first published on the public account "Learning Algorithms in Five Minutes" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 个人网站：[https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
+> Personal website: [https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
 
-题目来源于 LeetCode 上第 107 号问题：二叉树的层次遍历 II。题目难度为 Easy，目前通过率为 55.8% 。
+The question comes from question No. 107 on LeetCode: Level Traversal of Binary Trees II. The difficulty of the questions is Easy, and the current passing rate is 55.8%.
 
-### 题目描述
+### Title description
 
-给定一个二叉树，返回其节点值自底向上的层次遍历。 （即按从叶子节点所在层到根节点所在的层，逐层从左向右遍历）
+Given a binary tree, return a bottom-up hierarchical traversal of its node values. (That is, traverse from left to right layer by layer from the layer where the leaf node is to the layer where the root node is)
 
-例如：
-给定二叉树 `[3,9,20,null,null,15,7]`,
+For example:
+Given a binary tree `[3,9,20,null,null,15,7]`,
 
 ```
     3
@@ -21,7 +21,7 @@
    15   7
 ```
 
-返回其自底向上的层次遍历为：
+Return its bottom-up hierarchical traversal as:
 
 ```
 [
@@ -31,26 +31,26 @@
 ]
 ```
 
-### 题目解析
+### Question analysis
 
-该问题需要用到**队列**，解法与上篇[每天一算：Binary Tree Level Order Traversal](https://xiaozhuanlan.com/topic/8579460312)类似，区别在于最后存储方式的不同。
+This problem requires the use of **queue**. The solution is similar to the previous article [One calculation per day: Binary Tree Level Order Traversal] (https://xiaozhuanlan.com/topic/8579460312). The difference lies in the final storage method.
 
-- 建立一个 queue
-- 先把根节点放进去，这时候找根节点的左右两个子节点
-- 去掉根节点，此时queue里的元素就是下一层的所有节点
-- 用 for 循环遍历，将结果存到一个一维向量里
-- 遍历完之后再把这个一维向量**插入**到二维向量里
-- 以此类推，可以完成层序遍历
+- Create a queue
+- Put the root node in first, then find the left and right child nodes of the root node
+- Remove the root node. At this time, the elements in the queue are all the nodes in the next layer.
+- Use a for loop to traverse and store the results in a one-dimensional vector
+- After traversing, insert the one-dimensional vector into the two-dimensional vector
+- By analogy, layer-order traversal can be completed
 
 
 
-### 动画描述
+### Animation description
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/varp8.gif)
 
 
 
-### 代码实现
+### Code implementation
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/9iccc.png)
 

@@ -1,45 +1,45 @@
-## LeetCode第1054号问题：距离相等的条形码
+## LeetCode Issue No. 1054: Barcodes with equal distances
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步个人博客：www.zhangxiaoshuai.fun
+> Synchronize personal blog: www.zhangxiaoshuai.fun
 
-**本题选自leetcode第1054号问题，medium级别，目前通过率33.3%**
+**This question is selected from leetcode question No. 1054, medium level, current pass rate is 33.3%**
 
-**题目描述：**
+**Title description:**
 
-	在一个仓库里，有一排条形码，其中第 i 个条形码为 barcodes[i]。
-	请你重新排列这些条形码，使其中两个相邻的条形码不能相等。
-	你可以返回任何满足该要求的答案，此题保证存在答案。
-	示例 1：
-	输入：[1,1,1,2,2,2]
-	输出：[2,1,2,1,2,1]
+	In a warehouse, there is a row of barcodes, where the i-th barcode is barcodes[i].
+	Please rearrange these barcodes so that two adjacent barcodes cannot be equal.
+	You can return any answer that satisfies this requirement, and this question is guaranteed to have an answer.
+	Example 1:
+	Input: [1,1,1,2,2,2]
+	Output: [2,1,2,1,2,1]
 	
-	示例 2：
-	输入：[1,1,1,1,2,2,3,3]
-	输出：[1,3,1,3,2,1,2,1]
+	Example 2:
+	Input: [1,1,1,1,2,2,3,3]
+	Output: [1,3,1,3,2,1,2,1]
 	
-	提示：
+	hint:
 	    1 <= barcodes.length <= 10000
 	    1 <= barcodes[i] <= 10000 
-### 题目分析：
-	1.首先我们需要将每个条形码和出现的次数作一记录，为了存取方便，这里使用数组（题目中已经给出了数组的最大和最小长度）进行操作;  
-	2.找出其中出现最多次数的条形码，拿到该barcode和count;  
-	3.先将出现次数最多的条形码存入目标数组中（偶数位或者奇数位），并对记录数组作一更新；
-	4.随后将剩余的barcode填充进目标数组中。
+### Question analysis:
+	1. First we need to record each barcode and the number of times it appears. For the convenience of access, we use an array (the maximum and minimum length of the array has been given in the question) to operate;
+	2. Find the barcode that appears the most times and get the barcode and count;
+	3. First store the barcode with the most occurrences into the target array (even or odd digits), and update the record array;
+	4. Then fill the remaining barcode into the target array.
 
-### GIF动画展示：
+### GIF animation display:
 
 ![](../Animation/1054-rearrangeBarcodes.gif)
 
-### 代码：
+### Code:
 
 ```java
 public static int[] rearrangeBarcodes(int[] barcodes){
     int[] address = new int[10001];
     for (int barcode : barcodes)
         address[barcode]++;
-    // 找到出现次数最多的barcode
+    // Find the barcode with the most occurrences
     int maxCode = 0, maxCount = 0;
     for (int i = 0; i < address.length; i++) {
         if (maxCount < address[i]) {
@@ -48,15 +48,15 @@ public static int[] rearrangeBarcodes(int[] barcodes){
         }
     }
     int index = 0;
-    // 先填充最大的那一位barcode
+    // Fill in the largest barcode first
     for (; address[maxCode] > 0; index += 2) {
         barcodes[index] = maxCode;
         address[maxCode]--;
     }
-    // 继续填充剩余的条形码
+    // Continue to fill in the remaining barcodes
     for (int i = 1; i < address.length; i++) {
         while (address[i] > 0) {
-	//偶数位填充完毕
+	//The even digits are filled
             if (index >= barcodes.length) index = 1;
             barcodes[index] = i;
             address[i]--;

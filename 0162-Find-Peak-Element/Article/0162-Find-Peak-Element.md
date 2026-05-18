@@ -1,50 +1,50 @@
-题目来源于LeetCode上第162号问题：寻找峰值。题目难度为中等，目前通过率46.3%。
-##题目描述
-峰值元素是指其值大于左右相邻值的元素。
-给定一个输入数组``` nums```，其中 ```nums[i] ≠ nums[i+1]```，找到峰值元素并返回其索引。
-数组可能包含多个峰值，在这种情况下，返回任何一个峰值所在位置即可。
-你可以假设 ```nums[-1] = nums[n] = -∞```。
+The title comes from question No. 162 on LeetCode: Finding Peaks. The difficulty of the questions is medium, and the current pass rate is 46.3%.
+##Title description
+A peak element is an element whose value is greater than the adjacent values ​​to the left and right.
+Given an input array ``` nums``` where ```nums[i] ≠ nums[i+1]```, find the peak element and return its index.
+The array may contain multiple peaks, in which case just return the location of any peak.
+You can assume that ```nums[-1] = nums[n] = -∞```.
 
 ```
-示例 1:
+Example 1:
 
-输入:nums = [1,2,3,1]
-输出: 2
-解释: 3 是峰值元素，你的函数应该返回其索引 2。
-示例 2:
+Input: nums = [1,2,3,1]
+Output: 2
+Explanation: 3 is the peak element and your function should return its index 2.
+Example 2:
 
-输入: nums = [1,2,1,3,5,6,4]
-输出: 1 或 5 
-解释: 你的函数可以返回索引 1，其峰值元素为 2；或者返回索引 5， 其峰值元素为 6。
-说明:
-你的解法应该是 O(logN) 时间复杂度的。
+Input: nums = [1,2,1,3,5,6,4]
+Output: 1 or 5
+Explanation: Your function can return index 1, whose peak element is 2, or index 5, whose peak element is 6.
+illustrate:
+Your solution should be O(logN) time complexity.
 ```
-##题目解析
-我们从题目中可以了解到以下三个关键信息：
-- ```nums[i] ≠ nums[i+1]```，意味着数组中没有值相等的元素，要么```nums[i]>nums[i+1]```，要么```nums[i]<nums[i+1]```
-- 数组可能有多个峰值，我们只需要返回任意一个峰值的索引就行了。
-- 假设```nums[-1] = nums[n] = -∞```，因为数组两端都是负无穷，这意味着从```nums[0]```开始，一直找到有个值```nums[i]>nums[i+1]```，那么数组肯定有一个峰值，我们将他的索引返回就行了。
+##Question analysis
+We can learn the following three key pieces of information from the question:
+- ``nums[i] ≠ nums[i+1]```, which means that there are no elements with equal values ​​in the array, either ``nums[i]>nums[i+1]``, or ``nums[i]<nums[i+1]```
+- The array may have multiple peaks, we only need to return the index of any peak.
+- Assume that ```nums[-1] = nums[n] = -∞```, because both ends of the array are negative infinity, which means that starting from ````nums[0]````, until a value ````nums[i]>nums[i+1]```` is found, then the array must have a peak, and we can just return its index.
 
-为了更好的理解解题思路，我们先从线性搜索方法开始解析，并且将数组分为三类，即升序数组，降序数组，无序数组。然后，由于我们只需要找到任意一个峰值，返回它的索引就行。所以我们还可以用二分查找法（**PS：凡是搜索查找类型的题，首先想到的应该是效率较高的二分查找方法**）
-## 解法一：线性扫描
+In order to better understand the problem-solving ideas, we first start with the linear search method and divide the arrays into three categories, namely ascending arrays, descending arrays, and unordered arrays. Then, since we only need to find any one peak, just return its index. So we can also use the binary search method (**PS: For any search type question, the first thing that comes to mind should be the more efficient binary search method**)
+## Solution 1: Linear scan
 
-**1、假设数组是升序数组**
-![nums为升序数组](https://upload-images.jianshu.io/upload_images/1840444-fd9855e123fd87a8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-那么很明显我们的峰值是最后一个元素5，因为```nums[0]>nums[1]，nums[1]>nums[2]， ......，nums[3]>nums[4]```，```nums[4]```是最后一个元素，所以它的峰值索引是4。
-**2、假设数组是降序数组**
-![nums为降序数组](https://upload-images.jianshu.io/upload_images/1840444-df09e0d01139cd5f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-因为```nums[-1]=-∞```，并且```nums[0]>mums[1]```，所以```nums[0]```就是一个峰值，返回峰值索引是0。
-**3、假设数组是无序数组**
-![nums为无序数组](https://upload-images.jianshu.io/upload_images/1840444-9be820e4a5c0d71d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-同样我们从```nums[0]```开始往后比较大小，因为```nums[0]<nums[1],mums[1]<nums[2],mums[2]<nums[3],mums[3]>mums[4]```，所以可以知道```mums[3]```是一个峰值，返回索引是3。
+**1. Assume that the array is an ascending array**
+![nums is an ascending array](https://upload-images.jianshu.io/upload_images/1840444-fd9855e123fd87a8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+Then it is obvious that our peak is the last element 5, because nums[0]>nums[1], nums[1]>nums[2], ..., nums[3]>nums[4], nums[4] is the last element, so its peak index is 4.
+**2. Assume that the array is a descending array**
+![nums is an array in descending order](https://upload-images.jianshu.io/upload_images/1840444-df09e0d01139cd5f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+Because ```nums[-1]=-∞```, and ```nums[0]>mums[1]````, so ```nums[0]``` is a peak value, and the returned peak index is 0.
+**3. Assume that the array is an unordered array**
+![nums is an unordered array](https://upload-images.jianshu.io/upload_images/1840444-9be820e4a5c0d71d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+Similarly, we start from ```nums[0]``` and compare the sizes later, because ```nums[0]<nums[1],mums[1]<nums[2],mums[2]<nums[3],mums[3]>mums[4]````, so we can know that ```mums[3]``` is a peak value, and the returned index is 3.
 
-通过以上将数组分类解析，我们可以发现只要从```nums[0]```开始，与后一个元素比较，直到找到 ```nums[i]>nums[i+1]```，为止，我们就找到了一个峰值，这个峰值的索引就是```i```，如果一直都没有找到```nums[i]>nums[i+1]```的情况，那么峰值就是数组的最后一个元素，索引就是```nums.length-1```。
+Through the above classification and analysis of arrays, we can find that as long as we start from ```nums[0]```, compare it with the next element until we find ```nums[i]>nums[i+1]```, so far, we have found a peak value, and the index of this peak value is ````i````. If ```nums[i]>nums[i+1]```` has not been found, then the peak value is the last element of the array, and the index is ```nums.length-1````.
 
-##动画理解
+##Animation understanding
 
 ![](../Animation/Animation.gif)
 
-##代码实现
+##Code implementation
 ```
 public class Solution {
     public int findPeakElement(int[] nums) {
@@ -56,25 +56,25 @@ public class Solution {
     }
 }
 ```
-##复杂度分析
+##Complexity analysis
 
-- 时间复杂度：O(n)，我们对长度为 n 的数组 nums 只进行一次遍历。
-- 空间复杂度：O(1)，仅用了常数空间
+- Time complexity: O(n), we only traverse the array nums of length n once.
+- Space complexity: O(1), only constant space is used
 
-##解法二：二分查找
+##Solution 2: Binary search
 
-根据二分查找原理，我们假设左边索引```L=0```，右边索引```R=nums.length - 1```，中间索引```M=（L+R）/2```，现在主要就是判断这个峰值是在```M```的左边还是右边，然后移动```L```或者```R```来进一步缩小搜索范围。
+According to the principle of binary search, we assume that the left index ```L=0```, the right index ```R=nums.length - 1``, ​​and the middle index ```M= (L+R)/2```. Now the main thing is to determine whether the peak is on the left or right of ```M```, and then move ```L``` or ``R``` to further narrow the search range.
 
-我们找到中间元素，然后跟方法一线性扫描一样，与中间元素的右边元素比较。
-- 如果```nums[M]<nums[M+1]```那么可以知道中间元素```M```的右边肯定会有一个峰值，所以我们把```L```移到```M+1```的位置，在```M```的右边查找。并且重新计算```M```的值。
-- 如果```nums[M]>nums[M+1]```那么可以知道中间元素```M```的左边肯定会有一个峰值，所以我们把```R```移到```M```的位置，在```M```的左边查找，并且重新计算```M```的值。
-- 重复以上步骤，直到```R=L```，那么这个就是峰值元素。
+We find the middle element, and then compare it with the element to the right of the middle element, just like method 1 linear scan.
+- If ```nums[M]<nums[M+1]```, then you can know that there will definitely be a peak on the right side of the middle element ```M```, so we move ````L```` to the position of ```M+1``` and search on the right side of ```M```. And recalculate the value of ```M```.
+- If ```nums[M]>nums[M+1]```, then we know that there will definitely be a peak on the left side of the middle element ```M```, so we move ```R``` to the position of ```M```, search on the left side of ```M```, and recalculate the value of ```M```.
+- Repeat the above steps until ```R=L```, then this is the peak element.
 
-##动画理解
+##Animation understanding
 
 ![](../Animation/2.gif)
 
-##代码实现
+##Code implementation
 
 ```
 public class Solution {
@@ -92,7 +92,7 @@ public class Solution {
 }
 ```
 
-##复杂度分析
+##Complexity analysis
 
-- 时间复杂度：O(log2(n))，每一步都将搜索空间减半,其中n为 nums 数组的长度。。
-- 空间复杂度：O(1)，仅用了常数空间
+- Time complexity: O(log2(n)), each step reduces the search space by half, where n is the length of the nums array. .
+- Space complexity: O(1), only constant space is used

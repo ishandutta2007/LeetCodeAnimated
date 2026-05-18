@@ -1,56 +1,56 @@
-## LeetCode第942号问题：增减字符串匹配
+## LeetCode Issue No. 942: Increasing and Decreasing String Matching
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步个人博客：www.zhangxiaoshuai.fun
+> Synchronize personal blog: www.zhangxiaoshuai.fun
 
-本题在leetcode中题目序号942，属于easy级别，目前通过率为71.4%
+This question has question number 942 in leetcode, which belongs to the easy level. The current pass rate is 71.4%.
 
-### 题目描述：
+### Title description:
 
 ```
-给定只含 "I"（增大）或 "D"（减小）的字符串 S ，令 N = S.length。
-返回 [0, 1, ..., N] 的任意排列 A 使得对于所有 i = 0, ..., N-1，都有：
-    如果 S[i] == "I"，那么 A[i] < A[i+1]
-    如果 S[i] == "D"，那么 A[i] > A[i+1]
+Given a string S containing only "I" (increasing) or "D" (decreasing), let N = S.length.
+Returns any permutation A of [0, 1, ..., N] such that for all i = 0, ..., N-1, there is:
+    If S[i] == "I", then A[i] < A[i+1]
+    If S[i] == "D", then A[i] > A[i+1]
 
-示例 1：
-输出："IDID"
-输出：[0,4,1,3,2]
+Example 1:
+Output: "IDID"
+Output: [0,4,1,3,2]
 
-示例 2：
-输出："III"
-输出：[0,1,2,3]
+Example 2:
+Output: "III"
+Output: [0,1,2,3]
 
-示例 3：
-输出："DDI"
-输出：[3,2,0,1]
+Example 3:
+Output: "DDI"
+Output: [3,2,0,1]
 
-提示：
+hint:
     1 <= S.length <= 10000
-    S 只包含字符 "I" 或 "D"
+    S contains only the characters "I" or "D"
 ```
 
-**题目分析：**
+**Question Analysis:**
 
 ```
-题目中的意思很明确，我们只要满足给出的两个条件即可。
+The meaning of the question is very clear, we only need to meet the two conditions given.
 
-1.假如字符串的长度为N，那么目标数组的长度就为N+1；
+1. If the length of the string is N, then the length of the target array is N+1;
 
-2.数组中的数字都是从0~N，且没有重复；
+2. The numbers in the array are from 0 to N, and there are no repetitions;
 
-3.遇见‘I’，要增加；遇见‘D’要减少；
+3. When encountering ‘I’, increase; when encountering ‘D’, decrease;
 ```
 
-### GIF动画演示：
+### GIF animation demonstration:
 
 ![](../Animation/0942-di-String-Match01.gif)
 
-### 代码：
+### Code:
 
 ```java
-//这里搬运下官方的解法
+//The official solution is transferred here
 public int[] diStringMatch(String S) {
     int N = S.length();
     int lo = 0, hi = N;
@@ -66,25 +66,25 @@ public int[] diStringMatch(String S) {
 }
 ```
 
-**虽然上述代码很简洁，好像已经不需要我们去实现什么；但是满足条件的序列并不止一种，官方的好像只能通过一种，下面的代码虽然有些冗余，但是得出的序列是满足题意要求的，但是并不能AC；**
+**Although the above code is very concise, it seems that we no longer need to implement anything; but there is more than one sequence that meets the conditions, and the official one seems to only be able to pass one. Although the following code is somewhat redundant, the sequence obtained meets the requirements of the question, but it cannot be AC; **
 
-### 思路：
+### Ideas:
 
 ```
-(1)如果遇见的是‘I’，那么对应数组当前位置的数字要小于它右边的第一个数字
-(2)如果遇见的是‘D’，那么对应数组当前位置的数字要大于它右边的第一个数字
+(1) If ‘I’ is encountered, then the number corresponding to the current position of the array is smaller than the first number to the right of it
+(2) If ‘D’ is encountered, then the number corresponding to the current position of the array is greater than the first number to the right of it
 
-首先对目标数组进行初始化，赋值0~N
-我们开始遍历字符串，如果遇见‘I’就判断对应数组该位置上的数是否满足（1）号条件
-如果满足，跳过本次循环；如果不满足，交换两个数字的位置；
-对于‘D’，也是同样的思路；
+First initialize the target array and assign values ​​0~N
+We start traversing the string, and if we encounter ‘I’, we determine whether the number at that position in the corresponding array satisfies condition (1).
+If satisfied, skip this loop; if not satisfied, swap the positions of the two numbers;
+The same idea applies to ‘D’;
 ```
 
-### GIF动画演示：
+### GIF animation demonstration:
 
 ![](../Animation/0942-di-String-Match02.gif)
 
-### 代码：
+### Code:
 
 ```java
 public int[] diStringMatch(String S) {
@@ -95,11 +95,11 @@ public int[] diStringMatch(String S) {
     }
     for (int i = 0; i < s.length; i++) {
         if (s[i].equals("I")) {
-            //判断指定位置的数字是否符合条件
+            //Determine whether the number at the specified position meets the conditions
             if (res[i] < res[i + 1]) {
                 continue;
             } else {
-                //交换两个数字的位置
+                //Swap the positions of the two numbers
                 res[i]   = res[i] ^ res[i+1];
                 res[i+1] = res[i] ^ res[i+1];
                 res[i]   = res[i] ^ res[i+1];
@@ -118,4 +118,4 @@ public int[] diStringMatch(String S) {
 }
 ```
 
-**以上内容如有错误、不当之处，欢迎批评指正。**
+**If there are any errors or inappropriateness in the above content, please feel free to criticize and correct me. **

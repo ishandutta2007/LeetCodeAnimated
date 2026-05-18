@@ -1,60 +1,60 @@
-# LeetCode 第 9 号问题：回文数
+# LeetCode Problem No. 9: Palindromes
 
-> 本文首发于公众号「五分钟学算法」，是[图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>)系列文章之一。
+> This article was first published on the public account "Learning Algorithms in Five Minutes" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 个人网站：[https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
+> Personal website: [https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
 
 
 
-题目来源于 LeetCode 第 9 号问题：回文数。题目难度为 Easy，目前通过率为 56.0%。
+The question comes from LeetCode Problem No. 9: Palindrome Numbers. The difficulty level of the questions is Easy, and the current passing rate is 56.0%.
 
-## 题目描述
+## Title description
 
-判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数。
+Determine whether an integer is a palindrome. A palindrome number is an integer that reads the same in forward order (from left to right) and reverse order (from right to left).
 
-**示例 1:**
-
-```
-输入: 121
-输出: true
-```
-
-**示例 2:**
+**Example 1:**
 
 ```
-输入: -121
-输出: false
-解释: 从左向右读, 为 -121 。 从右向左读, 为 121- 。因此它不是一个回文数。
+Input: 121
+Output: true
 ```
 
-**示例 3:**
+**Example 2:**
 
 ```
-输入: 10
-输出: false
-解释: 从右向左读, 为 01 。因此它不是一个回文数。
+Input: -121
+Output: false
+Explanation: Reading from left to right, it is -121. Reading from right to left, it is 121- . Therefore it is not a palindrome.
 ```
 
-**进阶:**
+**Example 3:**
 
-你能不将整数转为字符串来解决这个问题吗？
+```
+Input: 10
+Output: false
+Explanation: Reading from right to left, it is 01. Therefore it is not a palindrome.
+```
+
+**Advanced:**
+
+Can you solve this problem without converting the integer to a string?
 
 
 
-## 题目解析
+## Question analysis
 
-### 解法一：普通解法
+### Solution 1: Ordinary solution
 
-最好理解的一种解法就是先将 **整数转为字符串** ，然后将字符串分割为数组，只需要循环数组的一半长度进行判断对应元素是否相等即可。
+One of the best-understood solutions is to first convert the **integer to a string**, and then split the string into an array. You only need to loop through half the length of the array to determine whether the corresponding elements are equal.
 
-#### 动画描述
+#### Animation description
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/ods8b.gif)
 
-#### 代码实现
+#### Code implementation
 
 ```java
-///简单粗暴，看看就行
+///Simple and crude, just take a look
 class Solution {
     public boolean isPalindrome(int x) {
         String reversedStr = (new StringBuilder(x + "")).reverse().toString();
@@ -65,27 +65,27 @@ class Solution {
 
 
 
-### 解法二：进阶解法---数学解法
+### Solution 2: Advanced solution---mathematical solution
 
-通过取整和取余操作获取整数中对应的数字进行比较。
+Obtain the corresponding number in the integer for comparison through rounding and remainder operations.
 
-举个例子：1221 这个数字。
+For example: the number 1221.
 
-- 通过计算 1221 / 1000， 得首位1
-- 通过计算 1221 % 10， 可得末位 1
-- 进行比较
-- 再将 22 取出来继续比较
+- By calculating 1221 / 1000, we get the first place 1
+- By calculating 1221 % 10, we get the last 1
+- make comparisons
+- Take out 22 and continue the comparison.
 
-#### 动画描述
+#### Animation description
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/v3tkl.gif)
 
-#### 代码实现
+#### Code implementation
 
 ```java
 class Solution {
     public boolean isPalindrome(int x) {
-        //边界判断
+        //Boundary judgment
         if (x < 0) return false;
         int div = 1;
         //
@@ -104,32 +104,32 @@ class Solution {
 
 
 
-### 解法三：进阶解法---巧妙解法
+### Solution Three: Advanced Solution---Smart Solution
 
-直观上来看待回文数的话，就感觉像是将数字进行对折后看能否一一对应。
+When looking at palindromes intuitively, it feels like folding the numbers in half to see if they correspond one to one.
 
-所以这个解法的操作就是 **取出后半段数字进行翻转**。
+So the operation of this solution is to **take out the second half of the number and flip it**.
 
-这里需要注意的一个点就是由于回文数的位数可奇可偶，所以当它的长度是偶数时，它对折过来应该是相等的；当它的长度是奇数时，那么它对折过来后，有一个的长度需要去掉一位数（除以 10 并取整）。
+One point to note here is that since the number of digits in a palindrome can be odd or even, when its length is an even number, the folded half should be equal; when its length is an odd number, then after folded, one of the lengths needs to be reduced by one digit (divided by 10 and rounded).
 
-具体做法如下：
+The specific steps are as follows:
 
-- 每次进行取余操作 （ %10），取出最低的数字：`y = x % 10`
-- 将最低的数字加到取出数的末尾：`revertNum = revertNum * 10 + y`
-- 每取一个最低位数字，x 都要自除以 10
-- 判断 `x` 是不是小于 `revertNum` ，当它小于的时候，说明数字已经对半或者过半了
-- 最后，判断奇偶数情况：如果是偶数的话，revertNum 和 x 相等；如果是奇数的话，最中间的数字就在revertNum 的最低位上，将它除以 10 以后应该和 x 相等。
+- Each time the remainder operation (%10) is performed, the lowest number is taken out: `y = x % 10`
+- Add the lowest number to the end of the taken number: `revertNum = revertNum * 10 + y`
+- For each lowest digit, x must be divided by 10
+- Determine whether `x` is less than `revertNum`. When it is less than `revertNum`, it means that the number has been half or more than half.
+- Finally, determine the odd and even numbers: if it is an even number, revertNum is equal to x; if it is an odd number, the middle number is in the lowest bit of revertNum, and it should be equal to x after dividing it by 10.
 
-#### 动画描述
+#### Animation description
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/0siv7.png)
 
-#### 代码实现
+#### Code implementation
 
 ```java
 class Solution {
     public boolean isPalindrome(int x) {
-        //思考：这里大家可以思考一下，为什么末尾为 0 就可以直接返回 false
+        //Thinking: Here you can think about why if the end is 0, you can directly return false.
         if (x < 0 || (x % 10 == 0 && x != 0)) return false;
         int revertedNumber = 0;
         while (x > revertedNumber) {

@@ -1,21 +1,21 @@
-# LeetCode 第 199 号问题：二叉树的右视图
+# LeetCode Question No. 199: Right view of a binary tree
 
-> 本文首发于公众号「五分钟学算法」，是[图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>)系列文章之一。
+> This article was first published on the public account "Learning Algorithms in Five Minutes" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 个人网站：[https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
+> Personal website: [https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
 
-题目来源于 LeetCode 上第 199 号问题：二叉树的右视图。题目难度为 Medium，目前通过率为 57.5% 。
+The question comes from question No. 199 on LeetCode: Right view of a binary tree. The difficulty level of the questions is Medium, and the current pass rate is 57.5%.
 
-### 题目描述
+### Title description
 
-给定一棵二叉树，想象自己站在它的右侧，按照从顶部到底部的顺序，返回从右侧所能看到的节点值。
+Given a binary tree, imagine yourself standing on the right side of it, and return the node values ​​that can be seen from the right side in order from top to bottom.
 
-**示例:**
+**Example:**
 
 ```
-输入: [1,2,3,null,5,null,4]
-输出: [1, 3, 4]
-解释:
+Input: [1,2,3,null,5,null,4]
+Output: [1, 3, 4]
+explain:
 
    1            <---
  /   \
@@ -24,21 +24,21 @@
   5     4       <---
 ```
 
-### 题目解析
+### Question analysis
 
-与之前[二叉树的层次遍历](https://xiaozhuanlan.com/topic/8579460312)类似的，该问题需要用到**队列**,
+Similar to the previous [Level traversal of binary trees](https://xiaozhuanlan.com/topic/8579460312), this problem requires the use of **queue**,
 
-- 建立一个 queue
-- 遍历每层的节点时，把下一层的节点都存入到 queue 中
-- 每当开始新一层节点的遍历之前，先把新一层最后一个节点值存到结果中
+- Create a queue
+- When traversing the nodes of each layer, store the nodes of the next layer into the queue.
+- Whenever starting to traverse a new layer of nodes, first store the value of the last node of the new layer into the result.
 
 
 
-### 动画描述
+### Animation description
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/i2nzo.gif)
 
-### 代码实现
+### Code implementation
 
 ```
 class Solution {

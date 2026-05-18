@@ -1,58 +1,58 @@
-# LeetCode 第 350 号问题：两个数组的交集 II
+# LeetCode Problem No. 350: Intersection of Two Arrays II
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步博客：https://www.algomooc.com
+> Synchronized blog: https://www.algomooc.com
 
-题目来源于 LeetCode 上第 350 号问题：两个数组的交集 II。题目难度为 Easy，目前通过率为 41.8% 。
+The question comes from Question No. 350 on LeetCode: Intersection of Two Arrays II. The difficulty of the questions is Easy, and the current passing rate is 41.8%.
 
-### 题目描述
+### Title description
 
-给定两个数组，编写一个函数来计算它们的交集。
+Given two arrays, write a function to calculate their intersection.
 
-**示例 1:**
-
-```
-输入: nums1 = [1,2,2,1], nums2 = [2,2]
-输出: [2,2]
-```
-
-**示例 2:**
+**Example 1:**
 
 ```
-输入: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
-输出: [4,9]
+Input: nums1 = [1,2,2,1], nums2 = [2,2]
+Output: [2,2]
 ```
 
-**说明：**
+**Example 2:**
 
-- 输出结果中每个元素出现的次数，应与元素在两个数组中出现的次数一致。
-- 我们可以不考虑输出结果的顺序。
+```
+Input: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
+Output: [4,9]
+```
 
-**进阶:**
+**illustrate:**
 
-- 如果给定的数组已经排好序呢？你将如何优化你的算法？
-- 如果 *nums1* 的大小比 *nums2* 小很多，哪种方法更优？
-- 如果 *nums2* 的元素存储在磁盘上，磁盘内存是有限的，并且你不能一次加载所有的元素到内存中，你该怎么办？
+- The number of occurrences of each element in the output result should be consistent with the number of occurrences of the element in the two arrays.
+- We can ignore the order of output results.
 
-### 题目解析
+**Advanced:**
 
-容器类 [map](https://zh.cppreference.com/w/cpp/container/map) 的使用。
+- What if the given array is already sorted? How would you optimize your algorithm?
+- If the size of *nums1* is much smaller than *nums2*, which approach is better?
+- If the elements of *nums2* are stored on disk, disk memory is limited, and you cannot load all elements into memory at once, what should you do?
 
-- 遍历 num1，通过map容器 record 存储 num1 的元素与频率
-- 遍历 num2 ，在 record 中查找是否有相同的元素（该元素的存储频率大于0），如果有，用map容器resultVector 进行存储，同时该元素的频率减一
+### Question analysis
 
-### 动画描述
+Use of container class [map](https://zh.cppreference.com/w/cpp/container/map).
+
+- Traverse num1 and store the elements and frequencies of num1 through the map container record
+- Traverse num2 and find if there is the same element in record (the storage frequency of this element is greater than 0). If so, use the map container resultVector to store it, and at the same time reduce the frequency of the element by one.
+
+### Animation description
 
 ![](../Animation/Animation.gif)
 
-### 代码实现
+### Code implementation
 
 ```
 // 350. Intersection of Two Arrays II
 // https://leetcode.com/problems/intersection-of-two-arrays-ii/description/
-// 时间复杂度: O(nlogn)
-// 空间复杂度: O(n)
+// Time complexity: O(nlogn)
+// Space complexity: O(n)
 class Solution {
 public:
     vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {

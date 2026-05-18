@@ -1,26 +1,26 @@
-# LeetCode 图解 | 
+# LeetCode Illustration |
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步博客：https://www.algomooc.com
+> Synchronized blog: https://www.algomooc.com
 
-本题解作者：
+Author of this solution:
 
-## 题目描述
-
-
-
-## 题目解析
+## Title description
 
 
 
-## 动画理解
+## Question analysis
+
+
+
+## Animation understanding
 
 ![](../Animation/Animation.gif)
 
-## 参考代码
+## Reference code
 
 
 
-## 复杂度分析
+## Complexity analysis
 

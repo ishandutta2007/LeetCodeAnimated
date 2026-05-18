@@ -1,50 +1,50 @@
-# LeetCode 第 167 号问题：两数之和 II - 输入有序数组
+# LeetCode Problem No. 167: Sum of Two Numbers II - Input Sorted Array
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步博客：https://www.algomooc.com
+> Synchronized blog: https://www.algomooc.com
 
-题目来源于 LeetCode 上第 167 号问题：两数之和 II - 输入有序数组。题目难度为 Easy，目前通过率为 48.2% 。
+The question comes from question No. 167 on LeetCode: Sum of Two Numbers II - Input a sorted array. The difficulty of the questions is Easy, and the current passing rate is 48.2%.
 
-### 题目描述
+### Title description
 
-给定一个已按照**升序排列** 的有序数组，找到两个数使得它们相加之和等于目标数。
+Given a sorted array sorted in ascending order, find two numbers such that their sum equals the target number.
 
-函数应该返回这两个下标值 index1 和 index2，其中 index1 必须小于 index2*。*
+The function should return the two index values ​​index1 and index2, where index1 must be less than index2*. *
 
-**说明:**
+**illustrate:**
 
-- 返回的下标值（index1 和 index2）不是从零开始的。
-- 你可以假设每个输入只对应唯一的答案，而且你不可以重复使用相同的元素。
+- The returned index values ​​(index1 and index2) are not zero-based.
+- You can assume that each input corresponds to a unique answer, and you cannot reuse the same elements.
 
-**示例:**
+**Example:**
 
 ```
-输入: numbers = [2, 7, 11, 15], target = 9
-输出: [1,2]
-解释: 2 与 7 之和等于目标数 9 。因此 index1 = 1, index2 = 2 。
+Input: numbers = [2, 7, 11, 15], target = 9
+Output: [1,2]
+Explanation: The sum of 2 and 7 equals the target number 9. Therefore index1 = 1, index2 = 2.
 ```
 
-### 题目解析
+### Question analysis
 
-初始化左指针 left 指向数组起始，初始化右指针 right 指向数组结尾。
+Initialize the left pointer left to point to the beginning of the array, and initialize the right pointer right to point to the end of the array.
 
-根据**已排序**这个特性，
+According to the **sorted** feature,
 
-- （1）如果 numbers[left] 与 numbers[right] 的和 tmp 小于 target ，说明应该增加 tmp ，因此 left 右移指向一个较大的值。
-- （2）如果 tmp大于 target ，说明应该减小 tmp ，因此 right 左移指向一个较小的值。
-- （3）tmp 等于 target ，则找到，返回 left + 1 和 right + 1。（注意以 1 为起始下标）
+- (1) If tmp, the sum of numbers[left] and numbers[right], is less than target, it means that tmp should be increased, so left shifts right to point to a larger value.
+- (2) If tmp is greater than target, it means that tmp should be reduced, so right moves left to point to a smaller value.
+- (3) If tmp is equal to target, it is found and left + 1 and right + 1 are returned. (Note that the starting index is 1)
 
-### 动画描述
+### Animation description
 
 ![](../Animation/Animation.gif)
 
-### 代码实现
+### Code implementation
 #### C++
 ```c++
-// 对撞指针
-// 时间复杂度: O(n)
-// 空间复杂度: O(1)
+// Collision pointers
+// Time complexity: O(n)
+// Space complexity: O(1)
 class Solution {
 public:
     vector<int> twoSum(vector<int>& numbers, int target) {

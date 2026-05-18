@@ -1,16 +1,16 @@
-# LeetCode 第 101 号问题：对称二叉树
+# LeetCode Problem No. 101: Symmetric Binary Tree
 
-> 本文首发于公众号「五分钟学算法」，是[图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>)系列文章之一。
+> This article was first published on the public account "Learning Algorithms in Five Minutes" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 个人网站：[https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
+> Personal website: [https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
 
-题目来源于 LeetCode 第 101 号问题：对称二叉树。
+The question comes from LeetCode Problem No. 101: Symmetric Binary Tree.
 
-### 题目描述
+### Title description
 
-给定一个二叉树，检查它是否是镜像对称的。
+Given a binary tree, check whether it is mirror symmetric.
 
-例如，二叉树 `[1,2,2,3,4,4,3]` 是对称的。
+For example, the binary tree `[1,2,2,3,4,4,3]` is symmetric.
 
 ```
     1
@@ -20,25 +20,25 @@
 3  4 4  3
 ```
 
-### 题目解析
+### Question analysis
 
-用递归做比较简单：一棵树是对称的**等价**于它的左子树和右子树两棵树是对称的，问题就转变为判断两棵树是否对称。
+It's easier to do it with recursion: a tree is symmetrical **equivalently** to the fact that its left subtree and right subtree are symmetrical, and the problem becomes determining whether the two trees are symmetrical.
 
-### 代码实现
+### Code implementation
 
 ```java
 class Solution {
     public boolean isSymmetric(TreeNode root) {
         if(root == null) return true;
-        //把问题变成判断两棵树是否是对称的
+        //Change the problem into determining whether two trees are symmetrical
         return isSym(root.left, root.right);
     }
-    //判断的是根节点为r1和r2的两棵树是否是对称的
+    //Judge whether the two trees with root nodes r1 and r2 are symmetrical
     public boolean isSym(TreeNode r1, TreeNode r2){
         if(r1 == null && r2 == null) return true;
         if(r1 == null || r2 == null) return false;
-        //这两棵树是对称需要满足的条件：
-        //1.俩根节点相等。 2.树1的左子树和树2的右子树，树2的左子树和树1的右子树都得是对称的
+        //The conditions that need to be met for these two trees to be symmetrical:
+        //1. The two root nodes are equal. 2. The left subtree of tree 1 and the right subtree of tree 2, and the left subtree of tree 2 and the right subtree of tree 1 must be symmetrical.
         return r1.val == r2.val && isSym(r1.left, r2.right) 
                             && isSym(r1.right, r2.left);
     }

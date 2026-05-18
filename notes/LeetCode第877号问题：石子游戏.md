@@ -1,107 +1,107 @@
-# LeetCode 第 877 号问题：石子游戏
+# LeetCode Issue 877: The Stone Game
 
-> 本文首发于公众号「五分钟学算法」，是[图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>)系列文章之一。
+> This article was first published on the public account "Learning Algorithms in Five Minutes" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 个人网站：[https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
+> Personal website: [https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
 
-### 题目描述
+### Title description
 
-喜羊羊和灰太狼用几堆石子在做游戏。偶数堆石子**排成一行**，每堆都有正整数颗石子 `piles[i]` 。
+Pleasant Goat and Big Big Wolf are playing games with piles of stones. Even-numbered piles of stones are arranged in a row, and each pile contains a positive integer number of stones `piles[i]`.
 
-游戏以谁手中的石子最多来决出胜负。石子的总数是奇数，所以没有平局。
+The game is decided by who has the most stones in their hand. The total number of stones is an odd number, so there is no tie.
 
-喜羊羊和灰太狼轮流进行，喜羊羊先开始。 每回合，玩家从行的开始或结束处取走整堆石头。 这种情况一直持续到没有更多的石子堆为止，此时手中石子最多的玩家获胜。
+Pleasant Goat and Big Big Wolf take turns, with Pleasant Goat starting first. Each turn, players take the entire pile of stones from the beginning or end of the row. This continues until there are no more pebbles left, at which point the player with the most pebbles wins.
 
-假设喜羊羊和灰太狼都发挥出最佳水平，当喜羊羊赢得比赛时返回 `true` ，当灰太狼赢得比赛时返回 `false` 。
+Assuming that both Pleasant Goat and Big Big Wolf perform at their best, `true` is returned when Pleasant Goat wins the game and `false` is returned when Big Big Wolf wins the game.
 
-### 题目分析
+### Question analysis
 
-举两个例子来帮助理解题意。
+Give two examples to help understand the meaning of the question.
 
-#### 例子一：
+#### Example 1:
 
-输入：[ 5，3，4，5 ]
+Input: [5, 3, 4, 5]
 
-输出：true
+Output: true
 
-**解释**：
+**explain**:
 
-喜羊羊先开始，只能拿前 5 颗或后 5 颗石子 。
+Pleasant Goat starts first and can only take the first 5 or last 5 stones.
 
-假设他取了前 5 颗，这一行就变成了 [ 3 ，4，5 ] 。
+Assuming he takes the first 5, this line becomes [3, 4, 5].
 
-如果灰太狼拿走前 3 颗，那么剩下的是 [ 4，5 ]，喜羊羊拿走后 5 颗赢得 10 分。
+If Big Big Wolf takes away the first 3, then the remaining ones are [4, 5]. Pleasant Goat takes away the last 5 and wins 10 points.
 
-如果灰太狼拿走后 5 颗，那么剩下的是 [ 3，4 ]，喜羊羊拿走后 4 颗赢得 9 分。
+If Big Wolf takes away the last 5, then the remaining ones are [3, 4]. Pleasant Goat takes away the last 4 and wins 9 points.
 
-这表明，取前 5 颗石子对喜羊羊来说是一个胜利的举动，所以我们返回 true 。
-
-
+This shows that taking the first 5 stones is a winning move for Pleasant Goat, so we return true .
 
 
 
-#### 例子二：
-
-输入：[ 5，10000，2，3 ]
-
-输出：true
-
-**解释**：
-
-喜羊羊先开始，只能拿前 5 颗或后 3 颗石子 。
-
-假设他取了后 3 颗，这一行就变成了 [ 5，10000，2 ]。
-
-灰太狼肯定会在剩下的这一行中取走前 5 颗，这一行就变成了 [ 10000，2 ]。
-
-然后喜羊羊取走前 10000 颗，总共赢得 10003 分，灰太狼赢得 7 分。
-
-这表明，取后 3 颗石子对喜羊羊来说是一个胜利的举动，所以我们返回 true 。
-
-**这个例子表明，并不是需要每次都挑选最大的那堆石头**。
 
 
+#### Example 2:
 
-### 题目回答
+Input: [5, 10000, 2, 3]
 
-涉及到最优解的问题，那么肯定要去尝试一下使用 **动态规划 **来解决了。
+Output: true
 
-先看一下力扣的正规题解：
+**explain**:
 
-让我们改变游戏规则，使得每当灰太狼得分时，都会从喜羊羊的分数中扣除。
+Pleasant Goat starts first and can only take the first 5 or last 3 stones.
 
-令 `dp(i, j)` 为喜羊羊可以获得的最大分数，其中剩下的堆中的石子数是 `piles[i], piles[i+1], ..., piles[j]`。这在比分游戏中很自然：我们想知道游戏中每个位置的值。
+Assuming he takes the last 3, this line becomes [5, 10000, 2].
 
-我们可以根据 `dp(i + 1，j)` 和 `dp(i，j-1)` 来制定 `dp(i，j)` 的递归，我们可以使用动态编程以不重复这个递归中的工作。（该方法可以输出正确的答案，因为状态形成一个DAG（有向无环图）。）
+Big Gray Wolf will definitely take the first 5 in the remaining row, and this row becomes [10000, 2].
 
-当剩下的堆的石子数是 `piles[i], piles[i+1], ..., piles[j]` 时，轮到的玩家最多有 2 种行为。
+Then Pleasant Goat takes the first 10,000, winning a total of 10,003 points, and Big Big Wolf wins 7 points.
 
-可以通过比较 `j-i`和 `N modulo 2` 来找出轮到的人。
+This shows that taking the last 3 stones is a winning move for Pleasant Goat, so we return true .
 
-如果玩家是喜羊羊，那么它将取走 `piles[i]` 或 `piles[j]` 颗石子，增加它的分数。之后，总分为 `piles[i] + dp(i+1, j)` 或 `piles[j] + dp(i, j-1)`；我们想要其中的最大可能得分。
+**This example shows that it is not necessary to pick the largest pile of rocks every time**.
 
-如果玩家是灰太狼，那么它将取走 `piles[i]` 或 `piles[j]` 颗石子，减少喜羊羊这一数量的分数。之后，总分为 `-piles[i] + dp(i+1, j)` 或 `-piles[j] + dp(i, j-1)`；我们想要其中的最小可能得分。
 
-代码如下：
+
+### Question answer
+
+When it comes to optimal solution problems, you must try to use **dynamic programming** to solve it.
+
+Let’s take a look at Likou’s formal solution first:
+
+Let's change the rules of the game so that whenever Big Wolf scores, it's deducted from Pleasant Goat's score.
+
+Let `dp(i, j)` be the maximum score that Pleasant Goat can obtain, where the number of stones remaining in the pile is `piles[i], piles[i+1], ..., piles[j]`. This is natural in score games: we want to know the value of every position in the game.
+
+We can formulate the recursion of `dp(i,j)` in terms of `dp(i + 1,j)` and `dp(i,j-1)`, and we can use dynamic programming to not repeat the work in this recursion. (This method can output the correct answer because the states form a DAG (Directed Acyclic Graph).)
+
+When the number of stones in the remaining pile is `piles[i], piles[i+1], ..., piles[j]`, the player on his turn can have up to 2 actions.
+
+You can find out whose turn it is by comparing `j-i` with `N modulo 2`.
+
+If the player is the Pleasant Goat, then it will take away `piles[i]` or `piles[j]` stones, increasing its score. After that, the total score is `piles[i] + dp(i+1, j)` or `piles[j] + dp(i, j-1)`; we want the maximum possible score among them.
+
+If the player is Big Big Wolf, then it will take away `piles[i]` or `piles[j]` stones, reducing Pleasant Goat's score by this amount. After that, the total score is `-piles[i] + dp(i+1, j)` or `-piles[j] + dp(i, j-1)`; we want the smallest possible score among them.
+
+The code is as follows:
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/af7fm.jpg)
 
 
 
-上面的代码并不算复杂，当然，如果你看不懂也没关系，不影响解决问题，请看下面的数学分析。
+The above code is not too complicated. Of course, it doesn’t matter if you don’t understand it. It will not affect the solution of the problem. Please see the mathematical analysis below.
 
 
 
-### 数学分析
+### Mathematical analysis
 
-因为石头的数量是奇数，因此只有两种结果，输或者赢。
+Because the number of stones is an odd number, there are only two outcomes, lose or win.
 
-喜羊羊先开始拿石头，随便拿！然后比较石头数量：
+Pleasant Goat starts to take the stones first, take whatever you want! Then compare the number of stones:
 
-1. 如果石头数量多于对手，赢了；
-2. 如果石头数量少于对手，自己拿石头的顺序和对手拿石头的顺序对调（**因为是偶数堆石头，所以可以全部对调**），还是赢。
+1. If there are more stones than the opponent, you win;
+2. If the number of stones is less than that of your opponent, you can reverse the order in which you take the stones and the order in which your opponent takes the stones (**Because it is an even-numbered pile of stones, you can all reverse them**), and you will still win.
 
-所以代码如下：
+So the code is as follows:
 
 ```java
 class Solution {
@@ -111,19 +111,19 @@ class Solution {
 }
 ```
 
-下面给给大家介绍一种简单的策略作为参考，使用这种策略可以保证先取石头的喜羊羊一定能够获胜。
+Let me introduce to you a simple strategy as a reference. Using this strategy can ensure that the Pleasant Goat who takes the stone first will definitely win.
 
-首先分别计算出序号为奇数和序号为偶数的石头堆中的石头总数，然后进行比较，如果奇数堆石头总数更多则喜羊羊永远保证自己选取奇数石堆，反之则选择偶数。
+First, calculate the total number of stones in the odd-numbered and even-numbered stone piles respectively, and then compare them. If the total number of stones in the odd-numbered piles is more, Pleasant Goat will always guarantee that it will choose the odd-numbered stone pile, otherwise it will choose the even number.
 
-举例来说，假设石堆为 [ 5，10000，2，3 ] ，那么奇数石堆总和为 7（从 1 开始编号），偶数石堆总数为 1003 ，则喜羊羊要保证自己永远选择偶数堆即第四堆和第二堆，就可以取胜。
+For example, assuming that the pile of stones is [5, 10000, 2, 3], then the total number of odd-numbered piles is 7 (numbered starting from 1), and the total number of even-numbered piles is 1003, then Pleasant Goat must ensure that it always chooses the even-numbered piles, that is, the fourth and second piles, to win.
 
-但是这种选择方法得到的**结果未必是最优解**，例如石堆为 [ 2，1，3，5 ] 当使用动态规划确保喜羊羊和灰太狼都选择最优解的时候，喜羊羊会拿走 [ 2，5 ] 两堆棋子，而灰太狼则拿走 [ 1，3 ] 两堆。但是使用这种策略在即使不是最优解的情况下依然可以保证喜羊羊胜利，所以作为先手的喜羊羊必定有方法取得比赛的胜利。
+However, the **result obtained by this selection method may not be the optimal solution**. For example, the pile of stones is [2, 1, 3, 5]. When using dynamic programming to ensure that both Pleasant Goat and Big Big Wolf choose the optimal solution, Pleasant Goat will take away two piles of chess pieces [2, 5], while Big Gray Wolf will take away two piles [1, 3]. However, using this strategy can still guarantee the victory of Pleasant Goat even if it is not the optimal solution, so as the first player, Pleasant Goat must have a way to win the game.
 
-看完之后，你的心情是怎么样的？
+How did you feel after reading it?
 
-此题的LeetCode 的评论区里一片吐槽：**这是什么沙雕题目！**
+There was a lot of complaints in the comment area of ​​LeetCode about this question: **What kind of stupid question is this! **
 
-可能搞过 ACM 等竞赛的人都会微微一笑：不会几万个套路怎么好意思说自己是 acmer 。我们这些普通人为之惊奇的题目，到他们这里就是彻底被玩坏了，各种稀奇古怪的秒解。
+Maybe people who have participated in competitions such as ACM will smile slightly: How can you say that you are an acmer if you don’t know tens of thousands of routines? The questions that ordinary people like us are surprised by are completely broken by them, with all kinds of weird and instant solutions.
 
 
 

@@ -1,43 +1,43 @@
 
 
-# 杨辉三角
+# yanghui triangle
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/inihp.png)
 
-> 本文首发于公众号「五分钟学算法」，是[图解 LeetCode](https://github.com/MisterBooo/LeetCodeAnimation) 系列文章之一。
+> This article was first published on the public account "Learn Algorithm in Five Minutes" and is one of the series of articles [Illustrated LeetCode](https://github.com/MisterBooo/LeetCodeAnimation).
 >
-> 个人网站：[https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
+> Personal website: [https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
 >
 
 
-杨辉三角应该是大家很早就接触到的一个数学知识，它有很多有趣的性质：
+Yang Hui's triangle should be a mathematical knowledge that everyone has been exposed to very early. It has many interesting properties:
 
-- 每个数字等于上一行的左右两个数字之和，即 *C(n+1,i) = C(n,i) + C(n,i-1)*
-- 每行数字左右对称，由 1 开始逐渐变大
-- 第 n 行的数字有 n 项
-- 第 n 行的第 m 个数和第 n - m + 1 个数相等 ，为[组合数](https://baike.baidu.com/item/%E7%BB%84%E5%90%88%E6%95%B0)性质之一
-- ( a + b )<sup>n</sup>的展开式中的各项[系数](https://baike.baidu.com/item/%E7%B3%BB%E6%95%B0)依次对应杨辉三角的第 ( n + 1 ) 行中的每一项
+- Each number is equal to the sum of the left and right numbers in the previous row, that is, *C(n+1,i) = C(n,i) + C(n,i-1)*
+- Each row of numbers is symmetrical, starting from 1 and gradually getting larger
+- The number in row n has n items
+- The m-th number in the n-th row is equal to the n-m + 1 number, which is one of the properties of [combination number](https://baike.baidu.com/item/%E7%BB%84%E5%90%88%E6%95%B0)
+- Each term [coefficient] in the expansion of ( a + b ) <sup>n</sup> (https://baike.baidu.com/item/%E7%B3%BB%E6%95%B0) corresponds to each term in the ( n + 1 )th row of Yang Hui's triangle.
 - 。。。
 
 
 
-## 杨辉三角
+## Yang Hui Triangle
 
-题目来源于 LeetCode 上第 118 号问题：杨辉三角。题目难度为 Easy，目前通过率为 61.8% 。
+The title comes from question No. 118 on LeetCode: Yang Hui Triangle. The difficulty of the questions is Easy, and the current passing rate is 61.8%.
 
-### 题目描述
+### Title description
 
-给定一个非负整数 *numRows，*生成杨辉三角的前 *numRows* 行。
+Given a non-negative integer *numRows, *generate the first *numRows* rows of Yang Hui's triangle.
 
 ![img](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/ks594.gif)
 
-在杨辉三角中，每个数是它左上方和右上方的数的和。
+In Yang Hui's triangle, each number is the sum of the numbers to its upper left and upper right.
 
-**示例:**
+**Example:**
 
 ```
-输入: 5
-输出:
+Input: 5
+Output:
 [
      [1],
     [1,1],
@@ -47,13 +47,13 @@
 ]
 ```
 
-### 题目解析
+### Question analysis
 
->  这道题目在各大高校的习题中经常出现。
+> This question often appears in exercises in major universities.
 
-对于本题而言，利用性质 1 ：每一行的首个和结尾一个数字都是 1，从第三行开始，中间的每个数字都是上一行的左右两个数字之和。
+For this question, use property 1: the first and last numbers in each line are both 1. Starting from the third line, each number in the middle is the sum of the left and right numbers in the previous line.
 
-### 代码实现
+### Code implementation
 
 ```java
 class Solution {
@@ -63,11 +63,11 @@ class Solution {
      if (numRows < 1) return result;
 
     for (int i = 0; i < numRows; ++i) {
-      //扩容
+      //Expansion
       List<Integer> list = Arrays.asList(new Integer[i+1]);
       list.set(0, 1); list.set(i, 1);
       for (int j = 1; j < i; ++j) {
-        //等于上一行的左右两个数字之和
+        //Equal to the sum of the left and right numbers in the previous row
         list.set(j, result.get(i-1).get(j-1) + result.get(i-1).get(j));
       }
       result.add(list);
@@ -81,45 +81,45 @@ class Solution {
 
 
 
-## 杨辉三角II
+## Yang Hui Triangle II
 
-题目来源于 LeetCode 上第 119 号问题：杨辉三角II。题目难度为 Easy，目前通过率为 55.5% 。
+The question comes from question No. 119 on LeetCode: Yang Hui Triangle II. The difficulty of the questions is Easy, and the current passing rate is 55.5%.
 
-### 题目描述
+### Title description
 
-给定一个非负索引 *k*，其中 *k* ≤ 33，返回杨辉三角的第 *k* 行。
+Given a non-negative index *k* where *k* ≤ 33, return the *k*th row of Yang Hui's triangle.
 
 ![img](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/ks594.gif)
 
-在杨辉三角中，每个数是它左上方和右上方的数的和。
+In Yang Hui's triangle, each number is the sum of the numbers to its upper left and upper right.
 
-**示例:**
+**Example:**
 
 ```
-输入: 3
-输出: [1,3,3,1]
+Input: 3
+Output: [1,3,3,1]
 ```
 
-**进阶：**
+**Advanced:**
 
-你可以优化你的算法到 *O*(*k*) 空间复杂度吗？
+Can you optimize your algorithm to *O*(*k*) space complexity?
 
-### 题目解析
+### Question analysis
 
-这道题目的难点与思考点在于题目有额外限制条件，程序只能使用 O(k) 的额外空间，因此无法通过累加的方式将每一行都输出打印。
+The difficulty and thinking point of this question is that the question has additional restrictions. The program can only use O(k) extra space, so it cannot print each line through accumulation.
 
-这里依旧使用杨辉三角的规律，很隐藏的规律：对于杨辉三角的同一行，第 ( i  + 1) 项是第 i 项的` ( k - i ) /( i + 1 )` 倍。
+The law of Yang Hui's triangle is still used here, a very hidden law: for the same row of Yang Hui's triangle, the (i + 1)-th item is `(k-i)/(i + 1)` times of the i-th item.
 
-比如：
+for example:
 
-- 第 k 索引行的第 0 项：1
-- 第 k 索引行的第 1 项：1 * k
-- 第 k 索引行的第 2 项：1 * k *  ( k - 1)  / 2
-- 第 k 索引行的第 3 项：[1 * k *  ( k - 1)  / 2 ] * ( k - 2 )  /  3
+- Item 0 of k-th index row: 1
+- Item 1 of k-th index row: 1 * k
+- Item 2 of the k-th index row: 1 * k * ( k - 1) / 2
+- Item 3 of the k-th index row: [1 * k * ( k - 1) / 2 ] * ( k - 2 ) / 3
 
 
 
-### 代码实现
+### Code implementation
 
 ```java
 class Solution {
@@ -137,9 +137,9 @@ class Solution {
 
 
 
-## 一个有趣的结论
+## An interesting conclusion
 
-感兴趣小伙伴的可以搜索一下李永乐讲得抽奖概率相关的视频，里面提及到了很多杨辉三角的神奇特点。
+Interested friends can search for Li Yongle's video about lottery probability, which mentions many magical characteristics of Yang Hui's triangle.
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/0b495.gif)
 
 

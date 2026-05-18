@@ -1,42 +1,42 @@
-# LeetCode 第 344 号问题：反转字符串
+# LeetCode Issue No. 344: Reverse a string
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步博客：https://www.algomooc.com
+> Synchronized blog: https://www.algomooc.com
 
-题目来源于 LeetCode 第 344 号问题：反转字符串。面试官最喜欢让你手写的一道算法题！
+The question comes from LeetCode question No. 344: Reverse a string. The interviewer’s favorite algorithm question is to ask you to write it by hand!
 
-### 题目描述
+### Title description
 
-编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组 `char[]` 的形式给出。
+Write a function that reverses the input string. The input string is given as a character array `char[]`.
 
-不要给另外的数组分配额外的空间，你必须**原地修改输入数组**、使用 O(1) 的额外空间解决这一问题。
+Instead of allocating extra space to another array, you must modify the input array in place, using O(1) extra space to solve the problem.
 
-你可以假设数组中的所有字符都是 [ASCII](https://baike.baidu.com/item/ASCII) 码表中的可打印字符。
+You can assume that all characters in the array are printable characters in the [ASCII](https://baike.baidu.com/item/ASCII) code table.
 
-**示例 1：**
-
-```
-输入：["h","e","l","l","o"]
-输出：["o","l","l","e","h"]
-```
-
-**示例 2：**
+**Example 1:**
 
 ```
-输入：["H","a","n","n","a","h"]
-输出：["h","a","n","n","a","H"] 
+Input: ["h","e","l","l","o"]
+Output: ["o","l","l","e","h"]
 ```
 
-### 题目解析
+**Example 2:**
 
-这道题没什么难度，直接从两头往中间走，同时交换两边的字符。注意需要白板编程写出来即可，也注意千万别回答一句使用 reverse() 这种高级函数来解决。。。
+```
+Input: ["H","a","n","n","a","h"]
+Output: ["h","a","n","n","a","H"]
+```
 
-### 动画描述
+### Question analysis
+
+This question is not difficult. Just go from the two ends to the middle and swap the characters on both sides. Note that you only need to write it in whiteboard programming, and be careful not to use advanced functions such as reverse() to solve the problem. . .
+
+### Animation description
 
 ![](../Animation/Animation.gif)
 
-### 代码实现
+### Code implementation
 
 ```
 class Solution {

@@ -1,50 +1,50 @@
-# LeetCode 第 24 号问题：两两交换链表中的节点
+# LeetCode Question No. 24: Exchange nodes in a linked list pairwise
 
-> 本文首发于公众号「五分钟学算法」，是[图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>)系列文章之一。
+> This article was first published on the public account "Learning Algorithms in Five Minutes" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 个人网站：[https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
+> Personal website: [https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
 
-题目来源于 LeetCode 上第 24 号问题：两两交换链表中的节点。题目难度为 Medium，目前通过率为 45.8% 。
+The title comes from question No. 24 on LeetCode: Pairwise exchange of nodes in a linked list. The difficulty level of the questions is Medium, and the current pass rate is 45.8%.
 
-### 题目描述
+### Title description
 
-给定一个链表，两两交换其中相邻的节点，并返回交换后的链表。
+Given a linked list, swap adjacent nodes in pairs and return the swapped linked list.
 
-**你不能只是单纯的改变节点内部的值**，而是需要实际的进行节点交换。
+**You can't just change the value inside the node**, but you need to actually swap the nodes.
 
-**示例:**
+**Example:**
 
 ```
-给定 1->2->3->4, 你应该返回 2->1->4->3.
+Given 1->2->3->4, you should return 2->1->4->3.
 ```
 
-### 题目解析
+### Question analysis
 
-该题属于基本的链表操作题。
+This question is a basic linked list operation question.
 
-- 设置一个虚拟头结点`dummyHead `
-- 设置需要交换的两个节点分别为`node1 `、`node2`，同时设置`node2`的下一个节点`next`
+- Set a virtual head node `dummyHead`
+- Set the two nodes that need to be exchanged as `node1` and `node2`, and also set the next node `next` of `node2`
 
-##### 在这一轮操作中
+##### In this round of operations
 
-- 将`node2`节点的next设置为`node1`节点
-- 将`node1`节点的next设置为`next `节点
-- 将`dummyHead `节点的next设置为`node2 `
-- 结束本轮操作
+- Set next of `node2` node to `node1` node
+- Set the next of the `node1` node to the `next` node
+- Set next of `dummyHead` node to `node2`
+- End this round of operation
 
-接下来的每轮操作都按照上述进行。
+Each subsequent round proceeds as described above.
 
-### 动画描述
+### Animation description
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/6kpyu.gif)
 
-### 代码实现
+### Code implementation
 
 ```
 // 24. Swap Nodes in Pairs
 // https://leetcode.com/problems/swap-nodes-in-pairs/description/
-// 时间复杂度: O(n)
-// 空间复杂度: O(1)
+// Time complexity: O(n)
+// Space complexity: O(1)
 class Solution {
 public:
     ListNode* swapPairs(ListNode* head) {

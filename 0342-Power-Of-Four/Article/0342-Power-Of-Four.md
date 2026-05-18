@@ -1,35 +1,35 @@
-# LeetCode 第 342 号问题：4 的幂
+# LeetCode Problem No. 342: Powers of 4
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步博客：https://www.algomooc.com
+> Synchronized blog: https://www.algomooc.com
 
-题目来源于 LeetCode 上第 342 号问题：4 的幂。题目难度为 Easy，目前通过率为 45.3% 。
+The question comes from question No. 342 on LeetCode: Powers of 4. The difficulty of the questions is Easy, and the current passing rate is 45.3%.
 
-### 题目描述
+### Title description
 
-给定一个整数 (32 位有符号整数)，请编写一个函数来判断它是否是 4 的幂次方。
+Given an integer (32-bit signed integer), write a function to determine whether it is a power of 4.
 
-**示例 1:**
-
-```
-输入: 16
-输出: true
-```
-
-**示例 2:**
+**Example 1:**
 
 ```
-输入: 5
-输出: false
+Input: 16
+Output: true
 ```
 
-**进阶：**
-你能不使用循环或者递归来完成本题吗？
+**Example 2:**
 
-### 题目解析
+```
+Input: 5
+Output: false
+```
 
-这道题最直接的方法就是不停的去除以  4 ，看最终结果是否为 1 ，参见代码如下：
+**Advanced:**
+Can you solve this problem without using loops or recursion?
+
+### Question analysis
+
+The most direct way to solve this problem is to keep dividing by 4 to see if the final result is 1. See the code below:
 
 ```java
 class Solution {
@@ -42,64 +42,64 @@ class Solution {
 }
 ```
 
-不过这段代码使用了 **循环** ，逼格不够高。
+However, this code uses **loop**, which is not high enough.
 
-对于一个整数而言，如果这个数是 4 的幂次方，那它必定也是 2 的幂次方。
+For an integer, if the number is a power of 4, it must also be a power of 2.
 
-我们先将 2 的幂次方列出来找一下其中哪些数是 4 的幂次方。
+Let's first list the powers of 2 to find out which numbers are powers of 4.
 
-| 十进制 | 二进制                          |
+| Decimal | Binary |
 | ------ | ------------------------------- |
 | 2      | 10                              |
-| 4      | **100** （1 在第 3 位）         |
+| 4 | **100** (1 in position 3) |
 | 8      | 1000                            |
-| 16     | **10000**（1 在第 5 位）        |
+| 16 | **10000** (1 in position 5) |
 | 32     | 100000                          |
-| 64     | **1000000**（1 在第 7 位）      |
+| 64 | **1000000** (1 in position 7) |
 | 128    | 10000000                        |
-| 256    | **100000000**（1 在第 9 位）    |
+| 256 | **100000000** (1 in position 9) |
 | 512    | 1000000000                      |
-| 1024   | **10000000000**（1 在第 11 位） |
+| 1024 | **10000000000** (1 at position 11) |
 
-找一下规律： 4 的幂次方的数的二进制表示 1 的位置都是在**奇数位**。
+Find the rules: The binary representation of numbers that are powers of 4 always places 1 in the **odd digits**.
 
-之前在小吴的文章中判断一个是是否是 2 的幂次方数使用的是位运算 `n & ( n - 1 )`。同样的，这里依旧可以使用位运算：将这个数与特殊的数做位运算。
+Previously, in Xiao Wu's article, the bit operation `n & (n - 1)` was used to determine whether a number is a power of 2. Similarly, bit operations can still be used here: perform bit operations on this number and a special number.
 
-这个特殊的数有如下特点：
+This special number has the following characteristics:
 
-* 足够大，但不能超过 32 位，即最大为 1111111111111111111111111111111（ 31 个 1）
+* Large enough, but no more than 32 bits, that is, the maximum is 1111111111111111111111111111111 (31 ones)
 
-* 它的二进制表示中奇数位为 1 ，偶数位为 0 
+* Its binary representation has odd bits as 1 and even bits as 0
 
-  符合这两个条件的二进制数是：
+  A binary number that meets these two conditions is:
 
 ```java
 1010101010101010101010101010101
 ```
 
-**如果用一个 4 的幂次方数和它做与运算，得到的还是 4 的幂次方数**。
+**If you do an AND operation with a number that is a power of 4, you will still get a number that is a power of 4**.
 
-将这个二进制数转换成 16 进制表示：0x55555555 。有没有感觉逼格更高点。。。
+Convert this binary number to hexadecimal representation: 0x55555555. Do you feel that your level is higher? . .
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/c0s9n.png)
 
 
 
-### 图片描述
+### Image description
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/ux5pa.jpg)
 
-### 代码实现
+### Code implementation
 
 ```java
 class Solution {
     public boolean isPowerOfFour(int num) {
         if (num <= 0)
 			return false;
-        //先判断是否是 2 的幂
+        //First determine whether it is a power of 2
 		if ((num & num - 1) != 0)
 			return false;
-        //如果与运算之后是本身则是 4 的幂
+        //If the AND operation is followed by itself, it is a power of 4
 		if ((num & 0x55555555) == num)
 			return true;
 		return false;

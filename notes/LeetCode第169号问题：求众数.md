@@ -1,44 +1,44 @@
-# 【数组中超过一半的数字】三种解法，最后一个解法太牛逼了！
+# [More than half of the numbers in the array] Three solutions, the last solution is awesome!
 
-今天分享的题目来源于 LeetCode 上第 169 号问题：求众数（求数组中超过一半的数字）。题目难度为 Easy，目前通过率为 45.8% 。
+The topic shared today comes from question No. 169 on LeetCode: finding the mode (finding more than half of the numbers in the array). The difficulty of the questions is Easy, and the current passing rate is 45.8%.
 
-最后一种解法 **Cool** ！！！
+The last solution is **Cool**! ! !
 
-# 题目描述
+#Problem description
 
-给定一个大小为 n 的数组，找到其中的众数。众数是指在数组中出现次数大于 ⌊ n/2 ⌋ 的元素。
+Given an array of size n, find its mode. The mode refers to the elements that appear more than ⌊ n/2 ⌋ in the array.
 
-你可以假设数组是非空的，并且给定的数组总是存在众数。
+You can assume that arrays are non-empty and that there is always a mode for a given array.
 
-**示例 1:**
-
-```
-输入: [3,2,3]
-输出: 3
-```
-
-**示例 2:**
+**Example 1:**
 
 ```
-输入: [2,2,1,1,1,2,2]
-输出: 2
+Input: [3,2,3]
+Output: 3
 ```
 
-# 题目解析
+**Example 2:**
 
-题目意思很好理解：给你一个数组，里面有一个数字出现的次数超过了一半，你要找到这个数字并返回。
+```
+Input: [2,2,1,1,1,2,2]
+Output: 2
+```
 
-## 解法一：暴力解法
+# Question analysis
 
-遍历整个数组，同时统计每个数字出现的次数。
+The meaning of the question is easy to understand: you are given an array in which a number appears more than half the time. You have to find this number and return it.
 
-最后将出现次数大于一半的元素返回即可。
+## Solution 1: Violent solution
 
-### 动画描述
+Iterate through the entire array and count the number of occurrences of each number.
+
+Finally, return elements that appear more than half the time.
+
+### Animation description
 
 ![](https://raw.githubusercontent.com/MisterBooo/myBlogPic/master/20190626114223.gif)
 
-### **代码实现**
+### **Code Implementation**
 
 ```java
 class Solution {
@@ -61,33 +61,33 @@ class Solution {
 }
 ```
 
-### 复杂度分析
+### Complexity analysis
 
-**时间复杂度**：O(n<sup>2</sup>)
+**Time complexity**: O(n<sup>2</sup>)
 
-暴力解法包含两重嵌套的 for 循环，每一层 n 次迭代，因此时间复杂度为 O(n<sup>2</sup>) 。
+The brute force solution consists of two nested for loops, with n iterations at each level, so the time complexity is O(n<sup>2</sup>).
 
-**空间复杂度**：O(1)
+**Space complexity**: O(1)
 
-暴力解法没有分配任何与输入规模成比例的额外的空间，因此空间复杂度为 O(1)。
+The brute force solution does not allocate any additional space proportional to the size of the input, so the space complexity is O(1).
 
-## 解法二：哈希表法
+## Solution 2: Hash table method
 
-这个问题可以视为查找问题，对于查找问题往往可以使用时间复杂度为 O(1) 的 **哈希表**，通过以空间换时间的方式进行优化。
+This problem can be regarded as a search problem. For search problems, a **hash table** with a time complexity of O(1) can often be used to optimize by exchanging space for time.
 
-直接遍历整个 **数组** ，将每一个数字（num）与它出现的次数（count）存放在 **哈希表** 中，同时判断该数字出现次数是否是最大的，动态更新 maxCount，最后输出 maxNum。
+Directly traverse the entire **array**, store each number (num) and the number of times it appears (count) in the **hash table**, and determine whether the number of times it appears is the largest, dynamically update maxCount, and finally output maxNum.
 
-### 动画描述
+### Animation description
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/bbjtv.gif)
 
-### 代码实现
+### Code implementation
 
 ```java
 class Solution {
     public int majorityElement(int[] nums) {
     Map<Integer, Integer> map = new HashMap<>();
-    // maxNum 表示元素，maxCount 表示元素出现的次数
+    // maxNum represents the element, maxCount represents the number of times the element appears
     int maxNum = 0, maxCount = 0;
     for (int num: nums) {
       int count = map.getOrDefault(num, 0) + 1;
@@ -102,36 +102,36 @@ class Solution {
 }
 ```
 
-### 复杂度分析
+### Complexity analysis
 
-**时间复杂度**：O(n)
+**Time complexity**: O(n)
 
-总共有一个循环，里面哈希表的插入是常数时间的，因此时间复杂度为 O(n)。
+There is a total loop, and the insertion into the hash table is constant time, so the time complexity is O(n).
 
-**空间复杂度**：O(n)
+**Space complexity**: O(n)
 
-哈希表占用了额外的空间 O(n)，因此空间复杂度为 O(n)。
+The hash table takes up O(n) extra space, so the space complexity is O(n).
 
-## 解法三：摩尔投票法
+## Solution three: Moore voting method
 
-再来回顾一下题目：寻找数组中超过一半的数字，这意味着数组中**其他数字出现次数的总和都是比不上这个数字出现的次数** 。
+Let's review the topic again: Find more than half of the numbers in the array, which means that the sum of the number of occurrences of other numbers in the array is less than the number of occurrences of this number.
 
-即如果把 该众数记为 `+1` ，把其他数记为 `−1` ，将它们全部加起来，和是大于 0 的。
+That is, if the mode is recorded as `+1` and the other numbers are recorded as `−1`, and they are all added up, the sum is greater than 0.
 
-所以可以这样操作：
+So it works like this:
 
-* 设置两个变量  candidate 和 count，**candidate** 用来保存数组中遍历到的某个数字，**count** 表示当前数字的出现次数，一开始 **candidate** 保存为数组中的第一个数字，**count** 为 1
-* 遍历整个数组
-* 如果数字与之前 **candidate** 保存的数字相同，则 **count** 加 1
-* 如果数字与之前 **candidate** 保存的数字不同，则 **count** 减 1
-* 如果出现次数 **count** 变为 0 ，**candidate** 进行变化，保存为当前遍历的那个数字，并且同时把 **count** 重置为 1
-* 遍历完数组中的所有数字即可得到结果
+* Set two variables candidate and count. **candidate** is used to save a certain number traversed in the array. **count** represents the number of occurrences of the current number. Initially, **candidate** is saved as the first number in the array, and **count** is 1
+* Traverse the entire array
+* If the number is the same as the number saved by the previous **candidate**, then **count** is increased by 1
+* If the number is different from the number previously saved by **candidate**, **count** is decremented by 1
+* If the number of occurrences **count** becomes 0, **candidate** changes and is saved as the currently traversed number, and at the same time resets **count** to 1
+* After traversing all the numbers in the array, you can get the result
 
-### 动画描述
+### Animation description
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/8wyb2.gif)
 
-### 代码实现
+### Code implementation
 
 ```java
 class Solution {
@@ -152,12 +152,12 @@ class Solution {
 }
 ```
 
-### 复杂度分析
+### Complexity analysis
 
-**时间复杂度**：O(n)
+**Time complexity**: O(n)
 
-总共只有一个循环，因此时间复杂度为 O(n)。
+There is only one loop in total, so the time complexity is O(n).
 
-**空间复杂度**：O(1)
+**Space complexity**: O(1)
 
-只需要常数级别的额外空间，因此空间复杂度为 O(1)。
+Only a constant level of extra space is required, so the space complexity is O(1).

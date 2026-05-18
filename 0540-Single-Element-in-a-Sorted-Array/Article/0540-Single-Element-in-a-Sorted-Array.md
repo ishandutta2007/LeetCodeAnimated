@@ -1,30 +1,30 @@
-题目来源于LeetCode上第540号问题：有序数组中的单一元素。题目难度为中等，目前通过率60.2%。
-##题目描述
-给定一个只包含整数的有序数组，每个元素都会出现两次，唯有一个数只会出现一次，找出这个数。
+The question comes from question No. 540 on LeetCode: Single element in an ordered array. The difficulty of the questions is medium, and the current pass rate is 60.2%.
+##Title description
+Given a sorted array containing only integers, each element appears twice, except a number that appears only once. Find this number.
 
 ```
-示例 1:
+Example 1:
 
-输入: [1,1,2,3,3,4,4,8,8]
-输出: 2
-示例 2:
+Input: [1,1,2,3,3,4,4,8,8]
+Output: 2
+Example 2:
 
-输入: [3,3,7,7,10,11,11]
-输出: 10
-注意: 您的方案应该在 O(log n)时间复杂度和 O(1)空间复杂度中运行。
+Input: [3,3,7,7,10,11,11]
+Output: 10
+Note: Your solution should run in O(log n) time complexity and O(1) space complexity.
 ```
-##题目解析
-我们先读题，找出题中关键词“包含整数的有序数组”、‘’元素出现两次“、”只有一个数出现一次“，这里我们可以知道：只出现一次的那个元素所在的有序数组元素个数必为奇数。这个是解题的关键。因为题目要求我们的时间复杂度为O(log n)，因此我们可以用二分搜索法。
+##Question analysis
+Let's read the question first and find out the keywords in the question "ordered array containing integers", "" element appears twice", "only one number appears once", here we can know: the number of elements in the ordered array where the element appears only once must be an odd number. This is the key to solving the problem. Because the question requires our time complexity to be O(log n), so we can use the binary search method.
 
-## 解法一：二分搜索
+## Solution 1: Binary search
 
-首先将lo和hi分别指向数组首尾元素，mid指向中间元素，这时我们会发现中间元素与其左右两边元素分别有以下三种情况，如：（1）3、3、4，（2）3、4、3，（3）4、3、3。对于第二种情况，我们立马就找到了只出现一次的那个元素。那么对于第一种情况mid=mid-1，那么以（3、3）为界将数组一分为二，判断两边的元素个数，因为我们知道只出现一次的那个元素所在的有序数组元素个数必为奇数，如果（3、3）左边的元素个数为奇数，那么只出现一次的那个数载左边，则将hi移到mid-2位置，即（3、3）的左边，如果（3、3）右边的元素个数为奇数，那么只出现一次的那个数在右边，则将lo移到mid+1位置，即（3、3）的右边。第三种情况与第二种情况类似分析，如果（3、3）左边为奇数，则hi移到mid-1位置，如果（3、3）右边为奇数，则lo移到mid+2位置。以此类推，直到lo=hi，搜索结束。
+First, lo and hi point to the first and last elements of the array respectively, and mid points to the middle element. At this time, we will find that the middle element and its left and right elements have the following three situations, such as: (1) 3, 3, 4, (2) 3, 4, 3, (3) 4, 3, 3. For the second case, we immediately found the element that only appeared once. So for the first case mid=mid-1, then divide the array into two with (3, 3) as the boundary, and determine the number of elements on both sides, because we know that the number of elements in the ordered array where the element that only appears once must be an odd number, if the number of elements on the left side of (3, 3) is an odd number , then the number that only appears once is on the left, then move hi to the mid-2 position, that is, the left side of (3, 3). If the number of elements on the right side of (3, 3) is an odd number, then the number that only appears once is on the right, then move lo to the mid+1 position, that is, the right side of (3, 3). The third case is analyzed similarly to the second case. If the left side of (3, 3) is an odd number, then hi moves to the mid-1 position. If the right side of (3, 3) is an odd number, lo moves to the mid+2 position. And so on, until lo=hi, the search ends.
 
-##动画理解
+##Animation understanding
 
 ![](../Animation/Animation.gif)
 
-##代码实现
+##Code implementation
 ```
 class Solution {
     public int singleNonDuplicate(int[] nums) {
@@ -53,20 +53,20 @@ class Solution {
     }
 }
 ```
-##复杂度分析
+##Complexity analysis
 
-- 时间复杂度：O(log n)，在每次循环迭代中，我们将搜索空间减少了一半。
-- 空间复杂度：O(1)，仅用了常数空间
+- Time complexity: O(log n), in each loop iteration we reduce the search space by half.
+- Space complexity: O(1), only constant space is used
 
-##解法二：仅对偶数索引进行二分搜索
+##Solution 2: Perform binary search only on even indexes
 
-我们发现当mid索引为偶数时，mid两边的数组元素个数是偶数，如果mid索引为奇数时，mid两边的数组元素个数为奇数。当mid索引为偶数时，如果mid=mid+1，即解法一的第三种情况，因为mid右边个数为偶数，所以mid+2到hi个数为奇数，那么只出现一次的那个元素肯定在mid的右边，将lo移动到mid+2位置。如果mid！= mid+1，那么只出现一次的那个元素肯定在mid的左边或者就是mid。如果mid 索引为奇数，那么我们为了保证mid索引为偶数，将mid移到mid-1位置，这样mid索引就变成偶数了，重复上述操作，直到hi=lo，搜索结束。
+We find that when the mid index is an even number, the number of array elements on both sides of mid is even. If the mid index is an odd number, the number of array elements on both sides of mid is an odd number. When the mid index is an even number, if mid=mid+1, which is the third case of solution 1, because the number on the right side of mid is an even number, so the number from mid+2 to hi is an odd number, then the element that only appears once must be on the right side of mid, and lo is moved to the mid+2 position. If mid! = mid+1, then the element that appears only once must be to the left of mid or is mid. If the mid index is an odd number, then in order to ensure that the mid index is an even number, we move the mid to the mid-1 position, so that the mid index becomes an even number. Repeat the above operation until hi=lo and the search ends.
 
-##动画理解
+##Animation understanding
 
 ![](../Animation/2.gif)
 
-##代码实现
+##Code implementation
 
 ```
 class Solution {
@@ -87,7 +87,7 @@ class Solution {
 }
 ```
 
-##复杂度分析
+##Complexity analysis
 
-- 时间复杂度：O(log2 / n)=O(log n)，我们仅对元素的一半进行二分搜索。
-- 空间复杂度：O(1)，仅用了常数空间
+- Time complexity: O(log2/n)=O(log n), we only perform a binary search on half of the elements.
+- Space complexity: O(1), only constant space is used

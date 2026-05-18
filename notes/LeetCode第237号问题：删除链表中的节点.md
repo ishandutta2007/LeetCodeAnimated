@@ -1,57 +1,57 @@
-# LeetCode 第 237 号问题：删除链表中的节点
+# LeetCode Question No. 237: Deleting nodes in a linked list
 
-> 本文首发于公众号「五分钟学算法」，是[图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>)系列文章之一。
+> This article was first published on the public account "Learning Algorithms in Five Minutes" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 个人网站：[https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
+> Personal website: [https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
 
-题目来源于 LeetCode 上第 237 号问题：删除链表中的节点。题目难度为 Easy，目前通过率为 72.6% 。
+The question comes from question No. 237 on LeetCode: Delete nodes in a linked list. The difficulty of the questions is Easy, and the current passing rate is 72.6%.
 
-### 题目描述
+### Title description
 
-请编写一个函数，使其可以删除某个链表中给定的（非末尾）节点，你将只被给定要求被删除的节点。
+Please write a function that deletes a given (non-end) node in a linked list. You will only be given the node to be deleted.
 
-现有一个链表 -- head = [4,5,1,9]，它可以表示为:
+There is an existing linked list -- head = [4,5,1,9], which can be expressed as:
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/uv8bw.png)
 
  
 
-**示例 1:**
+**Example 1:**
 
 ```
-输入: head = [4,5,1,9], node = 5
-输出: [4,1,9]
-解释: 给定你链表中值为 5 的第二个节点，那么在调用了你的函数之后，该链表应变为 4 -> 1 -> 9.
+Input: head = [4,5,1,9], node = 5
+Output: [4,1,9]
+Explanation: Given the second node in your linked list with value 5, after calling your function, the linked list should become 4 -> 1 -> 9.
 ```
 
-**示例 2:**
+**Example 2:**
 
 ```
-输入: head = [4,5,1,9], node = 1
-输出: [4,5,9]
-解释: 给定你链表中值为 1 的第三个节点，那么在调用了你的函数之后，该链表应变为 4 -> 5 -> 9.
+Input: head = [4,5,1,9], node = 1
+Output: [4,5,9]
+Explanation: Given the third node in your linked list with value 1, after calling your function, the linked list should become 4 -> 5 -> 9.
 ```
 
  
 
-**说明:**
+**illustrate:**
 
-- 链表至少包含两个节点。
-- 链表中所有节点的值都是唯一的。
-- 给定的节点为非末尾节点并且一定是链表中的一个有效节点。
-- 不要从你的函数中返回任何结果。
+- The linked list contains at least two nodes.
+- The values ​​of all nodes in the linked list are unique.
+- The given node is a non-last node and must be a valid node in the linked list.
+- Don't return any results from your function.
 
-### 题目解析
+### Question analysis
 
-此题注意的点是没有给我们链表的起点，只给我们了一个要删的节点，与以往处理的情况稍许不同。
+The important point to note in this question is that we are not given the starting point of the linked list, but only a node to be deleted, which is slightly different from the previous situations.
 
-**这道题的处理方法是先把当前节点的值用下一个节点的值覆盖，然后我们删除下一个节点即可**
+**The solution to this problem is to first overwrite the value of the current node with the value of the next node, and then we can delete the next node**
 
-### 动画描述
+### Animation description
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/1navy.gif)
 
-### 代码实现
+### Code implementation
 
 ```
 class Solution {

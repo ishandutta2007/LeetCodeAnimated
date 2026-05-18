@@ -1,52 +1,52 @@
-# LeetCode第 189 号问题：旋转数组
+# LeetCode Issue No. 189: Rotating Arrays
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步博客：https://www.algomooc.com
+> Synchronized blog: https://www.algomooc.com
 
-题目来源于 LeetCode 上第 189 号问题：旋转数组。题目难度为 Easy，目前通过率为 41.7% 。
+The question comes from question No. 189 on LeetCode: Rotating Arrays. The difficulty of the questions is Easy, and the current passing rate is 41.7%.
 
-### 题目描述
+### Title description
 
-给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。
+Given an array, move the elements in the array k positions to the right, where k is a non-negative number.
 
-**示例 1:**
-
-```
-输入: [1,2,3,4,5,6,7] 和 k = 3
-输出: [5,6,7,1,2,3,4]
-解释:
-向右旋转 1 步: [7,1,2,3,4,5,6]
-向右旋转 2 步: [6,7,1,2,3,4,5]
-向右旋转 3 步: [5,6,7,1,2,3,4]
-```
-
-**示例 2:**
+**Example 1:**
 
 ```
-输入: [-1,-100,3,99] 和 k = 2
-输出: [3,99,-1,-100]
-解释: 
-向右旋转 1 步: [99,-1,-100,3]
-向右旋转 2 步: [3,99,-1,-100]
+Input: [1,2,3,4,5,6,7] and k = 3
+Output: [5,6,7,1,2,3,4]
+explain:
+Rotate right 1 step: [7,1,2,3,4,5,6]
+Rotate right 2 steps: [6,7,1,2,3,4,5]
+Rotate right 3 steps: [5,6,7,1,2,3,4]
 ```
 
-**说明:**
+**Example 2:**
 
-* 尽可能想出更多的解决方案，至少有三种不同的方法可以解决这个问题。
-* 要求使用空间复杂度为 O(1) 的 原地 算法。
+```
+Input: [-1,-100,3,99] and k = 2
+Output: [3,99,-1,-100]
+explain:
+Rotate right 1 step: [99,-1,-100,3]
+Rotate right 2 steps: [3,99,-1,-100]
+```
+
+**illustrate:**
+
+* Come up with as many solutions as possible, at least three different ways to solve the problem.
+* Requires an in-place algorithm with O(1) space complexity.
 
 <br>
 
-### 题目解析
+### Question analysis
 
-如果没有空间复杂度为 `O(1)` 这个限制，这道题相对来说会简单很多，需要做的仅仅复制一份数组，然后将 `[n - k, n]` 区间上的元素覆盖在数组的开头，接着遍历并覆盖剩下的元素即可。
+If there is no space complexity limit of `O(1)`, this question will be relatively simple. All you need to do is to copy an array, then overwrite the elements in the `[n - k, n]` interval at the beginning of the array, and then traverse and overwrite the remaining elements.
 
-不能使用额外的空间意味着你只能从数组本身来入手，这里我们可以使用反转数组来解决这道题，这是一个 rotate 数组的小技巧。如果仔细观察，你会发现 **数组经过 rotate 后会变成两个连续的区间段**，这两个区间段中的元素顺序和 rotate 之前的顺序是一样的。首先我们对数组当中所有的元素进行反转，然后分别对这两个区间进行反转，这样就可以保证区间内的顺序和之前一样，你可以看看动图或者自己动手尝试一下，这里并没有复杂的知识点，只是数组操作上的小技巧，了解了之后，可以运用到其他 rotate 数组的场景中。
+Not being able to use extra space means you have to start with the array itself. Here we can solve this problem by using the reverse array. This is a little trick of rotating the array. If you observe carefully, you will find that the array will become two consecutive intervals after rotate. The order of the elements in these two intervals is the same as the order before rotate. First, we reverse all the elements in the array, and then reverse the two intervals respectively, so that the order within the intervals is the same as before. You can look at the animation or try it yourself. There are no complicated knowledge points here, just tips on array operations. After understanding it, you can apply it to other rotate array scenarios.
 
 <br>
 
-### 代码实现
+### Code implementation
 
 ```java
 class Solution {
@@ -72,17 +72,17 @@ class Solution {
 
 <br>
 
-### 动画描述
+### Animation description
 
 ![](../Animation/189.gif)
 
 <br>
 
-### 复杂度分析
+### Complexity analysis
 
-空间：O(1)
+Space: O(1)
 
-时间：O(n)
+Time: O(n)
 
 
 ![](../../Pictures/qrcode.jpg)

@@ -1,48 +1,48 @@
-### 题目描述
+### Title description
 
-给你一个整数 `n`，请你帮忙计算并返回该整数「各位数字之积」与「各位数字之和」的差。
+Given an integer `n`, please help calculate and return the difference between the "product of the digits" and the "sum of the digits" of the integer.
 
-示例 1:
-
-```
-输入：n = 234
-输出：15 
-解释：
-各位数之积 = 2 * 3 * 4 = 24 
-各位数之和 = 2 + 3 + 4 = 9 
-结果 = 24 - 9 = 15
-```
-
-示例 2:
+Example 1:
 
 ```
-输入：n = 4421
-输出：21
-解释： 
-各位数之积 = 4 * 4 * 2 * 1 = 32 
-各位数之和 = 4 + 4 + 2 + 1 = 11 
-结果 = 32 - 11 = 21
+Input: n = 234
+Output: 15
+explain:
+Product of digits = 2 * 3 * 4 = 24
+Sum of digits = 2 + 3 + 4 = 9
+Result = 24 - 9 = 15
 ```
 
-**提示：**
+Example 2:
+
+```
+Input: n = 4421
+Output: 21
+explain:
+The product of each digit = 4 * 4 * 2 * 1 = 32
+Sum of digits = 4 + 4 + 2 + 1 = 11
+Result = 32 - 11 = 21
+```
+
+**hint:**
 
 ```
 1 <= n <= 10^5
 ```
 
-### 题目解析
+### Question analysis
 
-1、通过取模运算遍历数字每一位
+1. Traverse each digit of the number through modulo operation
 
-2、通过两个变量在遍历过程中分别记录求和与求积
+2. Use two variables to record the sum and product respectively during the traversal process.
 
-### 动画理解
+### Animation understanding
 
 ![](../Animation/Animation.mp4)
 
 ‎⁨
 
-### 参考代码
+### Reference code
 
 ```java
 class Solution {
@@ -61,8 +61,8 @@ class Solution {
 
 
 
-### 复杂度分析
+### Complexity analysis
 
-时间复杂度：O(logN)
+Time complexity: O(logN)
 
-空间复杂度：O(1)
+Space complexity: O(1)

@@ -1,47 +1,47 @@
-# LeetCode 第 138 号问题：复制带随机指针的链表
+# LeetCode Issue No. 138: Copying a linked list with random pointers
 
-> 本文首发于公众号「五分钟学算法」，是[图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>)系列文章之一。
+> This article was first published on the public account "Learning Algorithms in Five Minutes" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 个人网站：[https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
+> Personal website: [https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
 
 
 
-题目来源于 LeetCode 上第 138 号问题：复制带随机指针的链表。题目难度为 Medium，目前通过率为 40.5% 。
+The question comes from question No. 138 on LeetCode: Copying a linked list with random pointers. The difficulty level of the questions is Medium, and the current pass rate is 40.5%.
 
-### 题目描述
+### Title description
 
-给定一个链表，每个节点包含一个额外增加的随机指针，该指针可以指向链表中的任何节点或空节点。
+Given a linked list, each node contains an additional random pointer that can point to any node in the linked list or an empty node.
 
-要求返回这个链表的**深拷贝**。 
+Requests a **deep copy** of this linked list to be returned.
 
-**示例：**
+**Example:**
 
 ```
-输入：
+enter:
 {"$id":"1","next":{"$id":"2","next":null,"random":{"$ref":"2"},"val":2},"random":{"$ref":"2"},"val":1}
 
-解释：
-节点 1 的值是 1，它的下一个指针和随机指针都指向节点 2 。
-节点 2 的值是 2，它的下一个指针指向 null，随机指针指向它自己。
+explain:
+The value of node 1 is 1, and its next pointer and random pointer both point to node 2.
+The value of node 2 is 2, its next pointer points to null, and the random pointer points to itself.
 ```
 
-### 题目解析
+### Question analysis
 
-1. 在原链表的每个节点后面拷贝出一个新的节点
+1. Copy a new node after each node in the original linked list
 
-2. 依次给新的节点的随机指针赋值，而且这个赋值非常容易 cur->next->random = cur->random->next
+2. Assign values ​​to the random pointers of the new nodes in sequence, and this assignment is very easy cur->next->random = cur->random->next
 
-3. 断开链表可得到深度拷贝后的新链表
+3. Disconnect the linked list to obtain a new linked list after deep copying
 
-之所以说这个方法比较巧妙是因为相较于一般的解法（如使用 Hash map ）来处理，上面这个解法 **不需要占用额外的空间**。
+The reason why this method is more clever is that compared to the general solution (such as using Hash map), the above solution **does not require additional space**.
 
-### 动画描述
+### Animation description
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/whvl5.gif)
 
-### 代码实现
+### Code implementation
 
-我发现带指针的题目使用 C++ 版本更容易描述，所以下面的代码实现是 C++ 版本。
+I find that problems with pointers are easier to describe using the C++ version, so the code implementation below is the C++ version.
 
 ```c++
 class Solution {

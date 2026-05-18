@@ -1,55 +1,55 @@
-# LeetCode 第 454 号问题：四数相加 II
+# LeetCode Problem No. 454: Adding Four Numbers II
 
-> 本文首发于公众号「五分钟学算法」，是[图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>)系列文章之一。
+> This article was first published on the public account "Learning Algorithms in Five Minutes" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 个人网站：[https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
+> Personal website: [https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
 
-题目来源于 LeetCode 上第 454 号问题：四数相加 II。题目难度为 Medium，目前通过率为 50.8% 。
+The question comes from question No. 454 on LeetCode: Adding Four Numbers II. The difficulty level of the questions is Medium, and the current pass rate is 50.8%.
 
-### 题目描述
+### Title description
 
-给定四个包含整数的数组列表 A , B , C , D ,计算有多少个元组 `(i, j, k, l)` ，使得 `A[i] + B[j] + C[k] + D[l] = 0`。
+Given four array lists A , B , C , D containing integers, count how many tuples `(i, j, k, l)` there are such that `A[i] + B[j] + C[k] + D[l] = 0`.
 
-为了使问题简单化，所有的 A, B, C, D 具有相同的长度 N，且 0 ≤ N ≤ 500 。所有整数的范围在 -228 到 228 - 1 之间，最终结果不会超过 231 - 1 。
+To simplify the problem, all A, B, C, D have the same length N, and 0 ≤ N ≤ 500. All integers range from -228 to 228 - 1, and the final result will not exceed 231 - 1.
 
-**例如:**
+**For example:**
 
 ```
-输入:
+enter:
 A = [ 1, 2]
 B = [-2,-1]
 C = [-1, 2]
 D = [ 0, 2]
 
-输出:
+Output:
 2
 
-解释:
-两个元组如下:
+explain:
+The two tuples are as follows:
 1. (0, 0, 0, 1) -> A[0] + B[0] + C[0] + D[1] = 1 + (-2) + (-1) + 2 = 0
 2. (1, 1, 0, 0) -> A[1] + B[1] + C[0] + D[0] = 2 + (-1) + (-1) + 0 = 0
 ```
 
-### 题目解析
+### Question analysis
 
-与[Two Sum](https://xiaozhuanlan.com/topic/7923618450)类似，需要用哈希表来解决问题。
+Similar to [Two Sum](https://xiaozhuanlan.com/topic/7923618450), a hash table is needed to solve the problem.
 
-- 把 A 和 B 的两两之和都求出来，在哈希表中建立两数之和与其出现次数之间的映射
-- 遍历 C 和 D 中任意两个数之和，只要看哈希表存不存在这两数之和的相反数就行了
+- Find the sum of each pair of A and B, and establish a mapping between the sum of the two numbers and their occurrence times in the hash table
+- To traverse the sum of any two numbers in C and D, just check whether the opposite number of the sum of these two numbers exists in the hash table.
 
 
 
-### 动画描述
+### Animation description
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/dgth9.gif)
 
-### 代码实现
+### Code implementation
 
 ```
 // 454. 4Sum II
 // https://leetcode.com/problems/4sum-ii/description/
-// 时间复杂度: O(n^2)
-// 空间复杂度: O(n^2)
+// Time complexity: O(n^2)
+// Space complexity: O(n^2)
 class Solution {
 public:
     int fourSumCount(vector<int>& A, vector<int>& B, vector<int>& C, vector<int>& D) {

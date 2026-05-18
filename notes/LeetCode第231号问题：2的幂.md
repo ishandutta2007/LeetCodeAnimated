@@ -1,47 +1,47 @@
-# LeetCode 第 231 号问题：2 的幂
+# LeetCode Problem No. 231: Powers of 2
 
-> 本文首发于公众号「五分钟学算法」，是[图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>)系列文章之一。
+> This article was first published on the public account "Learning Algorithms in Five Minutes" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 个人网站：[https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
+> Personal website: [https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
 
-题目来源于 LeetCode 上第 231 号问题：2 的幂。题目难度为 Easy，目前通过率为 45.6% 。
+The question comes from question No. 231 on LeetCode: Powers of 2. The difficulty of the questions is Easy, and the current passing rate is 45.6%.
 
-### 题目描述
+### Title description
 
-给定一个整数，编写一个函数来判断它是否是 2 的幂次方。
+Given an integer, write a function to determine whether it is a power of 2.
 
-**示例 1:**
-
-```
-输入: 1
-输出: true
-解释: 2^0 = 1
-```
-
-**示例 2:**
+**Example 1:**
 
 ```
-输入: 16
-输出: true
-解释: 2^4 = 16
+Input: 1
+Output: true
+Explanation: 2^0 = 1
 ```
 
-**示例 3:**
+**Example 2:**
 
 ```
-输入: 218
-输出: false
+Input: 16
+Output: true
+Explanation: 2^4 = 16
 ```
 
-### 题目解析
+**Example 3:**
 
-首先，先来分析一下 2 的次方数的二进制写法：
+```
+Input: 218
+Output: false
+```
 
-![表格](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/3wdpd.jpg)
+### Question analysis
 
-仔细观察，可以看出 2 的次方数都只有一个 1 ，剩下的都是 0 。根据这个特点，只需要每次判断最低位是否为 1 ，然后向右移位，最后统计 1 的个数即可判断是否是 2 的次方数。
+First, let’s analyze the binary writing of 2 to the power of 2:
 
-代码很简单：
+![Form](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/3wdpd.jpg)
+
+If you look closely, you can see that every power of 2 has only one 1, and the rest are all 0. According to this feature, you only need to determine whether the lowest bit is 1 each time, then shift to the right, and finally count the number of 1's to determine whether it is a power of 2.
+
+The code is very simple:
 
 ```c++
 class Solution {
@@ -57,17 +57,17 @@ public:
 };
 ```
 
-该题还有一种巧妙的解法。再观察上面的表格，如果一个数是 2 的次方数的话，那么它的二进数必然是最高位为1，其它都为 0 ，那么如果此时我们减 1 的话，则最高位会降一位，其余为 0 的位现在都为变为 1，那么我们把两数相与，就会得到 0。
+There is also an ingenious solution to this problem. Observe the above table again. If a number is a power of 2, then its binary number must have the highest bit as 1 and the rest as 0. If we subtract 1 at this time, the highest bit will drop by one, and the remaining 0 bits will now become 1. Then we add the two numbers and we will get 0.
 
-比如 2 的 3 次方为 8，二进制位 1000 ，那么 ` 8 - 1 = 7`，其中 7 的二进制位 0111。
+For example, the third power of 2 is 8, and the binary digit is 1000, then `8 - 1 = 7`, where the binary digit of 7 is 0111.
 
-### 图片描述
+### Image description
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/1w9lq.jpg)
 
-### 代码实现
+### Code implementation
 
-利用这个性质，只需一行代码就可以搞定。
+Taking advantage of this property, it can be done with just one line of code.
 
 ```c++
 class Solution {

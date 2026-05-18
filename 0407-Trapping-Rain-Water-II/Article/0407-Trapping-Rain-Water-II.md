@@ -1,46 +1,46 @@
-# LeetCode 第 407 号问题：接雨水 II
+# LeetCode Question No. 407: Catching Rainwater II
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步博客：https://www.algomooc.com
+> Synchronized blog: https://www.algomooc.com
 
-题目来源于 LeetCode 上第 407 号问题：接雨水 II。题目难度为 Hard，目前通过率为 38% 。
+The question comes from question No. 407 on LeetCode: Catching Rainwater II. The difficulty of the questions is Hard, and the current passing rate is 38%.
 
-### 题目描述
+### Title description
 
-给你一个 m x n 的矩阵，其中的值均为正整数，代表二维高度图每个单元的高度，请计算图中形状最多能接多少体积的雨水。
+Given an m x n matrix, the values ​​in it are all positive integers, representing the height of each unit in a two-dimensional height map. Please calculate the maximum volume of rainwater that the shape in the map can receive.
 
-**示例:**
+**Example:**
 
 ```
-给出如下 3x6 的高度图:
+This gives the following 3x6 heightmap:
 [
   [1,4,3,1,3,2],
   [3,2,1,3,2,4],
   [2,3,3,2,3,1]
 ]
 
-返回 4 。
+Return 4 .
 ```
 
 ![](../Animation/example.png)
 
-### 题目解析
+### Question analysis
 
-在 1 个 2 维的矩阵中，每个格子都有其高度，问这个 2 维矩阵能够盛多少的水。首先我们分析，格子能够盛水的必要条件是其周围存在格子比当前格子高，这样水才能够被框得住，但是仔细一想，最外围的格子怎么办？它们是存不了水的，可以把最外围的格子想象成围栏，它们的作用就是保证里面格子的水不会流出来，所以我们就得先考虑这些格子，它们的高度直接决定了内部格子的蓄水量，但是这些格子也有局部性，一个格子的长短并不会影响矩阵当中所有的格子，但是它会影响与其相邻的格子，那么我们就需要有一个考虑的顺序，那就是优先考虑最外层最短的格子，由于每个格子都会影响到其周围的格子，内部格子也需要列入考虑范围，每次我们都考虑最短的格子，然后看其周围有没有没考虑过的比它还短的格子，于是就有了考虑的先后顺序：
+In a 2-dimensional matrix, each grid has its height. How much water can this 2-dimensional matrix hold? First of all, we analyze that the necessary condition for a grid to be able to hold water is that there are grids around it that are higher than the current grid, so that the water can be framed. But if we think about it carefully, what about the outermost grid? They cannot store water. You can think of the outermost grids as fences. Their function is to ensure that the water in the inner grids will not flow out, so we have to consider these grids first. Their height directly determines the water storage capacity of the internal grids. However, these grids are also localized. The length of one grid will not affect all grids in the matrix, but it will affect the relationship between Its adjacent grids, then we need to have a consideration order, which is to give priority to the shortest grid in the outermost layer. Since each grid will affect the grids around it, the internal grids also need to be considered. Every time we consider the shortest grid, and then see if there are any grids around it that are shorter than it that have not been considered, so there is a priority of consideration:
 
-1. 考虑最外层格子
-2. 选出最外层最短的格子
-3. 考虑该格子与其相邻的内部格子是否能盛水，并把这个内部格子也纳入考虑范围
-4. 在考虑范围内的所有格子中选出最短的格子，重复步骤 3
+1. Consider the outermost grid
+2. Select the shortest outermost grid
+3. Consider whether the grid and its adjacent internal grid can hold water, and take this internal grid into consideration.
+4. Select the shortest grid among all grids under consideration and repeat step 3.
 
-这里需要注意的是，每次纳入考虑范围的格子是加了水之后的高度，而不是之前的高度，原因想一下应该不难理解。另外就是可以使用了 “堆” 这个数据结构来帮助实现寻找 “当前考虑范围内最短的格子” 这个操作步骤。
+What needs to be noted here is that the grid that is taken into consideration each time is the height after adding water, not the previous height. The reason should not be difficult to understand if you think about it. In addition, the data structure "heap" can be used to help implement the operation step of finding the "shortest grid within the current consideration range".
 
-### 动画描述
+### Animation description
 
 ![](../Animation/407.gif)
 
-### 代码实现
+### Code implementation
 
 ```java
 private class Pair {
@@ -72,7 +72,7 @@ public int trapRainWater(int[][] heightMap) {
     
     boolean[][] visited = new boolean[m][n];
     
-    // 优先将外围的元素加入队列中
+    //Add peripheral elements to the queue first
     for (int i = 0; i < n; ++i) {
         pq.offer(new Pair(0, i, heightMap[0][i]));
         pq.offer(new Pair(m - 1, i, heightMap[m - 1][i]));
@@ -93,7 +93,7 @@ public int trapRainWater(int[][] heightMap) {
     while (!pq.isEmpty()) {
         Pair cur = pq.poll();
 
-        // 遍历当前位置上下左右四个方向
+        // Traverse the four directions of the current position, up, down, left and right
         for (int k = 0; k < 4; ++k) {
             int curX = cur.x + dirX[k];
             int curY = cur.y + dirY[k];
@@ -118,9 +118,9 @@ public int trapRainWater(int[][] heightMap) {
 
 <br>
 
-### 复杂度分析
+### Complexity analysis
 
-因为使用了优先队列这个数据结构，每次元素出入队列的时间复杂度是 O(logn)，于是我们可以得出整体时间复杂度是 `O(m*n*logm*n)`，当然，需要说明的是，这是最差时间复杂度，由于并不是所有的元素都一次性加入队列，平均时间复杂度要比这个来的低，具体是什么就得看输入数据了。空间复杂度是 `O(m*n)`，这里也不难理解。通过这道题，堆的用法又被很好地展现了出来。
+Because the data structure of the priority queue is used, the time complexity of each element entering and exiting the queue is O(logn), so we can conclude that the overall time complexity is `O(m*n*logm*n)`. Of course, it should be noted that this is the worst time complexity. Since not all elements are added to the queue at one time, the average time complexity is lower than this. What it is depends on the input data. The space complexity is `O(m*n)`, which is not difficult to understand here. Through this question, the usage of heap is well demonstrated.
 
 
 

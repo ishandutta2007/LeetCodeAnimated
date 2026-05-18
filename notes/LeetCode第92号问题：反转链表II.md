@@ -1,48 +1,48 @@
-# LeetCode 第 92 号问题：反转链表 II
+# LeetCode Problem No. 92: Reverse Linked List II
 
-> 本文首发于公众号「五分钟学算法」，是[图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>)系列文章之一。
+> This article was first published on the public account "Learning Algorithms in Five Minutes" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 个人网站：[https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
+> Personal website: [https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
 
-题目来源于 LeetCode 上第 92 号问题：反转链表 II。题目难度为 Medium，目前通过率为 43.8% 。
+The question comes from question No. 92 on LeetCode: Reverse Linked List II. The difficulty level of the questions is Medium, and the current pass rate is 43.8%.
 
-### 题目描述
+### Title description
 
-反转从位置 *m* 到 *n* 的链表。请使用一趟扫描完成反转。
+Reverse the linked list from position *m* to *n*. Please use one scan to complete the reversal.
 
-**说明:**
-1 ≤ *m* ≤ *n* ≤ 链表长度。
+**illustrate:**
+1 ≤ *m* ≤ *n* ≤ linked list length.
 
-**示例:**
+**Example:**
 
 ```
-输入: 1->2->3->4->5->NULL, m = 2, n = 4
-输出: 1->4->3->2->5->NULL
+Input: 1->2->3->4->5->NULL, m = 2, n = 4
+Output: 1->4->3->2->5->NULL
 ```
 
-### 题目解析
+### Question analysis
 
-**[Reverse Linked List](https://xiaozhuanlan.com/topic/7513064892)**的延伸题。
+An extended question of **[Reverse Linked List](https://xiaozhuanlan.com/topic/7513064892)**.
 
-可以考虑取出需要反转的这一小段链表，反转完后再插入到原先的链表中。
+You can consider taking out the small segment of the linked list that needs to be reversed, and then inserting it into the original linked list after reversing it.
 
-**以本题为例：**
+**Take this question as an example:**
 
-变换的是 2，3，4这三个点，那么我们可以先取出 2 ，用 front 指针指向 2 ，然后当取出 3 的时候，我们把 3 加到 2 的前面，把 front 指针前移到 3 ，依次类推，到 4 后停止，这样我们得到一个新链表 4 -> 3 -> 2 ,  front 指针指向4。
+The three points that are transformed are 2, 3, and 4. Then we can first take out 2 and use the front pointer to point to 2. Then when taking out 3, we add 3 in front of 2 and move the front pointer forward to 3, and so on, and stop after reaching 4. In this way, we get a new linked list 4 -> 3 -> 2, and the front pointer points to 4.
 
-对于原链表来说，**有两个点的位置很重要**，需要用指针记录下来，分别是 1 和 5 ，把新链表插入的时候需要这两个点的位置。
+For the original linked list, the positions of two points are very important and need to be recorded with pointers, which are 1 and 5 respectively. The positions of these two points are needed when inserting the new linked list.
 
-- 用 pre 指针记录 1 的位置
-- 当 4 结点被取走后，5 的位置需要记下来
-- 这样我们就可以把倒置后的那一小段链表加入到原链表中
+- Use the pre pointer to record the position of 1
+- When node 4 is removed, the position of node 5 needs to be recorded.
+- In this way we can add the inverted short section of the linked list to the original linked list
 
 
 
-### 动画描述
+### Animation description
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/rjjr0.gif)
 
-### 代码实现
+### Code implementation
 
 ```
 class Solution {

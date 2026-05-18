@@ -1,48 +1,48 @@
-# LeetCode 第 201 号问题：数字范围按位与
+# LeetCode Issue No. 201: Bitwise AND of Numeric Ranges
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步博客：https://www.algomooc.com
+> Synchronized blog: https://www.algomooc.com
 
-题目来源于 LeetCode 上第 201  号问题：数字范围按位与。题目难度为 Medium，目前通过率为 39.1% 。
+The question comes from question No. 201 on LeetCode: Bitwise AND of Number Ranges. The difficulty level of the questions is Medium, and the current passing rate is 39.1%.
 
-### 题目描述
+### Title description
 
-给定范围 [m, n]，其中 0 <= m <= n <= 2147483647，返回此范围内所有数字的按位与（包含 m, n 两端点）。
+Given a range [m, n] where 0 <= m <= n <= 2147483647, returns the bitwise AND of all numbers in the range, inclusive (m, n).
 
-**示例 1:** 
-
-```
-输入: [5,7]
-输出: 4
-```
-
-**示例 2:**
+**Example 1:**
 
 ```
-输入: [0,1]
-输出: 0
+Input: [5,7]
+Output: 4
 ```
 
-### 题目解析
+**Example 2:**
 
-以 [ 26 ，30] 为例。
+```
+Input: [0,1]
+Output: 0
+```
 
-首先，将 [ 26 , 30 ] 的范围数字用二进制表示出来：
+### Question analysis
+
+Take [26, 30] as an example.
+
+First, represent the range of numbers [26, 30] in binary:
 
 **11**010　　**11**011　　**11**100　　**11**101　　**11**110
 
-而输出 24 的二进制是 11000 。
+And the output of 24 is 11000 in binary.
 
-可以发现，只要找到二进制的 **左边公共部分** 即可。
+It can be found that just find the binary **common part on the left**.
 
-所以，可以先建立一个 32 位都是 1 的 mask，然后每次向左移一位，比较 m 和 n 是否相同，不同再继续左移一位，直至相同，然后把 m 和 mask 相与就是最终结果。
+Therefore, you can first create a mask with 32 bits all being 1, and then shift one bit to the left each time, compare m and n to see if they are the same, if they are different, continue to shift one bit to the left until they are the same, and then sum m and mask to get the final result.
 
-### 动画描述
+### Animation description
 
-暂无
+None yet
 
-### 代码实现
+### Code implementation
 
 ```c++
 class Solution {

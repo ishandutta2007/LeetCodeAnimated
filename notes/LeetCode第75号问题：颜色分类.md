@@ -1,54 +1,54 @@
-# LeetCode 第 75 号问题：颜色分类
+# LeetCode Issue No. 75: Color Classification
 
-> 本文首发于公众号「五分钟学算法」，是[图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>)系列文章之一。
+> This article was first published on the public account "Learning Algorithms in Five Minutes" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 个人网站：[https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
+> Personal website: [https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
 
-题目来源于 LeetCode 上第 75 号问题：颜色分类。题目难度为 Medium，目前通过率为 51.8% 。
+The question comes from Question No. 75 on LeetCode: Color Classification. The difficulty level of the questions is Medium, and the current passing rate is 51.8%.
 
-### 题目描述
+### Title description
 
-给定一个包含红色、白色和蓝色，一共 *n* 个元素的数组，**原地**对它们进行排序，使得相同颜色的元素相邻，并按照红色、白色、蓝色顺序排列。
+Given an array containing *n* elements in red, white and blue, sort them **in place** so that elements of the same color are adjacent and arranged in the order of red, white and blue.
 
-此题中，我们使用整数 0、 1 和 2 分别表示红色、白色和蓝色。
+In this question, we use the integers 0, 1, and 2 to represent red, white, and blue respectively.
 
-**注意:**
-不能使用代码库中的排序函数来解决这道题。
+**Notice:**
+This problem cannot be solved using the sorting functions in the code base.
 
-**示例:**
+**Example:**
 
 ```
-输入: [2,0,2,1,1,0]
-输出: [0,0,1,1,2,2]
+Input: [2,0,2,1,1,0]
+Output: [0,0,1,1,2,2]
 ```
 
-**进阶：**
+**Advanced:**
 
-- 一个直观的解决方案是使用计数排序的两趟扫描算法。
-  首先，迭代计算出0、1 和 2 元素的个数，然后按照0、1、2的排序，重写当前数组。
-- 你能想出一个仅使用常数空间的一趟扫描算法吗？
+- An intuitive solution is to use a counting sorted two-pass scan algorithm.
+  First, iteratively calculate the number of elements 0, 1, and 2, and then rewrite the current array in order of 0, 1, and 2.
+- Can you come up with a one-pass scan algorithm using only constant space?
 
-### 题目解析
+### Question analysis
 
-结合三路快排 partition 思路的应用。
+Combined with the application of three-way quick partition partition idea.
 
-设定两个索引，一个从左往右滑动`zero`，一个从右往左滑动`two`。
+Set two indexes, one for sliding `zero` from left to right, and one for sliding `two` from right to left.
 
-* 遍历`nums`，当`nums[i]`的值为1时，`i++`；
-* 当`nums[i]`的值为2时，`two`的值先减1，而后交换`nums[i]`与`nums[two]`，此时在观察`nums[i]`的值；
-* 当`nums[i]`的值为0时，`zero++`，而后交换`nums[i]`与`nums[zero]`，`i++`;当 `i = two`时，结束循环。
+* Traverse `nums`, when the value of `nums[i]` is 1, `i++`;
+* When the value of `nums[i]` is 2, the value of `two` is first decremented by 1, and then exchanges `nums[i]` and `nums[two]`. At this time, the value of `nums[i]` is observed;
+* When the value of `nums[i]` is 0, `zero++`, then exchange `nums[i]` and `nums[zero]`, `i++`; when `i = two`, end the loop.
 
-### 动画描述
+### Animation description
 
 ![](https://blog-1257126549.cos.ap-guangzhou.myqcloud.com/blog/6g5tm.gif)
 
-### 代码实现
+### Code implementation
 
 ```
-// 三路快速排序的思想
-// 对整个数组只遍历了一遍
-// 时间复杂度: O(n)
-// 空间复杂度: O(1)
+//The idea of ​​three-way quick sorting
+// The entire array is traversed only once
+// Time complexity: O(n)
+// Space complexity: O(1)
 class Solution {
 public:
     void sortColors(vector<int> &nums) {

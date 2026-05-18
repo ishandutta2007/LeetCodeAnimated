@@ -1,54 +1,54 @@
-# LeetCode 第 125 号问题：验证回文串
+# LeetCode Issue No. 125: Validating Palindrome Strings
 
-> 本文首发于公众号「五分钟学算法」，是[图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>)系列文章之一。
+> This article was first published on the public account "Learning Algorithms in Five Minutes" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 个人网站：[https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
+> Personal website: [https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
 
-题目来源于 LeetCode 第 125 号问题：验证回文串。这道题目是 **初级程序员** 在面试的时候经常遇到的一道算法题，而且面试官喜欢面试者手写！
+The question comes from LeetCode Question No. 125: Verifying Palindrome Strings. This question is an algorithm question that **junior programmers** often encounter during interviews, and the interviewer likes the interviewer's handwriting!
 
 
 
-### 题目描述
+### Title description
 
-给定一个字符串，验证它是否是回文串，只考虑字母和数字字符，可以忽略字母的大小写。
+Given a string, verify whether it is a palindrome, considering only alphanumeric characters and ignoring the case of letters.
 
-**说明：**本题中，我们将空字符串定义为有效的回文串。
+**Note:** In this question, we define the empty string as a valid palindrome string.
 
-**示例 1:**
-
-```
-输入: "A man, a plan, a canal: Panama"
-输出: true
-```
-
-**示例 2:**
+**Example 1:**
 
 ```
-输入: "race a car"
-输出: false
+Input: "A man, a plan, a canal: Panama"
+Output: true
 ```
 
-### 题目解析
+**Example 2:**
 
-先理解一个概念：所谓回文，就是一个正读和反读都一样的字符串。
+```
+Input: "race a car"
+Output: false
+```
 
-先假设是验证单词 `level` 是否是回文字符串，通过概念涉及到 正 与 反 ，那么很容易想到使用双指针，从字符的开头和结尾处开始遍历整个字符串，相同则继续向前寻找，不同则直接返回 false。
+### Question analysis
 
-而这里与单独验证一个单词是否是回文字符串有所区别的是加入了 空格 与 非字母数字的字符，但实际上的做法一样的：
+First understand a concept: the so-called palindrome is a string that has the same forward and reverse readings.
 
-一开始先建立两个指针，left 和 right , 让它们分别从字符的开头和结尾处开始遍历整个字符串。
+Let's first assume that we want to verify whether the word `level` is a palindrome string. Through the concept of positive and negative, it is easy to think of using double pointers to traverse the entire string from the beginning and end of the character. If they are the same, continue to search forward. If they are different, false will be returned directly.
 
-如果遇到非字母数字的字符就跳过，继续往下找，直到找到下一个字母数字或者结束遍历，如果遇到大写字母，就将其转为小写。
+The difference here from separately verifying whether a word is a palindrome string is that spaces and non-alphanumeric characters are added, but the actual method is the same:
 
-当左右指针都找到字母数字时，可以进行比较的时候，比较这两个字符，如果相等，则两个指针向它们的前进方向挪动，然后继续比较下面两个分别找到的字母数字，若不相等，直接返回 false。
+First, create two pointers, left and right, and let them traverse the entire string starting from the beginning and end of the character respectively.
 
-### 动画描述
+If you encounter a non-alphanumeric character, skip it and continue searching until you find the next alphanumeric character or end the traversal. If you encounter an uppercase letter, convert it to lowercase.
+
+When both the left and right pointers find letters and numbers, and comparison can be made, compare the two characters. If they are equal, the two pointers move in their forward direction, and then continue to compare the two letters and numbers found respectively. If they are not equal, return false directly.
+
+### Animation description
 
 ![](<https://bucket-1257126549.cos.ap-guangzhou.myqcloud.com/blog/pvbiv.gif>)
 
-### 代码实现
+### Code implementation
 
-注：`isLetterOrDigit ` 方法确定指定的字符是否为字母或数字。
+Note: The `isLetterOrDigit` method determines whether the specified character is a letter or number.
 
 ```java
 class Solution {
@@ -57,7 +57,7 @@ class Solution {
              return true;
         int l = 0, r = s.length() - 1;
         while(l < r){
-            //确定指定的字符是否为字母或数字
+            //Determine whether the specified character is a letter or number
             if(!Character.isLetterOrDigit(s.charAt(l))){
                 l++;
             }else if(!Character.isLetterOrDigit(s.charAt(r))){

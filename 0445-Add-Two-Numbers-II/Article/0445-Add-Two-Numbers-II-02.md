@@ -1,40 +1,40 @@
-# LeetCode 第 445 号问题：两数相加 II  
+# LeetCode Problem No. 445: Adding Two Numbers II
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步个人博客：www.zhangxiaoshuai.fun
+> Synchronize personal blog: www.zhangxiaoshuai.fun
 
 
 ```txt
-难度：medium					目前通过率：57.2%
-题目描述：
-	给你两个非空链表来代表两个非负整数。数字最高位位于链表开始位置。
-	它们的每个节点只存储一位数字。将这两数相加会返回一个新的链表。
-	你可以假设除了数字0之外，这两个数字都不会以零开头。
+Difficulty: medium Current pass rate: 57.2%
+Topic description:
+	You are given two non-empty linked lists to represent two non-negative integers. The highest digit of the number is at the beginning of the linked list.
+	Each of their nodes stores only one digit. Adding these two numbers returns a new linked list.
+	You can assume that neither number will start with a zero other than the number 0.
 
-示例：
-	输入：(7 -> 2 -> 4 -> 3) + (5 -> 6 -> 4)
-	输出： 7 -> 8 -> 0 -> 7
+Example:
+	Input: (7 -> 2 -> 4 -> 3) + (5 -> 6 -> 4)
+	Output: 7 -> 8 -> 0 -> 7
 ```
 
 <!-- more -->
 
-显然，给定的两个“数字”都是**从左到右按照高位到低位的顺序**排列的，按照习惯我们需要将链表反转之后然后相加，再将结果链表反转之后返回。
+Obviously, the two given "numbers" are arranged in order from high to low from left to right. According to custom, we need to reverse the linked list and then add them, and then reverse the resulting linked list and return.
 
-那么顺序的问题解决了，还存在一个问题：
+So the order problem is solved, but there is still one problem:
 
-**两个一位数相加是有可能产生一个两位数的，而我们的节点中是不能存储一个两位数字的，如果产生进位那我们需要将进位保存下来，然后将进位加到后面的两个数字相加的结果中。**
+**It is possible to add two one-digit numbers to produce a two-digit number, but our node cannot store a two-digit number. If a carry occurs, we need to save the carry, and then add the carry to the result of the addition of the next two numbers. **
 
-**下面是GIF图解：**
+**The following is a GIF illustration:**
 
-![解法1](../Animation/Animation01.gif)
+![Solution 1](../Animation/Animation01.gif)
 
-**那么我们先来试试写出这个版本的代码：**
+**Then let’s try writing this version of the code first:**
 
-因为在整个计算中，链表反转的这个功能用到了三次，那我们可以将这个功能单独的抽取出来写一个方法。(方法比较简单，直接附上代码，不再赘述)
+Because the function of linked list reversal is used three times in the entire calculation, we can extract this function separately and write a method. (The method is relatively simple, just attach the code directly without going into details)
 
 ```java
-//链表反转
+//Reverse linked list
 private ListNode reverseListNode(ListNode head){
     if(head == null) return null;
     ListNode prev = null;
@@ -48,12 +48,12 @@ private ListNode reverseListNode(ListNode head){
 }
 ```
 
-要返回两条链表相加的结果，我们需要新的链表来存储这个结果，dummy节点的值随意，因为我们最终返回的是连接在它后面的聊链表。
+To return the result of adding two linked lists, we need a new linked list to store this result. The value of the dummy node is arbitrary, because what we ultimately return is the chat linked list connected behind it.
 
-我们需要初始化**addOne**（代表进位）为0
+We need to initialize **addOne** (representing carry) to 0
 
 ```java
-//两条链表中的各个节点数字相加
+//Add the numbers of each node in the two linked lists
 private ListNode add(ListNode l1, ListNode l2){
     if (l1 == null && l2 == null) return null;
     ListNode dummy = new ListNode(0);
@@ -73,7 +73,7 @@ private ListNode add(ListNode l1, ListNode l2){
 }
 ```
 
-ok，那我们现在只需要在指定的方法中调用这两个方法并传递相应的参数即可得到我们想要的。
+Ok, then we now only need to call these two methods in the specified method and pass the corresponding parameters to get what we want.
 
 ```java
 public static ListNode addTwoNumbers(ListNode l1, ListNode l2){
@@ -83,20 +83,20 @@ public static ListNode addTwoNumbers(ListNode l1, ListNode l2){
 }
 ```
 
-如果你觉得上面的解法太过简单，那一起来看看进阶版本吧：
+If you think the above solution is too simple, let’s take a look at the advanced version:
 
-**如果输入链表不能修改该如何处理？换句话说，你不能对列表中的节点进行翻转。**
-那我们上面的使用的“反转链表”的方法就无法再次使用了。
-首先我们应该明确“反转链表”方法的出现是为了解决链表中“数字”的顺序问题，那么如果要得到正确的数字顺序只有这一中方法吗？
-我们还有可以依靠的数据结构：**栈**。栈的特点就是“**先进后出**”
+**What should I do if the input linked list cannot be modified? In other words, you cannot flip nodes in the list. **
+Then the "reverse linked list" method we used above cannot be used again.
+First of all, we should make it clear that the "reverse linked list" method appears to solve the problem of the order of "numbers" in the linked list. So is this the only way to get the correct order of numbers?
+We also have a data structure we can rely on: the stack. The characteristic of the stack is "**first in, last out**"
 
-**算法思路：**先将两条链表的各个数字分别压入两个栈中，然后每次弹出两个栈顶的数字进行相加，第一次相加的结点指向null结点，每次更新头节点，后面的结点依次指向新链表的头节点，那么最终我们可以得到与上面解法相同的结果。
+**Algorithm idea:** First push the numbers of the two linked lists into two stacks respectively, and then pop up the numbers on the top of the two stacks each time and add them. The node added for the first time points to the null node. Each time the head node is updated, the subsequent nodes point to the head node of the new linked list in turn. Then in the end we can get the same result as the above solution.
 
-**解法2图解：**
+**Solution 2 diagram:**
 
-![解法2](../Animation/Animation02.gif)
+![Solution 2](../Animation/Animation02.gif)
 
-**代码：**
+**Code:**
 
 ```java
 public static ListNode addTwoNumbers(ListNode l1, ListNode l2){
@@ -110,7 +110,7 @@ public static ListNode addTwoNumbers(ListNode l1, ListNode l2){
       s2.push(l2.val);
       l2 = l2.next;
     }
-    int addOne = 0;//进位
+    int addOne = 0;//carry
     ListNode head = null;
    	while (!s1.isEmpty() || !s2.isEmpty() || addOne != 0) {
       int sum = addOne;

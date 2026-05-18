@@ -1,44 +1,44 @@
-# 387. 字符串中的第一个唯一字符
+# 387. The first unique character in a string
 
-> 本文首发于公众号「图解面试算法」，是 [图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>) 系列文章之一。
+> This article was first published on the public account "Illustrated Interview Algorithm" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 同步博客：https://www.algomooc.com
+> Synchronized blog: https://www.algomooc.com
 
-题目来源于 LeetCode 上 387题，主要涉及哈希表。
+The question comes from Question 387 on LeetCode, which mainly involves hash tables.
 
-## 题目
+## Title
 
-给定一个字符串，找到它的第一个不重复的字符，并返回它的索引。如果不存在，则返回 -1。
+Given a string, find its first non-repeating character and return its index. If it does not exist, -1 is returned.
 
-案例:
+Case:
 
 ```
 s = "leetcode"
-返回 0.
+Return 0.
 
 s = "loveleetcode",
-返回 2.
+Return 2.
 ```
 
-注意事项：您可以假定该字符串只包含小写字母。
+Note: You can assume that the string contains only lowercase letters.
 
-## 题目解析
+## Question analysis
 
-这道题不管怎么样都是要遍历一遍字符串才能保证字符是唯一，所以我们的算法如下
+No matter what, this question requires traversing the string to ensure that the characters are unique, so our algorithm is as follows
 
-1. 遍历的时候把每个字符出现的次数用Map记录一下，如果这个字符是第一次出现，那么赋值为[i],如果它已经在Map里有了，那么我们给这个字符的值赋为false。
-2. 再次遍历Map，找到值不为false的第一个字符，然后将它的值输出来
-3. 如果值全部为false，然后返回-1
+1. When traversing, use Map to record the number of times each character appears. If this character appears for the first time, then assign the value to [i]. If it is already in the Map, then we assign the value of this character to false.
+2. Traverse the Map again, find the first character whose value is not false, and then output its value.
+3. If the values ​​are all false, then return -1
 
 
-## 动画理解
+## Animation understanding
 
 
 <video id="video" controls="" preload="none" >
       <source id="mp4" src="../Animation/387.mp4"  type="video/mp4">
   </video>
 
-## 参考代码
+## Reference code
 
 
 ```javaScript
@@ -64,9 +64,9 @@ var firstUniqChar = function(s) {
 };
 ```
 
-## 复杂度分析
+## Complexity analysis
 
-哈希表的时间复杂度是O(n)
+The time complexity of a hash table is O(n)
 
 
 ![](../../Pictures/qrcode.jpg)

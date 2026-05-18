@@ -1,38 +1,38 @@
-### 题目描述
+### Title description
 
-两个整数之间的[汉明距离](https://baike.baidu.com/item/汉明距离)指的是这两个数字对应二进制位不同的位置的数目。
+The [Hamming distance](https://baike.baidu.com/item/Hamming distance) between two integers refers to the number of different binary positions corresponding to the two numbers.
 
-给出两个整数 `x` 和 `y`，计算它们之间的汉明距离。
+Given two integers `x` and `y`, calculate the Hamming distance between them.
 
-示例 :
+Example:
 
 ```
-输入: x = 1, y = 4
+Input: x = 1, y = 4
 
-输出: 2
+Output: 2
 
-解释:
+explain:
 1   (0 0 0 1)
 4   (0 1 0 0)
        ↑   ↑
 ```
 
-### 题目解析
+### Question analysis
 
-首先通过 异或 操作找出两个数字对应位不同的位置，然后统计这些位置的个数。
+First, use the XOR operation to find the positions where the corresponding bits of the two numbers are different, and then count the number of these positions.
 
-统计解法借鉴Java中Integer.bitCount()方法源码来进行讲解，通过固定步数得到异或后1的个数。
+The statistical solution method is explained by referring to the source code of the Integer.bitCount() method in Java. The number of 1's after XOR is obtained through a fixed number of steps.
 
-第一步：将奇数位与偶数位相加，可以得出每两位1的个数，并将个数记录在这两位空间中
+Step 1: Add the odd digits and the even digits to get the number of 1's in each two digits, and record the number in these two digits.
 
 > i = i - (( i >>> 1 ) & 0x55555555 )
 >
 > ```
 > 0x55555555 => 01 01 01 01 ... 01 01
-> i          & 0x55555555   取出奇数位的1
-> (i >>> 1)  & 0x55555555   取出偶数位的1
-> 比如，两位的情况下总共就四种情况：00 11 01 10 
-> 假设 i = 00 11 01 10 
+> i & 0x55555555 takes out the 1 in the odd digit
+> (i >>> 1) & 0x55555555 Take out the 1 in the even number digit
+> For example, in the case of two digits, there are four situations in total: 00 11 01 10
+> Assume i = 00 11 01 10
 > i          & 0x55555555 = 00 11 01 10 
 >                           01 01 01 01
 >                           -----------
@@ -41,29 +41,29 @@
 > 													01 01 01 01
 > 													-----------
 > 													00 01 00 01
-> 将奇数位1的个数与偶数位的1求和：
+>Sum the number of 1's in odd digits and the 1's in even digits:
 > 00 01 01 00
 > 00 01 00 01
 > -----------
 > 00 10 01 01
-> 结合原数字可以看出，00（00：没有1） 11（10：两个1） 01（01：1个1） 10（01：1个1） 
+> Combining the original numbers, it can be seen that 00 (00: no 1) 11 (10: two 1s) 01 (01: 1 1) 10 (01: 1 1)
 > 
-> 每两位在通过加法统计时，总共如下四种情况[i & 01 + （i>>>1) & 01]：
+> When each two digits are counted by addition, there are a total of four situations [i & 01 + (i>>>1) & 01]:
 > 11: 01 + 01 = 10 = 2, 10: 00 + 01 = 01 = 1, 01: 01 + 00 = 01 = 1, 00: 00 + 00 = 00 = 0 
-> 每两位在通过减法统计时，总共如下四种情况[i - （i>>>1) & 01]：
+> When each two digits are counted by subtraction, there are a total of four situations [i - (i>>>1) & 01]:
 > 11: 11 - 01 = 10 = 2, 10: 10 - 01 = 01 = 1, 01: 01 - 00 = 01 = 1, 00: 00 + 00 = 00 = 0
-> 可以发现结果是一样的，但是少了一次位运算！
+> It can be found that the result is the same, but one bit operation is missing!
 > 
-> 在将每两位1的个数统计完之后，就可以开始两位两位、四位四位...相加求出1的总数
+> After counting the number of 1's in every two digits, you can start adding two two digits, four four digits... to find the total number of 1's
 > ```
 
-第二步：通过相邻两位1的个数相加，求出每四位包含1的个数，并将结果存储在所在的四位中
+Step 2: Find the number of 1's in every four digits by adding the number of 1's in two adjacent digits, and store the result in the four digits.
 
 > i = ( i & 0x33333333 ) + (( i >>> 2 ) & 0x33333333 )
 >
 > ```
 > 0x55555555 => 0011 0011 0011 ... 0011 0011
-> 继续上一步的结果向下进行：00 10 01 01
+> Continue the result of the previous step downward: 00 10 01 01
 > i          & 0x33333333 = 0010 0101
 > 													0011 0011
 > 													---------
@@ -73,21 +73,21 @@
 > 													---------
 > 													0000 0001
 > 												
-> 就和得出每四位所包含1的个数
+> Use the sum to find the number of 1's contained in every four digits
 > 0010 0001
 > 0000 0001
 > ---------
 > 0010 0010
-> 结合原数字可以看出，0011(0010:有两个1)  0110(0010:有两个1)
+> Combining the original numbers, we can see that 0011 (0010: there are two 1s) 0110 (0010: there are two 1s)
 > ```
 
-第三步：通过相邻四位1的个数相加，求出每八位包含1的个数，并将结果存储在所在的八位中
+Step 3: Find the number of 1's in every eight bits by adding the number of 1's in adjacent four bits, and store the result in the eight bits.
 
 >i = ( i + ( i >>> 4 )) & 0x0f0f0f0f;
 >
 >```
 >0x0f0f0f0f => 00001111 ... 00001111‬
->继续上一步的结果向下进行：0010 0010
+>Continue the result of the previous step downward: 0010 0010
 >i          & 0x0f0f0f0f = 00100010
 >													00001111
 >													--------
@@ -96,53 +96,53 @@
 >													00001111
 >													--------
 >													00000010
->就和得出每八位所包含1的个数
+>Use the sum to find the number of 1’s contained in every eight bits
 >00000010
 >00000010
 >--------
 >00000100
->结合原数字可以看出，00110110(00000100:有四个1)
+>Combined with the original numbers, we can see that 00110110 (00000100: there are four 1s)
 >
->源码中直接先将相邻四位进行相加，然后做了一次无用位清除
+>In the source code, four adjacent bits are added directly, and then the useless bits are cleared.
 >```
 
-第四步：通过相邻八位1的个数相加，求出每十六位包含1的个数，并将结果存储在所在的十六位中
+Step 4: Find the number of 1's in every sixteen bits by adding the number of 1's in adjacent eight bits, and store the result in the sixteen bits.
 
 > i = i + ( i  >>>  8 );
 >
 > ```
-> 可以理解为（ i & 0x0f0f0f0f ） + (( i  >>>  8 )  & 0x0f0f0f0f );
+> Can be understood as ( i & 0x0f0f0f0f ) + (( i >>> 8 ) & 0x0f0f0f0f );
 > 
 > 0x0f0f0f0f => 00000000111111110000000011111111
 > ```
 
-第五步：通过将int类型前十六位1的个数与后16位1的个数相加，求出int中所有1的个数
+Step 5: Find the number of all 1's in the int by adding the number of 1's in the first 16 digits and the number of 1's in the last 16 digits of the int type.
 
 > i = i + ( i >>> 16 );
 >
 > ```
-> 可以理解为（ i & 0x0000ffff ） + (( i  >>>  8 )  & 0x0000ffff );
+> Can be understood as (i & 0x0000ffff) + (( i >>> 8) & 0x0000ffff);
 > 
 > 0x0000ffff => 00000000000000001111111111111111‬
 > ```
 
-第六步：去除无用的位
+Step 6: Remove useless bits
 
 > return i & 0x3f;
 >
 > ```
-> int类型32位，即最多0x100000个1，除此之外左边的位都是无用的。
+> The int type is 32 bits, that is, up to 0x100000 1s. In addition, the left bits are useless.
 > 0x3f => 00111111‬
 > ```
 
-### 动画理解
+### Animation understanding
 
 ![](../Animation/Animation.mp4)
 
 
 ‎⁨
 
-### 参考代码
+### Reference code
 
 ```java
 class Solution {
@@ -152,7 +152,7 @@ class Solution {
 }
 ```
 
-bitCount源码：
+bitCount source code:
 
 ```java
 public static int bitCount(int i) {
@@ -165,8 +165,8 @@ public static int bitCount(int i) {
 }
 ```
 
-### 复杂度分析
+### Complexity analysis
 
-时间复杂度：O(1)
+Time complexity: O(1)
 
-空间复杂度：O(1)
+Space complexity: O(1)

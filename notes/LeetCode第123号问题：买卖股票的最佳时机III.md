@@ -1,114 +1,114 @@
 
 
-# 浅谈什么是动态规划以及相关的「股票」算法题
+# A brief discussion of what dynamic programming is and related "stock" algorithm questions
 
-> 本文首发于公众号「五分钟学算法」，是[图解 LeetCode ](<https://github.com/MisterBooo/LeetCodeAnimation>)系列文章之一。
+> This article was first published on the public account "Learning Algorithms in Five Minutes" and is one of the series of articles [Illustrated LeetCode](<https://github.com/MisterBooo/LeetCodeAnimation>).
 >
-> 个人网站：[https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
+> Personal website: [https://www.cxyxiaowu.com](https://www.cxyxiaowu.com)
 
-## 动态规划
+## Dynamic programming
 
-### 1 概念
+### 1 Concept
 
-  **动态规划**算法是通过拆分问题，定义问题状态和状态之间的关系，使得问题能够以递推（或者说分治）的方式去解决。在学习动态规划之前需要明确掌握几个重要概念。
+  The **Dynamic Programming** algorithm splits the problem and defines the relationship between the problem state and the state, so that the problem can be solved in a recursive (or divide and conquer) manner. There are several important concepts that need to be clearly understood before learning dynamic programming.
 
-  **阶段**：对于一个完整的问题过程，适当的切分为若干个相互联系的子问题，每次在求解一个子问题，则对应一个阶段，整个问题的求解转化为按照阶段次序去求解。
+  **Phase**: For a complete problem process, it is appropriately divided into several interconnected sub-problems. Each time a sub-problem is solved, it corresponds to a stage, and the solution of the entire problem is transformed into a solution in accordance with the order of the stages.
 
-  **状态**：状态表示每个阶段开始时所处的客观条件，即在求解子问题时的已知条件。状态描述了研究的问题过程中的状况。
+  **State**: The state represents the objective conditions at the beginning of each stage, that is, the known conditions when solving the sub-problem. Status describes the situation in the process of researching the problem.
 
-  **决策**：决策表示当求解过程处于某一阶段的某一状态时，可以根据当前条件作出不同的选择，从而确定下一个阶段的状态，这种选择称为决策。
+  **Decision**: Decision-making means that when the solution process is in a certain state at a certain stage, different choices can be made based on the current conditions to determine the state of the next stage. This choice is called decision-making.
 
-  **策略**：由所有阶段的决策组成的决策序列称为全过程策略，简称策略。
+  **Strategy**: The decision sequence consisting of decisions at all stages is called the full-process strategy, or strategy for short.
 
-  **最优策略**：在所有的策略中，找到代价最小，性能最优的策略，此策略称为最优策略。
+  **Optimal strategy**: Among all strategies, find the strategy with the smallest cost and the best performance. This strategy is called the optimal strategy.
 
-  **状态转移方程**：状态转移方程是确定两个相邻阶段状态的演变过程，描述了状态之间是如何演变的。
+  **State transition equation**: The state transition equation is the evolution process of determining the state of two adjacent stages, describing how the states evolve.
 
-### 2 使用场景
+### 2 Usage scenarios
 
-能采用动态规划求解的问题的一般要具有 3 个性质：
+Problems that can be solved by dynamic programming generally have three properties:
 
-  （1）**最优化**：如果问题的最优解所包含的子问题的解也是最优的，就称该问题具有最优子结构，即满足最优化原理。子问题的局部最优将导致整个问题的全局最优。换句话说，就是问题的一个最优解中一定包含子问题的一个最优解。
+  (1) **Optimization**: If the solution to the sub-problem contained in the optimal solution of the problem is also optimal, the problem is said to have the optimal substructure, that is, it satisfies the optimization principle. The local optimum of a subproblem will lead to the global optimum of the entire problem. In other words, an optimal solution to the problem must contain an optimal solution to the sub-problem.
 
-  （2）**无后效性**：即某阶段状态一旦确定，就不受这个状态以后决策的影响。也就是说，某状态以后的过程不会影响以前的状态，只与当前状态有关，与其他阶段的状态无关，特别是与未发生的阶段的状态无关。
+  (2) **No aftereffects**: That is, once the state of a certain stage is determined, it will not be affected by subsequent decisions in this state. That is to say, the process after a certain state will not affect the previous state, but is only related to the current state and has nothing to do with the state of other stages, especially the state of the stage that has not yet occurred.
 
-   （3）**重叠子问题**：即子问题之间是不独立的，一个子问题在下一阶段决策中可能被多次使用到。（该性质并不是动态规划适用的必要条件，但是如果没有这条性质，动态规划算法同其他算法相比就不具备优势）
+   (3) **Overlapping sub-problems**: That is, the sub-problems are not independent, and a sub-problem may be used multiple times in the next stage of decision-making. (This property is not a necessary condition for the application of dynamic programming, but without this property, the dynamic programming algorithm will not have advantages compared with other algorithms)
 
-### 3 算法流程
+### 3 Algorithm process
 
-  （1）划分阶段：按照问题的时间或者空间特征将问题划分为若干个阶段。
-  （2）确定状态以及状态变量：将问题的不同阶段时期的不同状态描述出来。
-  （3）确定决策并写出状态转移方程：根据相邻两个阶段的各个状态之间的关系确定决策。
-  （4）寻找边界条件：一般而言，状态转移方程是递推式，必须有一个递推的边界条件。
-  （5）设计程序，解决问题
+  (1) Divide into stages: Divide the problem into several stages according to the time or space characteristics of the problem.
+  (2) Determine the state and state variables: describe the different states of the problem at different stages.
+  (3) Determine the decision and write the state transition equation: Determine the decision based on the relationship between the states of the two adjacent stages.
+  (4) Find boundary conditions: Generally speaking, the state transition equation is a recursive formula and must have a recursive boundary condition.
+  (5) Design programs and solve problems
 
-## 实战练习
+## Practical exercises
 
-下面的三道算法题都是来源于 LeetCode 上与股票买卖相关的问题 ，我们按照 **动态规划** 的算法流程来处理该类问题。
+The following three algorithm questions are all derived from issues related to stock trading on LeetCode. We deal with this type of problems according to the algorithm flow of **dynamic programming**.
 
-**股票买卖**这一类的问题，都是给一个输入数组，里面的每个元素表示的是每天的股价，并且你只能持有一支股票（也就是你必须在再次购买前出售掉之前的股票），一般来说有下面几种问法：
+**Stock buying and selling** This type of question is given an input array, each element in it represents the daily stock price, and you can only hold one stock (that is, you must sell the previous stock before buying again). Generally speaking, there are the following questions:
 
-- 只能买卖一次
-- 可以买卖无数次
-- 可以买卖 k 次
+- Can only be bought and sold once
+- Can be bought and sold numerous times
+- Can be bought and sold k times
 
-需要你设计一个算法去获取最大的利润。
+You need to design an algorithm to maximize profits.
 
-## 买卖股票的最佳时机
+## Best time to buy and sell stocks
 
-题目来源于 LeetCode 上第 121 号问题：买卖股票的最佳时机。题目难度为 Easy，目前通过率为 49.4% 。
+The question comes from question No. 121 on LeetCode: The best time to buy and sell stocks. The difficulty of the questions is Easy, and the current passing rate is 49.4%.
 
-### 题目描述
+### Title description
 
-给定一个数组，它的第 *i* 个元素是一支给定股票第 *i* 天的价格。
+Given an array whose *i*th element is the price of a given stock on day *i*.
 
-如果你最多只允许完成一笔交易（即买入和卖出一支股票），设计一个算法来计算你所能获取的最大利润。
+If you are only allowed to complete one transaction at most (i.e. buying and selling a stock), design an algorithm to calculate the maximum profit you can make.
 
-注意你不能在买入股票前卖出股票。
+Note that you cannot sell a stock before buying it.
 
-**示例 1:**
-
-```
-输入: [7,1,5,3,6,4]
-输出: 5
-解释: 在第 2 天（股票价格 = 1）的时候买入，在第 5 天（股票价格 = 6）的时候卖出，最大利润 = 6-1 = 5 。
-     注意利润不能是 7-1 = 6, 因为卖出价格需要大于买入价格。
-```
-
-**示例 2:**
+**Example 1:**
 
 ```
-输入: [7,6,4,3,1]
-输出: 0
-解释: 在这种情况下, 没有交易完成, 所以最大利润为 0。
+Input: [7,1,5,3,6,4]
+Output: 5
+Explanation: Buy on day 2 (stock price = 1), sell on day 5 (stock price = 6), maximum profit = 6-1 = 5.
+     Note that the profit cannot be 7-1 = 6, because the selling price needs to be greater than the buying price.
 ```
 
-### 题目解析
+**Example 2:**
 
-我们按照动态规划的思想来思考这道问题。
+```
+Input: [7,6,4,3,1]
+Output: 0
+Explanation: In this case, no trade is completed, so the maximum profit is 0.
+```
 
-#### 状态
+### Question analysis
 
-有 **买入（buy）** 和 **卖出（sell）** 这两种状态。
+We think about this problem according to the idea of ​​dynamic programming.
 
-#### 转移方程
+#### state
 
-对于买来说，买之后可以卖出（进入卖状态），也可以不再进行股票交易（保持买状态）。
+There are two states: **buy** and **sell**.
 
-对于卖来说，卖出股票后不在进行股票交易（还在卖状态）。
+#### Transfer equation
 
-只有在手上的钱才算钱，手上的钱购买当天的股票后相当于亏损。也就是说当天买的话意味着损失`-prices[i]`，当天卖的话意味着增加`prices[i]`，当天卖出总的收益就是 `buy+prices[i]` 。
+For buying, you can sell after buying (enter the selling state), or you can no longer conduct stock transactions (remain in the buying state).
 
-所以我们只要考虑当天买和之前买哪个收益更高，当天卖和之前卖哪个收益更高。
+For selling, stock trading is no longer carried out after selling the stock (it is still in the selling state).
 
-- buy = max(buy, -price[i])  （注意：根据定义 buy 是负数）
+Only the money in hand counts as money, and the money in hand is equivalent to a loss after buying the stock of the day. In other words, buying on the same day means losing `-prices[i]`, selling on the same day means increasing `prices[i]`, and the total profit of selling on the same day is `buy+prices[i]`.
+
+So we only need to consider which one is more profitable if we buy on the same day or if we buy before, and which one is more profitable if we sell on the same day or if we sell before.
+
+- buy = max(buy, -price[i]) (Note: buy is negative by definition)
 - sell = max(sell,  prices[i] + buy)
 
-#### 边界
+#### Boundary
 
-第一天 `buy = -prices[0]`, `sell = 0`，最后返回 sell 即可。
+On the first day, `buy = -prices[0]`, `sell = 0`, and finally return to sell.
 
-### 代码实现
+### Code implementation
 
 ```java
 class Solution {
@@ -128,63 +128,63 @@ class Solution {
 
 
 
-## 买卖股票的最佳时机 II
+## The best time to buy and sell stocks II
 
-题目来源于 LeetCode 上第 122 号问题：买卖股票的最佳时机 II。题目难度为 Easy，目前通过率为 53.0% 。
+The question comes from Question No. 122 on LeetCode: The Best Time to Buy and Sell Stocks II. The difficulty of the questions is Easy, and the current passing rate is 53.0%.
 
-### 题目描述
+### Title description
 
-给定一个数组，它的第 *i* 个元素是一支给定股票第 *i* 天的价格。
+Given an array whose *i*th element is the price of a given stock on day *i*.
 
-设计一个算法来计算你所能获取的最大利润。你可以尽可能地完成更多的交易（多次买卖一支股票）。
+Design an algorithm to calculate the maximum profit you can make. You can complete as many trades as possible (buy and sell a stock multiple times).
 
-**注意**：你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。
+**Note**: You cannot participate in multiple trades at the same time (you must sell your previous shares before buying again).
 
-**示例 1:**
-
-```
-输入: [7,1,5,3,6,4]
-输出: 7
-解释: 在第 2 天（股票价格 = 1）的时候买入，在第 3 天（股票价格 = 5）的时候卖出, 这笔交易所能获得利润 = 5-1 = 4 。
-     随后，在第 4 天（股票价格 = 3）的时候买入，在第 5 天（股票价格 = 6）的时候卖出, 这笔交易所能获得利润 = 6-3 = 3 。
-```
-
-**示例 2:**
+**Example 1:**
 
 ```
-输入: [1,2,3,4,5]
-输出: 4
-解释: 在第 1 天（股票价格 = 1）的时候买入，在第 5 天 （股票价格 = 5）的时候卖出, 这笔交易所能获得利润 = 5-1 = 4 。
-     注意你不能在第 1 天和第 2 天接连购买股票，之后再将它们卖出。
-     因为这样属于同时参与了多笔交易，你必须在再次购买前出售掉之前的股票。
+Input: [7,1,5,3,6,4]
+Output: 7
+Explanation: Buy on day 2 (stock price = 1) and sell on day 3 (stock price = 5). The profit from this transaction = 5-1 = 4.
+     Subsequently, if you buy on the 4th day (stock price = 3) and sell on the 5th day (stock price = 6), the profit from this transaction = 6-3 = 3.
 ```
 
-**示例 3:**
+**Example 2:**
 
 ```
-输入: [7,6,4,3,1]
-输出: 0
-解释: 在这种情况下, 没有交易完成, 所以最大利润为 0。
+Input: [1,2,3,4,5]
+Output: 4
+Explanation: Buy on day 1 (stock price = 1) and sell on day 5 (stock price = 5). The profit from this transaction = 5-1 = 4.
+     Note that you cannot buy stocks back-to-back on Days 1 and 2 and then sell them later.
+     Because you are participating in multiple trades at the same time, you must sell your previous shares before buying again.
 ```
 
-### 题目解析
+**Example 3:**
 
-#### 状态
+```
+Input: [7,6,4,3,1]
+Output: 0
+Explanation: In this case, no trade is completed, so the maximum profit is 0.
+```
 
-有 **买入（buy）** 和 **卖出（sell）** 这两种状态。
+### Question analysis
 
-#### 转移方程
+#### state
 
-对比上题，这里可以有无限次的买入和卖出，也就是说 **买入** 状态之前可拥有 **卖出** 状态，所以买入的转移方程需要变化。
+There are two states: **buy** and **sell**.
+
+#### Transfer equation
+
+Comparing to the previous question, there can be unlimited buying and selling here, which means that the **buy** state can have the **sell** state before it, so the transfer equation for buying needs to change.
 
 - buy = max(buy, sell - price[i])
 - sell = max(sell,   buy + prices[i] )
 
-#### 边界
+#### Boundary
 
-第一天 `buy = -prices[0]`, `sell = 0`，最后返回 sell 即可。
+On the first day, `buy = -prices[0]`, `sell = 0`, and finally return to sell.
 
-### 代码实现
+### Code implementation
 
 ```java
 class Solution {
@@ -203,72 +203,72 @@ class Solution {
 
 
 
-## 买卖股票的最佳时机 III
+## The best time to buy and sell stocks III
 
-题目来源于 LeetCode 上第 123 号问题：买卖股票的最佳时机 III。题目难度为 Hard，目前通过率为 36.1% 。
+The question comes from question No. 123 on LeetCode: The best time to buy and sell stocks III. The difficulty of the questions is Hard, and the current passing rate is 36.1%.
 
-### 题目描述
+### Title description
 
-给定一个数组，它的第 *i* 个元素是一支给定的股票在第 *i* 天的价格。
+Given an array, the *i*th element is the price of a given stock on the *i*th day.
 
-设计一个算法来计算你所能获取的最大利润。你最多可以完成 *两笔* 交易。
+Design an algorithm to calculate the maximum profit you can make. You can complete up to *two* transactions.
 
-**注意:** 你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。
+**Note:** You cannot participate in multiple trades at the same time (you must sell your previous shares before buying again).
 
-**示例 1:**
-
-```
-输入: [3,3,5,0,0,3,1,4]
-输出: 6
-解释: 在第 4 天（股票价格 = 0）的时候买入，在第 6 天（股票价格 = 3）的时候卖出，这笔交易所能获得利润 = 3-0 = 3 。
-     随后，在第 7 天（股票价格 = 1）的时候买入，在第 8 天 （股票价格 = 4）的时候卖出，这笔交易所能获得利润 = 4-1 = 3 。
-```
-
-**示例 2:**
+**Example 1:**
 
 ```
-输入: [1,2,3,4,5]
-输出: 4
-解释: 在第 1 天（股票价格 = 1）的时候买入，在第 5 天 （股票价格 = 5）的时候卖出, 这笔交易所能获得利润 = 5-1 = 4 。   
-     注意你不能在第 1 天和第 2 天接连购买股票，之后再将它们卖出。   
-     因为这样属于同时参与了多笔交易，你必须在再次购买前出售掉之前的股票。
+Input: [3,3,5,0,0,3,1,4]
+Output: 6
+Explanation: Buy on the 4th day (stock price = 0) and sell on the 6th day (stock price = 3). The profit from this transaction = 3-0 = 3.
+     Subsequently, if you buy on the 7th day (stock price = 1) and sell on the 8th day (stock price = 4), you can earn a profit = 4-1 = 3 from this transaction.
 ```
 
-**示例 3:**
+**Example 2:**
 
 ```
-输入: [7,6,4,3,1] 
-输出: 0 
-解释: 在这个情况下, 没有交易完成, 所以最大利润为 0。
+Input: [1,2,3,4,5]
+Output: 4
+Explanation: Buy on day 1 (stock price = 1) and sell on day 5 (stock price = 5). The profit from this transaction = 5-1 = 4.
+     Note that you cannot buy stocks back-to-back on Days 1 and 2 and then sell them later.
+     Because you are participating in multiple trades at the same time, you must sell your previous shares before buying again.
 ```
 
-### 题目解析
+**Example 3:**
 
-这里限制了最多两笔交易。
+```
+Input: [7,6,4,3,1]
+Output: 0
+Explanation: In this case, no trade is completed, so the maximum profit is 0.
+```
 
-#### 状态
+### Question analysis
 
-有 **第一次买入（fstBuy）** 、 **第一次卖出（fstSell）**、**第二次买入（secBuy）** 和 **第二次卖出（secSell）** 这四种状态。
+There is a limit of two transactions at most.
 
-#### 转移方程
+#### state
 
-这里最多两次买入和两次卖出，也就是说 **买入** 状态之前可拥有 **卖出** 状态，**卖出** 状态之前可拥有 **买入** 状态，所以买入和卖出的转移方程都需要变化。
+There are four states: **First Buy (fstBuy)**, **First Sell (fstSell)**, **Second Buy (secBuy)** and **Second Sell (secSell)**.
+
+#### Transfer equation
+
+There are at most two buys and two sells, which means that the **buy** state can have the **sell** state before it, and the **sell** state can have the **buy** state before it, so the transfer equations for both buying and selling need to change.
 
 - fstBuy = max(fstBuy ，  -price[i]) 
 - fstSell = max(fstSell，fstBuy + prices[i] )
-- secBuy = max(secBuy ，fstSell -price[i]) (受第一次卖出状态的影响)
+- secBuy = max(secBuy, fstSell -price[i]) (affected by the first sell status)
 - secSell = max(secSell ，secBuy + prices[i] )
 
-#### 边界
+#### Boundary
 
-- 一开始 `fstBuy = -prices[0]`
-- 买入后直接卖出，`fstSell = 0`
-- 买入后再卖出再买入，`secBuy - prices[0]`
-- 买入后再卖出再买入再卖出，`secSell = 0`
+- Initially `fstBuy = -prices[0]`
+- Sell directly after buying, `fstSell = 0`
+- Buy and then sell and then buy again, `secBuy - prices[0]`
+- Buy and sell again, buy and sell again, `secSell = 0`
 
-最后返回 secSell 。
+Finally returns secSell.
 
-### 代码实现
+### Code implementation
 
 ```java
 class Solution {
