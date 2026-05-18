@@ -61,3 +61,14 @@ This repo was originally inspired by the Chinese repository from @[MisterBooo](h
 
 ---
 **Happy Coding!** 💻✨
+
+---
+
+## ✨ Star History
+
+
+[![Star History Chart](https://api.star-history.com/svg?repos=ishandutta2007/LeetCodeAnimated&type=date&legend=bottom-right)](https://www.star-history.com/#ishandutta2007/LeetCodeAnimated&type=date&legend=bottom-right)
+
+---
+**Made for creators, developers, podcasters, and voice enthusiasts.**  
+Let's make personal voice replication accessible, ethical, and powerful.
