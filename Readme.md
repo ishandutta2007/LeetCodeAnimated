@@ -33,6 +33,44 @@ We've compiled 40 high-frequency interview questions from the famous "Sword Fing
 
 ---
 
+## ⚙️ Getting Started (Partial Checkout)
+
+Since this repository contains hundreds of high-quality animations and articles, it can be quite large. If you only want specific parts of the repo, follow these instructions:
+
+### ⚡ Option 1: Shallow Clone (Fastest)
+Download only the latest version of the files without the full history:
+```bash
+git clone --depth 1 https://github.com/MisterBooo/LeetCodeAnimation.git
+```
+
+### 🎯 Option 2: Sparse Checkout (Specific Problems)
+If you only want to download specific folders (e.g., just the "Two Sum" problem):
+
+1. **Initialize the repo:**
+   ```bash
+   git clone --filter=blob:none --no-checkout https://github.com/MisterBooo/LeetCodeAnimation.git
+   cd LeetCodeAnimation
+   ```
+
+2. **Enable sparse-checkout:**
+   ```bash
+   git sparse-checkout init --cone
+   ```
+
+3. **Add the folders you want:**
+   ```bash
+   git sparse-checkout set 0001-Two-Sum notes
+   ```
+
+### 🛠️ Local Environment
+To use the management scripts (requires Python 3.6+):
+```bash
+pip install -r requirements.txt
+python anima.py new 1 'Two Sum'
+```
+
+---
+
 ## 📊 Summary of Solutions
 
 | ID | Problem & Solution | Animation Preview |
